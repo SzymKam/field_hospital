@@ -37,15 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'events',
-    'patients',
-    'treatment',
-
+    'django.contrib.sites',
 ]
 
-INSTALLED_EXTENSIONS = []
+INSTALLED_EXTENSIONS = [
+    "events",
+    "patients",
+    "treatment",
+    # "events.apps.EventsConfig"
+]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
