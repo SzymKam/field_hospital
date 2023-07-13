@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from .models import Event
 from .forms import EventForm
+from patients.models import Patient
 
 
 class AllEventView(ListView):
