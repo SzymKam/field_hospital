@@ -66,9 +66,7 @@ class Treatment(models.Model):
     description = models.TextField(
         blank=True, help_text="Place for patient description"
     )
-    diagnosis = models.CharField(
-        blank=True, help_text="Diagnose", max_length=50
-    )  # todo maybe add icd10 library??
+    diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
     additional_info = models.TextField(
         blank=True, help_text="Additional info about patient treatment"
     )
