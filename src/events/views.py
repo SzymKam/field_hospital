@@ -15,20 +15,19 @@ from patients.models import Patient
 
 
 class AllEventView(ListView):
-    template_name = ""
+    template_name = "events/events-list.html"
     queryset = Event.objects.all()
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "Events list"
-        context["subtitle"] = self.object
         return context
 
     # todo - add login required
 
 
 class DetailEventView(DetailView):
-    template_name = ""
+    template_name = "events/events-detail.html"
     queryset = Event.objects.all()
 
     @staticmethod
@@ -48,7 +47,7 @@ class DetailEventView(DetailView):
 
 class CreateEventView(CreateView):
     model = Event
-    template_name = ""
+    template_name = "events/events-new.html"
     form_class = EventForm
     queryset = Event.objects.all()
 
