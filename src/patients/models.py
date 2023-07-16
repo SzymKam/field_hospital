@@ -49,8 +49,12 @@ class Patient(models.Model):
     )
     treatment = models.OneToOneField(
         Treatment,
-        default="No treatment added",
         on_delete=models.SET("No treatment"),
         help_text="Add treatment",
         related_name="patient",
+        blank=True,
+        null=True,
     )
+
+    def __str__(self):
+        return f"{self.name} - {self.id}"
