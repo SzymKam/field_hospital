@@ -1,0 +1,8 @@
+{% extends 'events/index.html' %}
+{% block content %}
+<h1>{{event.name}}</h1>
+<h3>Patient list:</h3>
+{% for patient in patients %}
+<h5>{{patient.name}}</h5>
+{% endfor %}
+{% endblock %}

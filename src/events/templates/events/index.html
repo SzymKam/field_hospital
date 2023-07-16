@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>{{title}}</title>
+</head>
+<body>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}">{{message}}</div>
+{% endfor %}
+{% endif %}
+
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
