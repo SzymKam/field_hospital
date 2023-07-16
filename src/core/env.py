@@ -8,4 +8,5 @@ env = environ.Env(
         str,
         "django-insecure-%9nd24mrhy$8vgm2s5pga%h_^quy^xmxr^khbo_^s8zokuv1ky",
     ),
+    MYPY_DJANGO_CONFIG=(str, "./mypy.ini"),
 )
