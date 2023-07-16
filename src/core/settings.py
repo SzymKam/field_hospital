@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import environ
+from pathlib import Path
 from .env import env
+
 
 environ.Env.read_env()
 
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
 ]
 
-INSTALLED_EXTENSIONS = ["events", "patients", "treatment", "environ"]
+INSTALLED_EXTENSIONS = ["events", "patients", "treatment"]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
 
