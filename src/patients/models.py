@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import datetime
 
 from events.models import Event
 from treatment.models import Treatment
@@ -14,7 +13,7 @@ class AuthorizedPerson(models.Model):
 
 class Patient(models.Model):
     admission_date = models.DateTimeField(
-        default=datetime.now(), help_text="Date of patient admission"
+        auto_now_add=True, help_text="Date of patient admission"
     )
     name = models.CharField(max_length=50, blank=True, help_text="Patient name")
     surname = models.CharField(max_length=50, blank=True, help_text="Patient surname")

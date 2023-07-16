@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+
 from .constants import (
     MEDICAL_QUALIFICATIONS,
     DRUG_AND_FLUID_CHOICES,
@@ -43,7 +43,7 @@ class VitalSign(models.Model):
         choices=VITAL_SIGN_NAME, help_text="Choose parameter", max_length=15
     )
     value = models.CharField(help_text="Enter value", max_length=20)
-    datetime = models.DateTimeField(datetime.now())
+    datetime = models.DateTimeField(auto_now_add=True)
     additional_info = models.TextField()
 
 
