@@ -5,8 +5,7 @@
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">{{event.name}} - {{event.localization}}</h3>
-            <h4 class="content-header-title">Event status: {{event.status}}</h4>
+            <h3 class="content-header-title">Active events</h3>
           </div>
         </div>
 
@@ -15,7 +14,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">{{event.name}} - patient list</h4>
+				<h4 class="card-title">Table of active events</h4>
 				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 				<div class="heading-elements">
 					<ul class="list-inline mb-0">
@@ -34,19 +33,19 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th scope="col">Surname</th>
+								<th scope="col">Number</th>
 								<th scope="col">Name</th>
-								<th scope="col">Bed number</th>
+								<th scope="col">Detail</th>
 								<th scope="col">Status</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for patient in patients %}
+							{% for event in event_list %}
 								<tr>
-									<th scope="row">{{patient.surname}}</th>
-									<td>{{patient.name}}</td>
-									<td>{{patient.bed_number}}</td>
-									<td>patient.status</td>
+									<th scope="row">1</th>
+									<td>{{event.name}}</td>
+									<td><a href="{% url 'detail-events' pk=event.id %}">Detail</a></td>
+									<td>{{event.status}}</td>
 								</tr>
 							{% endfor %}
 						</tbody>
