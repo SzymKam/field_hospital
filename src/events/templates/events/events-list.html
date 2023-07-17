@@ -1,7 +1,0 @@
-{% extends 'events/index.html' %}
-{% block content %}
-<h1>All events list:</h1>
-{% for event in event_list %}
-<h5>{{event.name}} <a href="{% url 'detail-events' pk=event.id %}">Detail</a></h5>
-{% endfor %}
-{% endblock %}
