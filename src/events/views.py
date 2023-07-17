@@ -42,7 +42,7 @@ class DetailEventView(DetailView):
         context["subtitle"] = self.object
         return context
 
-    # todo - add in Future all Patient objects into context and login required, when Patient object is ready
+    # todo - add login required,
 
 
 class CreateEventView(CreateView):
