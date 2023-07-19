@@ -6,7 +6,7 @@ from .constants import EVENT_STATUS
 class Event(models.Model):
     start_date = models.DateField(auto_now=True)
     name = models.CharField(
-        max_length=100, default="Default event", help_text="Enter event name"
+        max_length=100, default="Event", help_text="Enter event name"
     )
     description = models.CharField(
         max_length=200, blank=True, null=True, help_text="Enter description"
