@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import (
     ListView,
     DetailView,
@@ -8,19 +7,35 @@ from django.views.generic import (
 )
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.urls import reverse, reverse_lazy
 from typing import Any
 from .models import Event
 from .forms import EventForm
 from patients.models import Patient
 
 
-class AllEventView(ListView):
+class AllActiveEventView(ListView):
     template_name = "events/events-list.html"
-    queryset = Event.objects.all()
+    queryset = (
+        Event.objects.filter(status="Preparing").values()
+        | Event.objects.filter(status="In progress").values()
+    )
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["title"] = "Events list"
+        context["title"] = "Active events list"
+        return context
+
+    # todo - add login required
+
+
+class AllInactiveEventView(ListView):
+    template_name = "events/events-list-complete.html"
+    queryset = Event.objects.filter(status="Ended").values()
+
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Inactive events list"
         return context
 
     # todo - add login required
@@ -38,11 +53,10 @@ class DetailEventView(DetailView):
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["patients"] = self.get_all_patients_from_event(event_id=self.object.id)
-        context["title"] = f"Event {self.object.name}"
-        context["subtitle"] = self.object
+        context["title"] = f"Event - {self.object.name}"
         return context
 
-    # todo - add login required,
+    # todo - add login required
 
 
 class CreateEventView(CreateView):
@@ -50,38 +64,40 @@ class CreateEventView(CreateView):
     template_name = "events/events-new.html"
     form_class = EventForm
     queryset = Event.objects.all()
+    success_url = reverse_lazy("all-events")
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["title"] = "Create event"
-        context["subtitle"] = "Creating new event"
+        context["title"] = "Create new event"
         return context
 
-    # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
+    # todo add permissions, login_url
 
 
 class UpdateEventView(UpdateView):
     model = Event
-    template_name = ""
+    template_name = "events/events-update.html"
     form_class = EventForm
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "Update event"
-        context["subtitle"] = "Updating new event"
         return context
 
-    # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
+    def get_success_url(self):
+        return reverse_lazy("detail-events", args=(self.object.id,))
+
+    # todo add permissions, login_url, succes_url,
 
 
 class DeleteEventView(DeleteView):
     model = Event
-    template_name = ""
+    template_name = "events/events-delete.html"
+    success_url = reverse_lazy("complete-events")
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "Delete event"
-        context["subtitle"] = "Deleting new event"
         return context
 
     # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
