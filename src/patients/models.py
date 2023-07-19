@@ -43,7 +43,7 @@ class Patient(models.Model):
     event = models.ForeignKey(
         Event,
         default="No event assigned",
-        on_delete=models.SET("No event assigned"),
+        on_delete=models.CASCADE,
         help_text="Set event",
         related_name="patient",
     )
