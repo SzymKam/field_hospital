@@ -5,7 +5,11 @@
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">{{event.name}} - {{event.localization}}</h3>
+            <h3 class="content-header-title">{{event.name}}
+				{% if event.description %}
+					- {{event.localization}}
+				{% endif %}
+			</h3>
             <h4 class="content-header-title">Event status: {{event.status}}</h4>
           </div>
         </div>
@@ -16,8 +20,11 @@
 		<div class="card">
 			<div class="card-header">
 				<h4 class="card-title">{{event.name}} - patient list</h4>
+
 				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+
 				<div class="heading-elements">
+
 					<ul class="list-inline mb-0">
 						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
@@ -27,8 +34,19 @@
 				</div>
 			</div>
 			<div class="card-content collapse show">
+
 				<div class="card-body">
-					<p class="card-text">Use <code class="highlighter-rouge">.table-striped</code> to add zebra-striping to any table row within the <code class="highlighter-rouge">&lt;tbody&gt;</code>. This styling doesn't work in IE8 and below as <code>:nth-child</code> CSS selector isn't supported.</p>
+					{% if event.status == "Ended" %}
+					<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" href="#">Restore event</button>
+					<a href="{% url 'delete-events' pk=event.id %}"><button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" href="#">Delete event</button></a>
+					{% else %}
+					<a href="{% url 'update-events' pk=event.id %}"><button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Update event</button></a>
+					 <button type="button" class="btn btn-warning btn-min-width mr-1 mb-1" href="#">Close event</button>
+					{% endif %}
+					{% if event.description %}
+						<p class="card-text">{{event.description}}</p>
+					{% else %}
+					{% endif %}
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped">

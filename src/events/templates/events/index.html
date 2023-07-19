@@ -54,27 +54,30 @@
     <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="{% static 'events/theme-assets/images/backgrounds/02.jpg' %}">
       <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-          <li class="nav-item mr-auto"><a class="navbar-brand" href="#"><img class="brand-logo" alt="Chameleon admin logo" src="{% static 'events/theme-assets/images/logo/logo.png' %}"/>
+          <li class="nav-item mr-auto"><a class="navbar-brand" href="{% url 'all-events' %}"><img class="brand-logo" alt="Chameleon admin logo" src="{% static 'events/theme-assets/images/logo/logo-grm.png' %}"/>
               <h3 class="brand-text">Field Hospital</h3></a></li>
           <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
         </ul>
       </div>
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-          <li class=" nav-item"><a href="{% url 'all-events' %}"><i class="ft-home"></i><span class="menu-title" data-i18n="">Active events</span></a>
+          <li class=" nav-item"><a href="{% url 'all-events' %}"><i class="ft-activity"></i><span class="menu-title" data-i18n="">Active events</span></a>
           </li>
-          <li class="active"><a href="{% url 'add-events' %}"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Create new event</span></a>
+          <li class="active"><a href="{% url 'add-events' %}"><i class="ft-file-plus"></i><span class="menu-title" data-i18n="">Create new event</span></a>
           </li>
-          <li class=" nav-item"><a href="#"><i class="ft-droplet"></i><span class="menu-title" data-i18n="">----</span></a>
+          <li class=" nav-item"><a href="{% url 'complete-events' %}"><i class="ft-list"></i><span class="menu-title" data-i18n="">Completed events</span></a>
           </li>
-          <li class=" nav-item"><a href="#"><i class="ft-box"></i><span class="menu-title" data-i18n="">Completed events</span></a>
+          <li class=" nav-item"><a href="#"><i class="ft-users"></i><span class="menu-title" data-i18n="">Staff list</span></a>
           </li>
-          <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Calendar</span></a>
+          <li class=" nav-item"><a href="#"><i class="ft-calendar"></i><span class="menu-title" data-i18n="">Calendar</span></a>
+          </li>
+           <li class=" nav-item"><a href="#"><i class="ft-settings"></i><span class="menu-title" data-i18n="">Admin</span></a>
           </li>
         </ul>
       </div>
       <div class="navigation-background"></div>
     </div>
+
 {% block content %}
 
 {% endblock %}
