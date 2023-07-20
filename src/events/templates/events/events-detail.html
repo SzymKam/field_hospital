@@ -49,7 +49,7 @@
 						<p class="card-text"></p>
 					{% endif %}
 					{% if event.status != "Ended" %}
-					 	<button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Add patient</button>
+					 	<a href="{% url 'add-patient' event=event.id %}"><button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Add patient</button></a>
 					{% endif %}
 				</div>
 				<div class="table-responsive">
