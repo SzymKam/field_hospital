@@ -1,3 +1,5 @@
+import datetime
+
 from django.views.generic import (
     ListView,
     DetailView,
@@ -5,13 +7,28 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from django.contrib import messages
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from typing import Any
 from .models import Event
-from .forms import EventForm
+from .forms import EventForm, CloseEventForm
 from patients.models import Patient
+
+
+class CreateEventView(CreateView):
+    model = Event
+    template_name = "events/events-new.html"
+    form_class = EventForm
+    queryset = Event.objects.all()
+    success_url = reverse_lazy("all-events")
+
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Create new event"
+        return context
+
+    # todo add permissions, login_url
 
 
 class AllActiveEventView(ListView):
@@ -59,21 +76,6 @@ class DetailEventView(DetailView):
     # todo - add login required
 
 
-class CreateEventView(CreateView):
-    model = Event
-    template_name = "events/events-new.html"
-    form_class = EventForm
-    queryset = Event.objects.all()
-    success_url = reverse_lazy("all-events")
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Create new event"
-        return context
-
-    # todo add permissions, login_url
-
-
 class UpdateEventView(UpdateView):
     model = Event
     template_name = "events/events-update.html"
@@ -87,7 +89,35 @@ class UpdateEventView(UpdateView):
     def get_success_url(self):
         return reverse_lazy("detail-events", args=(self.object.id,))
 
-    # todo add permissions, login_url, succes_url,
+    # todo add permissions, login_url
+
+
+class CloseRestoreEventView:
+    @staticmethod
+    def close_event(request, pk: int) -> HttpResponse:
+        event_to_close = get_object_or_404(klass=Event, pk=pk)
+        form = CloseEventForm(
+            request.POST or None,
+            instance=event_to_close,
+            initial={"end_date": datetime.date.today()},
+        )
+        if request.method == "POST" and form.is_valid():
+            event_to_close.status = "Ended"
+            event_to_close.save()
+            form.save()
+            return redirect("detail-events", pk=pk)
+        return render(
+            request,
+            "events/events-close.html",
+            {"title": "Closing event", "event": event_to_close, "form": form},
+        )
+
+    @staticmethod
+    def restore_event(request, pk: int) -> HttpResponse:
+        event_to_restore = get_object_or_404(klass=Event, pk=pk)
+        event_to_restore.status = "In progress"
+        event_to_restore.save()
+        return redirect("detail-events", pk=pk)
 
 
 class DeleteEventView(DeleteView):
@@ -100,4 +130,4 @@ class DeleteEventView(DeleteView):
         context["title"] = "Delete event"
         return context
 
-    # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
+    # todo add permissions, login_url
