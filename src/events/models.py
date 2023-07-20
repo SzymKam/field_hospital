@@ -1,10 +1,11 @@
+from django.utils import timezone
 from django.db import models
 
 from .constants import EVENT_STATUS
 
 
 class Event(models.Model):
-    start_date = models.DateField(auto_now=True)
+    start_date = models.DateField(default=timezone.now)
     name = models.CharField(
         max_length=100, default="Event", help_text="Enter event name"
     )
