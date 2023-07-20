@@ -1,0 +1,38 @@
+{% extends 'events/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="app-content content">
+<div class="content-wrapper">
+<div class="content-wrapper-before"></div>
+<div class="content-header row">
+<div class="content-header-left col-md-4 col-12 mb-2">
+<h3 class="content-header-title">Close event?</h3>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-header">
+<h4 class="card-title">Are you sure to close: {{event.name}}? The event will close and disappear from the list.</h4>
+</div>
+
+<div class="card-block">
+<div class="card-body">
+<div class="content-body"><!-- Basic Inputs start -->
+<a href="{% url 'detail-events' pk=event.id %}"><button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" href="#">Cancel</button></a>
+<form method="post" id="close-events">
+{% csrf_token %}
+{{ form|crispy }}
+<a href="#" onclick="document.getElementById('close-events').submit()"><button type="button" class="btn btn-warning btn-min-width mr-1 mb-1" href="#">Close anyway?</button></a>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
