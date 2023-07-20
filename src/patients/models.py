@@ -33,8 +33,7 @@ class Patient(models.Model):
     )
     authorized_person = models.OneToOneField(
         AuthorizedPerson,
-        default="No authorized person",
-        on_delete=models.SET("No authorized person"),
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
         help_text="Set authorized person",
@@ -42,14 +41,13 @@ class Patient(models.Model):
     )
     event = models.ForeignKey(
         Event,
-        default="No event assigned",
         on_delete=models.CASCADE,
         help_text="Set event",
         related_name="patient",
     )
     treatment = models.OneToOneField(
         Treatment,
-        on_delete=models.SET("No treatment"),
+        on_delete=models.CASCADE,
         help_text="Add treatment",
         related_name="patient",
         blank=True,
