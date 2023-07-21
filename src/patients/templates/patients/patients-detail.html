@@ -7,7 +7,7 @@
 <div class="content-wrapper-before"></div>
 <div class="content-header row">
 <div class="content-header-left col-md-4 col-12 mb-2">
-<h3 class="content-header-title">New patient</h3>
+<h3 class="content-header-title">{{patient.surname}} {{patient.name}} <br>Status: {{patient.status}} <br>Bed: {{patient.bed_number}}</h3>
 </div>
 </div>
 
@@ -18,17 +18,72 @@
 <div class="col-12">
 <div class="card">
 <div class="card-header">
-<h4 class="card-title">Add new patient into <strong>{{event.name}}</strong></h4>
+<h4 class="card-title">Admission date: <strong>{{patient.admission_date}}</strong></h4>
 </div>
 
 <div class="card-block">
 <div class="card-body">
-<div class="content-body"><!-- Basic Inputs start -->
-<form action="" method="POST">
-{% csrf_token %}
-{{ form|crispy }}
-<input type="submit" value="Add patient">
-</form>
+<div class="content-body">
+
+
+
+<!--  -->
+  <div class="col-xl-6 col-md-6 col-sm-12">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<h4 class="card-title">Detail inforamtion</h4>
+						<p class="card-text">{{patient.additional_info}}</p>
+					</div>
+
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							PESEL:
+							{% if patient.PESEL %}
+							{{patient.PESEL}}
+							{% endif %}
+							<br>Birth date:
+							{% if patient.birth_date %}
+								{{patient.birth_date}}
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<strong>Contact information</strong>
+							<br>Adress:
+							{% if patient.address %}
+							{{patient.adress}}
+							{% endif %}
+							<br>Phone:
+							{% if patient.phone %}
+							{{patient.phone}}
+							{% endif %}
+							<br>Email:
+							{% if patient.email %}
+							{{patient.email}}
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<strong>Treatment</strong>
+							<br><a href="#"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add treatment</button></a>
+						</li>
+						<li class="list-group-item">
+							<strong>Auth person</strong>
+							<br><a href="#"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add auth person</button></a>
+						</li>
+					</ul>
+					<div class="card-body">
+						<a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-lg">Update patient info</button></a>
+						<a href="#"><button type="button" class="btn mr-1 mb-1 btn-danger btn-lg">Discharge patient</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<!--  -->
+
+
 </div>
 </div>
 </div>
