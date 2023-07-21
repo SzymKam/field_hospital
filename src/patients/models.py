@@ -5,7 +5,7 @@ import random
 import datetime
 from events.models import Event
 from treatment.models import Treatment
-from .constants import SEX, BED_CHOICE
+from .constants import BED_CHOICE
 
 
 class AuthorizedPerson(models.Model):
@@ -26,9 +26,6 @@ class Patient(models.Model):
     )
     PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
     birth_date = models.DateField(blank=True, null=True, help_text="Patient birth date")
-    sex = models.CharField(
-        choices=SEX, blank=True, help_text="Patient sex", max_length=6
-    )
     address = models.CharField(blank=True, help_text="Patient address", max_length=100)
     phone = models.IntegerField(blank=True, null=True, help_text="Patient phone number")
     email = models.EmailField(blank=True, null=True, help_text="Patient e-mail")

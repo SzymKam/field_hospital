@@ -1,8 +1,3 @@
-SEX = [
-    ("Male", "Male"),
-    ("Female", "Female"),
-]
-
 BED_CHOICE = [
     ("No bed", "No bed"),
     ("ALS", "ALS"),
