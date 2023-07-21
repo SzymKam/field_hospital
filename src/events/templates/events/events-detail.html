@@ -6,9 +6,6 @@
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
             <h3 class="content-header-title">{{event.name}}
-				{% if event.description %}
-					- {{event.localization}}
-				{% endif %}
 			</h3>
             <h4 class="content-header-title">Event status: {{event.status}}</h4>
           </div>
@@ -19,8 +16,11 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">{{event.name}} - patient list</h4>
-
+				{% if event.description %}
+					<h4 class="card-title">{{event.name}} - {{event.description}}</h4>
+				{% else %}
+					<h4 class="card-title">{{event.name}}</h4>
+				{% endif %}
 				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 
 				<div class="heading-elements">
@@ -43,11 +43,9 @@
 					<a href="{% url 'update-events' pk=event.id %}"><button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Update event</button></a>
 					<a href="{% url 'close-events' pk=event.id %}"> <button type="button" class="btn btn-warning btn-min-width mr-1 mb-1" href="#">Close event</button></a>
 					{% endif %}
-					{% if event.description %}
-						<p class="card-text">{{event.description}}</p>
-					{% else %}
-						<p class="card-text"></p>
-					{% endif %}
+
+							<h4 class="card-title">Active patient list</h4>
+
 					{% if event.status != "Ended" %}
 					 	<a href="{% url 'add-patient' event=event.id %}"><button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Add patient</button></a>
 					{% endif %}
@@ -64,12 +62,67 @@
 						</thead>
 						<tbody>
 							{% for patient in patients %}
+							{% if patient.status == "Active" %}
 								<tr>
-									<th scope="row">{{patient.surname}}</th>
+									<th scope="row"><a href="{% url 'detail-patient' event=event.id pk=patient.id %}">{{patient.surname}}</a></th>
 									<td>{{patient.name}}</td>
 									<td>{{patient.bed_number}}</td>
-									<td>patient.status</td>
+									<td style="color: green">{{patient.status}}</td>
 								</tr>
+							{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+		  <div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Patients discharged from the hospital</h4>
+
+				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+
+				<div class="heading-elements">
+
+					<ul class="list-inline mb-0">
+						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+						<li><a data-action="close"><i class="ft-x"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-content collapse show">
+
+				<div class="card-body">
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Surname</th>
+								<th scope="col">Name</th>
+								<th scope="col">Additional info</th>
+								<th scope="col" >Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for patient in patients %}
+							{% if patient.status != "Active" %}
+								<tr>
+									<th scope="row"><a href="{% url 'detail-patient' event=event.id pk=patient.id %}">{{patient.surname}}</a></th>
+									<td>{{patient.name}}</td>
+									<td>{{patient.additional_info}}</td>
+									<td>{{patient.status}}</td>
+								</tr>
+							{% endif %}
 							{% endfor %}
 						</tbody>
 					</table>
