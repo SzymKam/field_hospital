@@ -1,5 +1,8 @@
-from django.db import models
+import datetime
 
+from django.db import models
+import random
+import datetime
 from events.models import Event
 from treatment.models import Treatment
 from .constants import SEX, BED_CHOICE
@@ -15,8 +18,12 @@ class Patient(models.Model):
     admission_date = models.DateTimeField(
         auto_now_add=True, help_text="Date of patient admission"
     )
-    name = models.CharField(max_length=50, blank=True, help_text="Patient name")
-    surname = models.CharField(max_length=50, blank=True, help_text="Patient surname")
+    name = models.CharField(max_length=50, help_text="Patient name", blank=True)
+    surname = models.CharField(
+        max_length=50,
+        help_text="Patient surname",
+        default=f"NN {datetime.datetime.now().strftime('%m-%d-%Y %H:%M:%S')}",
+    )
     PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
     birth_date = models.DateField(blank=True, null=True, help_text="Patient birth date")
     sex = models.CharField(
@@ -53,6 +60,7 @@ class Patient(models.Model):
         blank=True,
         null=True,
     )
+    status = models.CharField(default="Active", max_length=20)
 
     def __str__(self):
         return f"{self.name} - {self.id}"
