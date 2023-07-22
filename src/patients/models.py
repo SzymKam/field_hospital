@@ -16,7 +16,8 @@ class AuthorizedPerson(models.Model):
 
 class Patient(models.Model):
     admission_date = models.DateTimeField(
-        auto_now_add=True, help_text="Date of patient admission"
+        help_text="Date of patient admission",
+        default=datetime.datetime.now().strftime("%m-%d-%Y %H:%M"),
     )
     name = models.CharField(max_length=50, help_text="Patient name", blank=True)
     surname = models.CharField(
@@ -33,7 +34,11 @@ class Patient(models.Model):
         blank=True, help_text="Additional info about patient"
     )
     bed_number = models.CharField(
-        choices=BED_CHOICE, blank=True, help_text="Bed number in hospital", max_length=6
+        choices=BED_CHOICE,
+        blank=True,
+        help_text="Bed number in hospital",
+        max_length=6,
+        default="No bed",
     )
     authorized_person = models.OneToOneField(
         AuthorizedPerson,
