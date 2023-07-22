@@ -1,8 +1,8 @@
 import datetime
 
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from typing import Any
 from .models import Patient
 from .forms import PatientForm, DetailPatientForm
@@ -63,7 +63,49 @@ class DetailPatientView(DetailView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Patient detail"
         context.update(self.get_data())
-        print(context)
         return context
 
     # todo - add login required
+
+
+class UpdatePatientView(UpdateView):
+    template_name = "patients/patients-update.html"
+    model = Patient
+    form_class = DetailPatientForm
+
+    def get_data(self):
+        event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
+        return {"event": event}
+
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Patient update"
+        context.update(self.get_data())
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "detail-patient",
+            kwargs={"event": self.kwargs["event"], "pk": self.kwargs["pk"]},
+        )
+
+
+class DischargePatientView:
+    @staticmethod
+    def discharge_patient(request, pk: int, event: int) -> HttpResponse:
+        patient_to_discharge = get_object_or_404(klass=Patient, pk=pk)
+        event = get_object_or_404(klass=Event, pk=event)
+
+        if request.method == "POST":
+            patient_to_discharge.status = "Discharged"
+            patient_to_discharge.save()
+            return redirect("detail-events", pk=event.pk)
+        return render(
+            request,
+            "patients/patients-discharge.html",
+            {
+                "title": "Discharging patient",
+                "patient": patient_to_discharge,
+                "event": event,
+            },
+        )
