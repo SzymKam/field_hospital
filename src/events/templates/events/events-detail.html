@@ -120,7 +120,7 @@
 									<th scope="row"><a href="{% url 'detail-patient' event=event.id pk=patient.id %}">{{patient.surname}}</a></th>
 									<td>{{patient.name}}</td>
 									<td>{{patient.additional_info}}</td>
-									<td>{{patient.status}}</td>
+									<td style="color: red">{{patient.status}}</td>
 								</tr>
 							{% endif %}
 							{% endfor %}
