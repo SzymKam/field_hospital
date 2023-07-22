@@ -51,7 +51,7 @@
 							<strong>Contact information</strong>
 							<br>Adress:
 							{% if patient.address %}
-							{{patient.adress}}
+							{{patient.address}}
 							{% endif %}
 							<br>Phone:
 							{% if patient.phone %}
@@ -72,8 +72,10 @@
 						</li>
 					</ul>
 					<div class="card-body">
-						<a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-lg">Update patient info</button></a>
-						<a href="#"><button type="button" class="btn mr-1 mb-1 btn-danger btn-lg">Discharge patient</button></a>
+						<a href="{% url 'update-patient' event=event.id pk=patient.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-lg">Update patient info</button></a>
+						{% if patient.status != "Discharged" %}
+						<a href="{% url 'discharge-patient' event=event.id pk=patient.id %}"><button type="button" class="btn mr-1 mb-1 btn-danger btn-lg">Discharge patient</button></a>
+						{% endif %}
 					</div>
 				</div>
 			</div>
