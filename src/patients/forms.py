@@ -4,9 +4,9 @@ from django.forms.widgets import DateInput, DateTimeInput
 
 
 class PatientForm(ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['event'].widget.attrs['disabled'] = True
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["event"].widget.attrs["disabled"] = True
 
     class Meta:
         widgets = {
