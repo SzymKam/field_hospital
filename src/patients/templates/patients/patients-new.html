@@ -26,8 +26,9 @@
                        <div class="content-body"><!-- Basic Inputs start -->
                             <form action="" method="POST">
                             {% csrf_token %}
-                            {{ form|crispy }}
-                            <input type="submit" value="Add patient">
+                            {{ form | crispy }}
+                                <input type="hidden" name="event" value="{{ form.initial.event.id }}">
+                                <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Add patient</button>
                             </form>
                         </div>
                   </div>
