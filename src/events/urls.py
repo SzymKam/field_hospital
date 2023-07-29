@@ -12,16 +12,16 @@ from .views import (
 
 urlpatterns = [
     path("", AllActiveEventView.as_view(), name="all-events"),
-    path("add-event/", CreateEventView.as_view(), name="add-events"),
-    path("detail-event/<int:pk>", DetailEventView.as_view(), name="detail-events"),
-    path("update-event/<int:pk>", UpdateEventView.as_view(), name="update-events"),
-    path("inactive-event/", AllInactiveEventView.as_view(), name="complete-events"),
-    path("delete-event/<int:pk>", DeleteEventView.as_view(), name="delete-events"),
+    path("events/", CreateEventView.as_view(), name="add-events"),
+    path("events/<int:pk>", DetailEventView.as_view(), name="detail-events"),
+    path("events/<int:pk>/update", UpdateEventView.as_view(), name="update-events"),
+    path("events/inactive/", AllInactiveEventView.as_view(), name="complete-events"),
+    path("events/<int:pk>/delete", DeleteEventView.as_view(), name="delete-events"),
     path(
-        "close-event/<int:pk>", CloseRestoreEventView.close_event, name="close-events"
+        "events/<int:pk>/close", CloseRestoreEventView.close_event, name="close-events"
     ),
     path(
-        "restore-event/<int:pk>",
+        "events/<int:pk>/restore",
         CloseRestoreEventView.restore_event,
         name="restore-events",
     ),

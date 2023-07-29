@@ -8,22 +8,22 @@ from .views import (
 
 urlpatterns = [
     path(
-        "event:<int:event>/add-patient",
+        "events/<int:event>/patients",
         CreatePatientView.create_patient,
         name="add-patient",
     ),
     path(
-        "event:<int:event>/patient:<int:pk>",
+        "events/<int:event>/patients/<int:pk>",
         DetailPatientView.as_view(),
         name="detail-patient",
     ),
     path(
-        "event:<int:event>/patient:<int:pk>/update",
+        "events/<int:event>/patients/<int:pk>/update",
         UpdatePatientView.as_view(),
         name="update-patient",
     ),
     path(
-        "event:<int:event>/patient:<int:pk>/discharge",
+        "event/<int:event>/patients/<int:pk>/discharge",
         DischargePatientView.discharge_patient,
         name="discharge-patient",
     ),
