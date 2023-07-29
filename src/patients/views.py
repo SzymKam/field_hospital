@@ -31,12 +31,12 @@ from events.models import Event
 
 class CreatePatientView:
     @staticmethod
-    def create_patient(request, event: int):
+    def create_patient(request, event: int) -> HttpResponse:
         initial_event = get_object_or_404(klass=Event, pk=event)
         form = PatientForm(
             request.POST or None,
             initial={
-                "event": initial_event.pk,
+                "event": initial_event,
                 "admission_date": datetime.datetime.now(),
             },
         )
