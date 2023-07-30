@@ -68,7 +68,14 @@
 						</li>
 						<li class="list-group-item">
 							<strong>Auth person</strong>
-							<br><a href="#"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add auth person</button></a>
+							{% if patient.authorized_person %}
+								<br>{{patient.authorized_person.name}}
+								<br>{{patient.authorized_person.surname}}
+								<br>{{patient.authorized_person.phone}}
+								<br><a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Change information</button></a>
+							{% else %}
+							<br><a href="{% url 'add-auth-person' event=event.id pk=patient.id %}"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add auth person</button></a>
+							{% endif %}
 						</li>
 					</ul>
 					<div class="card-body">
