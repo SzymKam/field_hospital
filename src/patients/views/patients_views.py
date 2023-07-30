@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, UpdateView
 from typing import Any
-from .models import Patient
-from .forms import PatientForm, DetailPatientForm
+from patients.models import Patient
+from patients.forms import PatientForm, DetailPatientForm
 from events.models import Event
 
 
