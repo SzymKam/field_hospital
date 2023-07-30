@@ -33,21 +33,21 @@ class Drug(models.Model):
         help_text="Dosage form of drug",
         max_length=20,
     )
-    volume = models.CharField(
-        choices=FLUID_VOLUME, blank=True, help_text="Volume of fluid", max_length=20
-    )
+    volume = models.CharField(choices=FLUID_VOLUME, blank=True, help_text="Volume of fluid", max_length=20)
 
 
 class VitalSign(models.Model):
-    name = models.CharField(
-        choices=VITAL_SIGN_NAME, help_text="Choose parameter", max_length=15
-    )
+    name = models.CharField(choices=VITAL_SIGN_NAME, help_text="Choose parameter", max_length=15)
     value = models.CharField(help_text="Enter value", max_length=20)
     datetime = models.DateTimeField(auto_now_add=True)
     additional_info = models.TextField()
 
 
 class Treatment(models.Model):
+    """
+    Represents a patient's treatment record.
+    """
+
     interview = models.TextField(blank=True, help_text="Place for medical interview")
     vital_sign = models.ForeignKey(
         VitalSign,
@@ -63,13 +63,9 @@ class Treatment(models.Model):
         max_length=50,
         on_delete=models.CASCADE,
     )
-    description = models.TextField(
-        blank=True, help_text="Place for patient description"
-    )
+    description = models.TextField(blank=True, help_text="Place for patient description")
     diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
-    additional_info = models.TextField(
-        blank=True, help_text="Additional info about patient treatment"
-    )
+    additional_info = models.TextField(blank=True, help_text="Additional info about patient treatment")
     medical_staff = models.ForeignKey(
         MedicalStaff,
         blank=True,
