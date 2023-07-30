@@ -1,10 +1,9 @@
 import datetime
 
 from django.db import models
-import random
-import datetime
 from events.models import Event
 from treatment.models import Treatment
+
 from .constants import BED_CHOICE
 
 
@@ -30,9 +29,7 @@ class Patient(models.Model):
     address = models.CharField(blank=True, help_text="Patient address", max_length=100)
     phone = models.IntegerField(blank=True, null=True, help_text="Patient phone number")
     email = models.EmailField(blank=True, null=True, help_text="Patient e-mail")
-    additional_info = models.TextField(
-        blank=True, help_text="Additional info about patient"
-    )
+    additional_info = models.TextField(blank=True, help_text="Additional info about patient")
     bed_number = models.CharField(
         choices=BED_CHOICE,
         blank=True,
