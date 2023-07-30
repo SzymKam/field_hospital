@@ -1,19 +1,17 @@
 import datetime
-
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
-from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.urls import reverse_lazy
 from typing import Any
-from .models import Event
-from .forms import EventForm, CloseEventForm
+
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import QuerySet
+
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from patients.models import Patient
+
+from .forms import CloseEventForm, EventForm
+from .models import Event
 
 
 class CreateEventView(CreateView):
@@ -33,10 +31,7 @@ class CreateEventView(CreateView):
 
 class AllActiveEventView(ListView):
     template_name = "events/events-list.html"
-    queryset = (
-        Event.objects.filter(status="Preparing").values()
-        | Event.objects.filter(status="In progress").values()
-    )
+    queryset = Event.objects.filter(status="Preparing").values() | Event.objects.filter(status="In progress").values()
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -63,7 +58,7 @@ class DetailEventView(DetailView):
     queryset = Event.objects.all()
 
     @staticmethod
-    def get_all_patients_from_event(event_id: int) -> list[Patient]:
+    def get_all_patients_from_event(event_id: int) -> QuerySet[Patient]:
         patients = Patient.objects.filter(event=event_id)
         return patients
 
