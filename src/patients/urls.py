@@ -5,7 +5,7 @@ from patients.views.patients_views import (
     UpdatePatientView,
     DischargePatientView,
 )
-from patients.views.auth_person_view import CreateAuthPersonView
+from patients.views.auth_person_view import CreateAuthPersonView, UpdateAuthPersonView
 
 urlpatterns = [
     path(
@@ -24,13 +24,18 @@ urlpatterns = [
         name="update-patient",
     ),
     path(
-        "event/<int:event>/patients/<int:pk>/discharge",
+        "events/<int:event>/patients/<int:pk>/discharge",
         DischargePatientView.discharge_patient,
         name="discharge-patient",
     ),
     path(
-        "event/<int:event>/patients/<int:pk>/add-auth-person",
+        "events/<int:event>/patients/<int:pk>/auth-person",
         CreateAuthPersonView.as_view(),
         name="add-auth-person",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/auth-person/<int:pk>/update",
+        UpdateAuthPersonView.as_view(),
+        name="update-auth-person",
     ),
 ]
