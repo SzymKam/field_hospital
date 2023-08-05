@@ -8,8 +8,8 @@ from .constants import BED_CHOICE
 
 
 class AuthorizedPerson(models.Model):
-    name = models.CharField(max_length=50, blank=True, help_text="Person name")
-    surname = models.CharField(max_length=50, blank=True, help_text="Person surname")
+    name = models.CharField(max_length=50, help_text="Person name")
+    surname = models.CharField(max_length=50, help_text="Person surname")
     phone = models.IntegerField(blank=True, null=True, help_text="Person phone number")
 
 
