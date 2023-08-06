@@ -18,7 +18,7 @@
       <div class="col-12">
           <div class="card">
               <div class="card-header">
-                  <h4 class="card-title"><strong>{{patient.name}}</strong></h4>
+                  <h4 class="card-title"><strong>{{patient.name}} {{patient.surname}}</strong></h4>
               </div>
 
               <div class="card-block">
@@ -27,7 +27,7 @@
                             <form action="" method="POST">
                             {% csrf_token %}
                             {{ form | crispy }}
-                                <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Update</button>
+                                <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Create</button>
                             </form>
                         </div>
                   </div>
