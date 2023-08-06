@@ -64,7 +64,11 @@
 						</li>
 						<li class="list-group-item">
 							<strong>Treatment</strong>
-							<br><a href="#"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add treatment</button></a>
+							{% if patient.treatment %}
+								<br><a href="{% url 'detail-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Update treatment</button></a>
+							{% else %}
+								<br><a href="{% url 'create-treatment' event=event.id patient=patient.id %}"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Crete treatment</button></a>
+							{% endif %}
 						</li>
 						<li class="list-group-item">
 							<strong>Auth person</strong>
