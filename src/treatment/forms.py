@@ -8,6 +8,14 @@ class TreatmentForm(ModelForm):
         fields = "__all__"
 
 
+class CreateTreatmentForm(ModelForm):
+    class Meta:
+        model = Treatment
+        fields = [
+            "medical_staff",
+        ]
+
+
 class VitalSignForm(ModelForm):
     class Meta:
         model = VitalSign
