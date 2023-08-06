@@ -24,6 +24,7 @@ class Drug(models.Model):
     name = models.CharField(
         choices=DRUG_AND_FLUID_CHOICES,
         blank=True,
+        null=True,
         help_text="Add new drug",
         max_length=40,
     )
@@ -52,6 +53,7 @@ class Treatment(models.Model):
     vital_sign = models.ForeignKey(
         VitalSign,
         blank=True,
+        null=True,
         help_text="Vital signs of patient",
         max_length=50,
         on_delete=models.CASCADE,
@@ -59,13 +61,13 @@ class Treatment(models.Model):
     drugs = models.ForeignKey(
         Drug,
         blank=True,
+        null=True,
         help_text="Medications given to the patient",
         max_length=50,
         on_delete=models.CASCADE,
     )
     description = models.TextField(blank=True, help_text="Place for patient description")
     diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
-    additional_info = models.TextField(blank=True, help_text="Additional info about patient treatment")
     medical_staff = models.ForeignKey(
         MedicalStaff,
         blank=True,
@@ -73,3 +75,6 @@ class Treatment(models.Model):
         on_delete=models.SET_NULL,
         help_text="Add medic to patient",
     )
+
+    def __str__(self):
+        return f"Treatment: {self.pk}"
