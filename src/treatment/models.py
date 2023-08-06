@@ -24,7 +24,6 @@ class Drug(models.Model):
     name = models.CharField(
         choices=DRUG_AND_FLUID_CHOICES,
         blank=True,
-        null=True,
         help_text="Add new drug",
         max_length=40,
     )
