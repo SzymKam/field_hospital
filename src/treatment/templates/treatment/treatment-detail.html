@@ -1,0 +1,90 @@
+{% extends 'events/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="app-content content">
+<div class="content-wrapper">
+<div class="content-wrapper-before"></div>
+<div class="content-header row">
+<div class="content-header-left col-md-4 col-12 mb-2">
+<h3 class="content-header-title">Treatment: {{patient.surname}} {{patient.name}} <br>Bed: {{patient.bed_number}}</h3>
+
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-header">
+    <a href="{% url 'detail-patient' event=event.id pk=patient.id %}"><button type="button" class="btn btn-warning btn-min-width mr-1 mb-1">Back</button></a>
+</div>
+
+<div class="card-block">
+<div class="card-body">
+
+<div class="content-body">
+    <h4 class="card-title">Medical documentation</h4>
+<!--  -->
+  <div class="col-xl-6 col-md-6 col-sm-12">
+			<div class="card">
+				<div class="card-content">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<h4 class="card-title">Interview</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+						</li>
+                        <li class="list-group-item">
+							<h4 class="card-title">Vital Signs</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
+						</li>
+                        <li class="list-group-item">
+							<h4 class="card-title">Drug list</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
+						</li>
+                        <li class="list-group-item">
+							<h4 class="card-title">Description</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+						</li>
+                         <li class="list-group-item">
+							<h4 class="card-title">Diagnosis</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+						</li>
+                         <li class="list-group-item">
+							<h4 class="card-title">Medical Staff</h4>
+                            <p class="card-text">{{patient}}</p>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+						</li>
+					</ul>
+                    <div class="card-body">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<!--  -->
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
