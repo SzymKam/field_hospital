@@ -1,6 +1,11 @@
 from django.urls import path
 
-from .views.treatment_views import CreateTreatmentView, DetailTreatmentView
+from .views.treatment_views import (
+    CreateTreatmentView,
+    DetailTreatmentView,
+    UpdateTreatmentInterviewView,
+    UpdateDescriptionInterviewView,
+)
 
 
 urlpatterns = [
@@ -13,5 +18,15 @@ urlpatterns = [
         "events/<int:event>/patients/<int:patient>/treatment/<int:pk>",
         DetailTreatmentView.as_view(),
         name="detail-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/interview",
+        UpdateTreatmentInterviewView.as_view(),
+        name="interview-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/description",
+        UpdateDescriptionInterviewView.as_view(),
+        name="description-treatment",
     ),
 ]
