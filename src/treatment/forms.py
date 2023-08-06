@@ -2,17 +2,27 @@ from django.forms import ModelForm
 from .models import Treatment, VitalSign, Drug, MedicalStaff
 
 
-class TreatmentForm(ModelForm):
-    class Meta:
-        model = Treatment
-        fields = "__all__"
-
-
 class CreateTreatmentForm(ModelForm):
     class Meta:
         model = Treatment
         fields = [
             "medical_staff",
+        ]
+
+
+class UpdateTreatmentInterviewForm(ModelForm):
+    class Meta:
+        model = Treatment
+        fields = [
+            "interview",
+        ]
+
+
+class UpdateDescriptionInterviewForm(ModelForm):
+    class Meta:
+        model = Treatment
+        fields = [
+            "description",
         ]
 
 
