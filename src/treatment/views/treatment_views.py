@@ -11,7 +11,7 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 from patients.models import Patient
 from events.models import Event
 
-from treatment.forms import TreatmentForm, CreateTreatmentForm
+from treatment.forms import CreateTreatmentForm, UpdateTreatmentInterviewForm, UpdateDescriptionInterviewForm
 from treatment.models import Treatment
 
 
@@ -33,9 +33,9 @@ class CreateTreatmentView(CreateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save()
+        treatment = form.save()
         patient = get_object_or_404(klass=Patient, pk=self.kwargs["patient"])
-        patient.treatment = form.instance
+        patient.treatment = treatment
         patient.save()
         return super().form_valid(form)
 
@@ -64,3 +64,49 @@ class DetailTreatmentView(DetailView):
         return context
 
     # todo add permissions, login_url
+
+
+class UpdateTreatmentInterviewView(UpdateView):
+    template_name = "treatment/treatment-edit-interview.html"
+    model = Treatment
+    form_class = UpdateTreatmentInterviewForm
+
+    def get_data(self) -> dict:
+        event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
+        patient = get_object_or_404(klass=Patient, pk=self.kwargs["patient"])
+        return {"event": event, "patient": patient}
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data()
+        context["title"] = "Treatment - interview"
+        context.update(self.get_data())
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "detail-treatment",
+            kwargs={"event": self.kwargs["event"], "patient": self.kwargs["patient"], "pk": self.object.id},
+        )
+
+
+class UpdateDescriptionInterviewView(UpdateView):
+    template_name = "treatment/treatment-edit-description.html"
+    model = Treatment
+    form_class = UpdateDescriptionInterviewForm
+
+    def get_data(self) -> dict:
+        event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
+        patient = get_object_or_404(klass=Patient, pk=self.kwargs["patient"])
+        return {"event": event, "patient": patient}
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data()
+        context["title"] = "Treatment - interview"
+        context.update(self.get_data())
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "detail-treatment",
+            kwargs={"event": self.kwargs["event"], "patient": self.kwargs["patient"], "pk": self.object.id},
+        )
