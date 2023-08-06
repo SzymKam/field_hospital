@@ -16,14 +16,10 @@ class AuthorizedPerson(models.Model):
 class Patient(models.Model):
     admission_date = models.DateTimeField(
         help_text="Date of patient admission",
-        default=datetime.datetime.now().strftime("%m-%d-%Y %H:%M"),
+        auto_now_add=True,
     )
     name = models.CharField(max_length=50, help_text="Patient name", blank=True)
-    surname = models.CharField(
-        max_length=50,
-        help_text="Patient surname",
-        default=f"NN {datetime.datetime.now().strftime('%m-%d-%Y %H:%M:%S')}",
-    )
+    surname = models.CharField(max_length=50, help_text="Patient surname", blank=True)
     PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
     birth_date = models.DateField(blank=True, null=True, help_text="Patient birth date")
     address = models.CharField(blank=True, help_text="Patient address", max_length=100)
