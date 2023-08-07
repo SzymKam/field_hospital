@@ -26,6 +26,22 @@ class UpdateDescriptionInterviewForm(ModelForm):
         ]
 
 
+class UpdateTreatmentMedicalStaffForm(ModelForm):
+    class Meta:
+        model = Treatment
+        fields = [
+            "medical_staff",
+        ]
+
+
+class UpdateTreatmentDiagnosisForm(ModelForm):
+    class Meta:
+        model = Treatment
+        fields = [
+            "diagnosis",
+        ]
+
+
 class VitalSignForm(ModelForm):
     class Meta:
         model = VitalSign
