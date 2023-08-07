@@ -19,6 +19,9 @@ class MedicalStaff(models.Model):
         max_length=20,
     )
 
+    def __str__(self):
+        return f"{self.name} {self.surname} - {self.medical_qualifications}"
+
 
 class Drug(models.Model):
     name = models.CharField(
@@ -64,6 +67,7 @@ class Treatment(models.Model):
         help_text="Medications given to the patient",
         max_length=50,
         on_delete=models.CASCADE,
+        related_name="treatment",
     )
     description = models.TextField(blank=True, help_text="Place for patient description")
     diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
