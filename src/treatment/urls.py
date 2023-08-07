@@ -4,7 +4,10 @@ from .views.treatment_views import (
     CreateTreatmentView,
     DetailTreatmentView,
     UpdateTreatmentInterviewView,
-    UpdateDescriptionInterviewView,
+    UpdateTreatmentDescriptionView,
+    UpdateTreatmentMedicalStaffView,
+    UpdateTreatmentDiagnosisView,
+    CreateDrugView,
 )
 
 
@@ -26,7 +29,22 @@ urlpatterns = [
     ),
     path(
         "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/description",
-        UpdateDescriptionInterviewView.as_view(),
+        UpdateTreatmentDescriptionView.as_view(),
         name="description-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/medical-staff",
+        UpdateTreatmentMedicalStaffView.as_view(),
+        name="medical-staff-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/diagnosis",
+        UpdateTreatmentDiagnosisView.as_view(),
+        name="diagnosis-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/drug",
+        CreateDrugView.as_view(),
+        name="drug-treatment",
     ),
 ]
