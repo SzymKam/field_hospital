@@ -46,8 +46,10 @@
 						</li>
                         <li class="list-group-item">
 							<h4 class="card-title">Drug list</h4>
-                             <p class="card-text">{{patient.treatment}}</p>
-                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
+
+                                <p class="card-text">{{patient.treatment.drug}}</p>
+
+                             <a href="{% url 'drug-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
 						</li>
                         <li class="list-group-item">
 							<h4 class="card-title">Description</h4>
@@ -58,13 +60,13 @@
 						</li>
                          <li class="list-group-item">
 							<h4 class="card-title">Diagnosis</h4>
-                             <p class="card-text">{{patient.treatment}}</p>
-                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <p class="card-text">{{patient.treatment.diagnosis}}</p>
+                             <a href="{% url 'diagnosis-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
 						</li>
                          <li class="list-group-item">
 							<h4 class="card-title">Medical Staff</h4>
                              <p class="card-text">{{patient.treatment.medical_staff}}</p>
-                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <a href="{% url 'medical-staff-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
 						</li>
 					</ul>
                     <div class="card-body">
