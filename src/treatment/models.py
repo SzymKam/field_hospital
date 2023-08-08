@@ -60,13 +60,12 @@ class Treatment(models.Model):
         max_length=50,
         on_delete=models.CASCADE,
     )
-    drugs = models.ForeignKey(
+    drugs = models.ManyToManyField(
         Drug,
         blank=True,
         null=True,
         help_text="Medications given to the patient",
         max_length=50,
-        on_delete=models.CASCADE,
         related_name="treatment",
     )
     description = models.TextField(blank=True, help_text="Place for patient description")
