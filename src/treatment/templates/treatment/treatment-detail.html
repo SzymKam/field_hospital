@@ -47,7 +47,7 @@
                         <li class="list-group-item">
 							<h4 class="card-title">Drug list</h4>
 
-                                <p class="card-text">{{patient.treatment.drug}}</p>
+                                <p class="card-text">{{patient.treatment.drugs}}</p>
 
                              <a href="{% url 'drug-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
 						</li>
