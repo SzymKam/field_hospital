@@ -193,9 +193,11 @@ class CreateDrugView(CreateView):
     def form_valid(self, form):
         drug = form.save()
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
-        drug.treatment = treatment
-        drug.save()
-        print(drug.treatment)
+        print(drug.id)
+        treatment.drugs.aadd(drug.id)
+        print(treatment.drugs)
+        treatment.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):
