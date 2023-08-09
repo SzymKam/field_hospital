@@ -51,7 +51,7 @@ class VitalSignForm(ModelForm):
 class DrugForm(ModelForm):
     class Meta:
         model = Drug
-        fields = "__all__"
+        fields = ["name", "dose", "unit", "dosage_form"]
 
 
 class MedicalStaffForm(ModelForm):
