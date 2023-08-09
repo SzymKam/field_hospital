@@ -62,7 +62,6 @@ DRUGS = sorted(
         ("Nitrendipine", "Nitrendipine"),
         ("Rocuronium", "Rocuronium"),
         ("Aspargin", "Aspargin"),
-
     ]
 )
 
@@ -79,10 +78,7 @@ FLUIDS = sorted(
     ]
 )
 
-DRUG_AND_FLUID_CHOICES = [
-    ("Drugs", DRUGS),
-    ("Fluids", FLUIDS)
-]
+DRUG_AND_FLUID_CHOICES = [("Drugs", DRUGS), ("Fluids", FLUIDS)]
 
 DRUG_DOSAGE_FORM = [
     ("Pills", "Pills"),
@@ -113,3 +109,5 @@ VITAL_SIGN_NAME = [
     ("Glucose", "Glucose"),
     ("GCS", "GCS"),
 ]
+
+UNIT_CHOICES = [("g", "g"), ("mg", "mg"), ("mcg", "mcg"), ("ml", "ml")]
