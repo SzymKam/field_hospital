@@ -19,7 +19,7 @@
 <div class="col-12">
 <div class="card">
 <div class="card-header">
-    <a href="{% url 'detail-patient' event=event.id pk=patient.id %}"><button type="button" class="btn btn-warning btn-min-width mr-1 mb-1">Back</button></a>
+    <a href="{% url 'detail-patient' event=event.id pk=patient.id %}"><button type="button" class="btn btn-warning btn-min-width mr-1 mb-1">Back into patient info</button></a>
 </div>
 
 <div class="card-block">
@@ -28,7 +28,7 @@
 <div class="content-body">
     <h4 class="card-title">Medical documentation</h4>
 <!--  -->
-  <div class="col-xl-6 col-md-6 col-sm-12">
+<!--  <div class="col-xl-6 col-md-6 col-sm-12">-->
 			<div class="card">
 				<div class="card-content">
 					<ul class="list-group list-group-flush">
@@ -37,43 +37,68 @@
                             {% if patient.treatment.interview %}
                                 <p class="card-text">{{patient.treatment.interview}}</p>
                             {% endif %}
-                             <a href="{% url 'interview-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <a href="{% url 'interview-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit interview</button></a>
 						</li>
                         <li class="list-group-item">
 							<h4 class="card-title">Vital Signs</h4>
                                 <p class="card-text">{{patient.treatment}}</p>
-                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
+                             <a href="#"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add vital sign</button></a>
 						</li>
+
                         <li class="list-group-item">
 							<h4 class="card-title">Drug list</h4>
+                                <div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">Name</th>
+									<th scope="col">Dose </th>
+									<th scope="col">Unit</th>
+									<th scope="col">Dosage form</th>
+									<th scope="col">Want edit?</th>
+									<th scope="col">Want delete?</th>
+							    </tr>
+						</thead>
+						<tbody>
+							  {% for drug in drugs %}
+								<tr>
+									<td>{{drug.name}}</td>
+									<td>{{drug.dose}}</td>
+									<td>{{drug.unit}}</td>
+									<td>{{drug.dosage_form}}</td>
+									<th scope="col">Edit</th>
+									<td>Delete</td>
+								</tr>
+							{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <p class="card-text">{{patient.treatment.drugs}}</p>
-
-                             <a href="{% url 'drug-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add</button></a>
+                             <a href="{% url 'drug-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add drug</button></a>
 						</li>
                         <li class="list-group-item">
 							<h4 class="card-title">Description</h4>
                             {% if patient.treatment.description %}
                                 <p class="card-text">{{patient.treatment.description}}</p>
                             {% endif %}
-                             <a href="{% url 'description-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <a href="{% url 'description-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit description</button></a>
 						</li>
                          <li class="list-group-item">
 							<h4 class="card-title">Diagnosis</h4>
                              <p class="card-text">{{patient.treatment.diagnosis}}</p>
-                             <a href="{% url 'diagnosis-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <a href="{% url 'diagnosis-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit diagnosis</button></a>
 						</li>
                          <li class="list-group-item">
 							<h4 class="card-title">Medical Staff</h4>
                              <p class="card-text">{{patient.treatment.medical_staff}}</p>
-                             <a href="{% url 'medical-staff-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Edit</button></a>
+                             <a href="{% url 'medical-staff-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Change staff</button></a>
 						</li>
 					</ul>
                     <div class="card-body">
 					</div>
 				</div>
 			</div>
-		</div>
+<!--		</div>-->
 
 
 
