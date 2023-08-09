@@ -65,17 +65,16 @@ class DetailTreatmentView(DetailView):
 
         return {"event": event, "patient": patient}
 
-    # def get_drugs(self):
-    #     treatment = get_object_or_404(klass=Treatment, pk=self.kwargs['pk'])
-    #     drugs = Drug.objects.first()
-    #     print(drugs.treatment)
-    #     return {"drugs": drugs}
+    def get_drugs(self):
+        treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
+        drugs = Drug.objects.filter(treatment=treatment)
+        return {"drugs": drugs}
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data()
         context["title"] = "Treatment detail"
         context.update(self.get_data())
-        # context.update(self.get_drugs())
+        context.update(self.get_drugs())
         return context
 
     # todo add permissions, login_url
@@ -184,23 +183,27 @@ class CreateDrugView(CreateView):
         patient = get_object_or_404(klass=Patient, pk=self.kwargs["patient"])
         return {"event": event, "patient": patient}
 
+    def get_drug_list(self):
+        treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
+        drugs = Drug.objects.filter(treatment=treatment)
+        return {"drugs": drugs}
+
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "Add new drug to patient"
         context.update(self.get_data())
+        context.update(self.get_drug_list())
         return context
 
     def form_valid(self, form):
         drug = form.save()
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
-        print(drug.id)
-        treatment.drugs.aadd(drug.id)
-        print(treatment.drugs)
-        treatment.save()
-
+        drug.treatment = treatment
+        drug.save()
         return super().form_valid(form)
 
     def get_success_url(self):
+        drugs = self.get_drug_list()
         return reverse_lazy(
             "detail-treatment",
             kwargs={"event": self.kwargs["event"], "patient": self.kwargs["patient"], "pk": self.kwargs["pk"]},
