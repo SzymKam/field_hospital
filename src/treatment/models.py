@@ -6,6 +6,7 @@ from .constants import (
     DRUG_DOSAGE_FORM,
     FLUID_VOLUME,
     VITAL_SIGN_NAME,
+    UNIT_CHOICES,
 )
 
 
@@ -21,22 +22,6 @@ class MedicalStaff(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.surname} - {self.medical_qualifications}"
-
-
-class Drug(models.Model):
-    name = models.CharField(
-        choices=DRUG_AND_FLUID_CHOICES,
-        blank=True,
-        help_text="Add new drug",
-        max_length=40,
-    )
-    dosage_form = models.CharField(
-        choices=DRUG_DOSAGE_FORM,
-        blank=True,
-        help_text="Dosage form of drug",
-        max_length=20,
-    )
-    volume = models.CharField(choices=FLUID_VOLUME, blank=True, help_text="Volume of fluid", max_length=20)
 
 
 class VitalSign(models.Model):
@@ -60,14 +45,6 @@ class Treatment(models.Model):
         max_length=50,
         on_delete=models.CASCADE,
     )
-    drugs = models.ManyToManyField(
-        Drug,
-        blank=True,
-        null=True,
-        help_text="Medications given to the patient",
-        max_length=50,
-        related_name="treatment",
-    )
     description = models.TextField(blank=True, help_text="Place for patient description")
     diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
     medical_staff = models.ForeignKey(
@@ -80,3 +57,25 @@ class Treatment(models.Model):
 
     def __str__(self):
         return f"Treatment: {self.pk}"
+
+
+class Drug(models.Model):
+    name = models.CharField(
+        choices=DRUG_AND_FLUID_CHOICES,
+        help_text="Add new drug",
+        max_length=40,
+    )
+    dose = models.FloatField(help_text="Dose of drug", null=True)
+    unit = models.CharField(help_text="Choose unit", choices=UNIT_CHOICES, max_length=3, default="mg")
+    dosage_form = models.CharField(
+        choices=DRUG_DOSAGE_FORM,
+        blank=True,
+        help_text="Dosage form of drug",
+        max_length=20,
+    )
+    treatment = models.ForeignKey(
+        Treatment, blank=True, null=True, on_delete=models.CASCADE, help_text="Add drug", related_name="drug"
+    )
+
+    def __str__(self):
+        return f"{self.name}"
