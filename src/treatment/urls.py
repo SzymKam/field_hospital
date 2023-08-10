@@ -7,9 +7,8 @@ from .views.treatment_views import (
     UpdateTreatmentDescriptionView,
     UpdateTreatmentMedicalStaffView,
     UpdateTreatmentDiagnosisView,
-    CreateDrugView,
 )
-
+from .views.drug_views import CreateDrugView
 
 urlpatterns = [
     path(
