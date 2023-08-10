@@ -6,16 +6,16 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from patients.models import Patient
 from events.models import Event
 
-from treatment.forms import (
+from treatment.forms.treatment_forms import (
     CreateTreatmentForm,
     UpdateTreatmentInterviewForm,
-    UpdateDescriptionInterviewForm,
+    UpdateTreatmentDescriptionForm,
     UpdateTreatmentMedicalStaffForm,
     UpdateTreatmentDiagnosisForm,
-    DrugForm,
 )
 from treatment.models.treatment_model import Treatment
 from treatment.models.drug_model import Drug
+from treatment.forms.drug_form import DrugForm
 
 
 class CreateTreatmentView(CreateView):
@@ -102,7 +102,7 @@ class UpdateTreatmentInterviewView(UpdateView):
 class UpdateTreatmentDescriptionView(UpdateView):
     template_name = "treatment/treatment-edit-description.html"
     model = Treatment
-    form_class = UpdateDescriptionInterviewForm
+    form_class = UpdateTreatmentDescriptionForm
 
     def get_data(self) -> dict:
         event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
