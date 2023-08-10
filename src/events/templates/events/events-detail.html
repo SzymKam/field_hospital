@@ -57,6 +57,7 @@
 								<th scope="col">Surname</th>
 								<th scope="col">Name</th>
 								<th scope="col">Bed number</th>
+								<th scope="col">Admission date</th>
 								<th scope="col">Status</th>
 							</tr>
 						</thead>
@@ -67,6 +68,7 @@
 									<th scope="row"><a href="{% url 'detail-patient' event=event.id pk=patient.id %}">{{patient.surname}}</a></th>
 									<td>{{patient.name}}</td>
 									<td>{{patient.bed_number}}</td>
+									<td>{{patient.admission_date}}</td>
 									<td style="color: green">{{patient.status}}</td>
 								</tr>
 							{% endif %}
