@@ -8,7 +8,7 @@ from .views.treatment_views import (
     UpdateTreatmentMedicalStaffView,
     UpdateTreatmentDiagnosisView,
 )
-from .views.drug_views import CreateDrugView
+from .views.drug_views import CreateDrugView, UpdateDrugView
 
 urlpatterns = [
     path(
@@ -45,5 +45,10 @@ urlpatterns = [
         "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/drug",
         CreateDrugView.as_view(),
         name="drug-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:treatment>/drug/<int:pk>",
+        UpdateDrugView.as_view(),
+        name="edit-drug-treatment",
     ),
 ]
