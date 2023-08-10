@@ -32,8 +32,8 @@ class PatientForm(ModelForm):
         }
         model = Patient
         fields = [
-            "name",
             "surname",
+            "name",
             "PESEL",
             "birth_date",
             "address",
@@ -53,8 +53,8 @@ class DetailPatientForm(ModelForm):
         }
         model = Patient
         fields = [
-            "name",
             "surname",
+            "name",
             "PESEL",
             "birth_date",
             "address",
