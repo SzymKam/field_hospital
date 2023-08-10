@@ -31,10 +31,18 @@ class PatientForm(ModelForm):
             "admission_date": DateTimeInput(attrs={"type": "datetime-local"}),
         }
         model = Patient
-        exclude = (
-            "authorized_person",
-            "treatment",
-        )
+        fields = [
+            "name",
+            "surname",
+            "PESEL",
+            "birth_date",
+            "address",
+            "phone",
+            "email",
+            "additional_info",
+            "bed_number",
+            "event",
+        ]
 
 
 class DetailPatientForm(ModelForm):
@@ -44,10 +52,20 @@ class DetailPatientForm(ModelForm):
             "admission_date": DateTimeInput(attrs={"type": "datetime-local"}),
         }
         model = Patient
-        exclude = ("status", "event", "treatment", "authorized_person")
+        fields = [
+            "name",
+            "surname",
+            "PESEL",
+            "birth_date",
+            "address",
+            "phone",
+            "email",
+            "additional_info",
+            "bed_number",
+        ]
 
 
 class AuthorizedPersonForm(ModelForm):
     class Meta:
         model = AuthorizedPerson
-        fields = "__all__"
+        fields = ["name", "surname", "phone"]
