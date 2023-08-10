@@ -89,17 +89,6 @@ DRUG_DOSAGE_FORM = [
     ("Rectal enema", "Rectal enema"),
 ]
 
-FLUID_VOLUME = [
-    ("5ml", "5ml"),
-    ("10ml", "10ml"),
-    ("20ml", "20ml"),
-    ("50ml", "50ml"),
-    ("100ml", "100ml"),
-    ("250ml", "250ml"),
-    ("500ml", "500ml"),
-    ("1000ml", "1000ml"),
-]
-
 VITAL_SIGN_NAME = [
     ("BP", "BP"),
     ("HR", "HR"),
