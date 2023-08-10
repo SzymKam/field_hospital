@@ -1,8 +1,6 @@
 from django.forms import ModelForm
 from treatment.models.treatment_model import Treatment
-from .models.medical_staff_model import MedicalStaff
-from .models.drug_model import Drug
-from .models.vital_sign_model import VitalSign
+from treatment.models.medical_staff_model import MedicalStaff
 
 
 class CreateTreatmentForm(ModelForm):
@@ -21,7 +19,7 @@ class UpdateTreatmentInterviewForm(ModelForm):
         ]
 
 
-class UpdateDescriptionInterviewForm(ModelForm):
+class UpdateTreatmentDescriptionForm(ModelForm):
     class Meta:
         model = Treatment
         fields = [
@@ -43,21 +41,3 @@ class UpdateTreatmentDiagnosisForm(ModelForm):
         fields = [
             "diagnosis",
         ]
-
-
-class VitalSignForm(ModelForm):
-    class Meta:
-        model = VitalSign
-        fields = "__all__"
-
-
-class DrugForm(ModelForm):
-    class Meta:
-        model = Drug
-        fields = ["name", "dose", "unit", "dosage_form"]
-
-
-class MedicalStaffForm(ModelForm):
-    class Meta:
-        model = MedicalStaff
-        fields = "__all__"
