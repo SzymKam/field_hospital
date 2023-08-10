@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import MedicalStaff, Drug
+from treatment.models.treatment_model import MedicalStaff
+from treatment.models.drug_model import Drug
 
 
 @admin.register(MedicalStaff)

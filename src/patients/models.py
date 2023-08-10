@@ -1,8 +1,6 @@
-import datetime
-
 from django.db import models
 from events.models import Event
-from treatment.models import Treatment
+from treatment.models.treatment_model import Treatment
 
 from .constants import BED_CHOICE
 

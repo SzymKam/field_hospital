@@ -1,5 +1,8 @@
 from django.forms import ModelForm
-from .models import Treatment, VitalSign, Drug, MedicalStaff
+from treatment.models.treatment_model import Treatment
+from .models.medical_staff_model import MedicalStaff
+from .models.drug_model import Drug
+from .models.vital_sign_model import VitalSign
 
 
 class CreateTreatmentForm(ModelForm):

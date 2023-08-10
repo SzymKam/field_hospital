@@ -1,13 +1,8 @@
-import datetime
 from typing import Any
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.db.models import QuerySet
-
-from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView
 from patients.models import Patient
 from events.models import Event
 
@@ -19,7 +14,8 @@ from treatment.forms import (
     UpdateTreatmentDiagnosisForm,
     DrugForm,
 )
-from treatment.models import Treatment, Drug
+from treatment.models.treatment_model import Treatment
+from treatment.models.drug_model import Drug
 
 
 class CreateTreatmentView(CreateView):
