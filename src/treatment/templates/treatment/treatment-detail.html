@@ -66,7 +66,7 @@
 									<td>{{drug.dose}}</td>
 									<td>{{drug.unit}}</td>
 									<td>{{drug.dosage_form}}</td>
-									<th scope="col">Edit</th>
+									<th scope="col"><a href="{% url 'edit-drug-treatment' event=event.id patient=patient.id treatment=patient.treatment.id pk=drug.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-warning btn-sm">Edit</button></a></th>
 									<td>Delete</td>
 								</tr>
 							{% endfor %}
