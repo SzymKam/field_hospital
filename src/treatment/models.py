@@ -78,3 +78,6 @@ class VitalSign(models.Model):
         help_text="Add vital sign",
         related_name="vital_sign",
     )
+
+    def __str__(self):
+        return f"{self.name} - {self.value}"
