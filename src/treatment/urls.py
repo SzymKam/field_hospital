@@ -8,7 +8,8 @@ from .views.treatment_views import (
     UpdateTreatmentMedicalStaffView,
     UpdateTreatmentDiagnosisView,
 )
-from .views.drug_views import CreateDrugView, UpdateDrugView
+from .views.drug_views import CreateDrugView, UpdateDrugView, DeleteDrugView
+from .views.vital_sign_view import CreateVitalSignView
 
 urlpatterns = [
     path(
@@ -50,5 +51,15 @@ urlpatterns = [
         "events/<int:event>/patients/<int:patient>/treatment/<int:treatment>/drug/<int:pk>",
         UpdateDrugView.as_view(),
         name="edit-drug-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:treatment>/drug/<int:pk>/delete",
+        DeleteDrugView.as_view(),
+        name="delete-drug-treatment",
+    ),
+    path(
+        "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/vital-sign",
+        CreateVitalSignView.as_view(),
+        name="vital-sign-treatment",
     ),
 ]
