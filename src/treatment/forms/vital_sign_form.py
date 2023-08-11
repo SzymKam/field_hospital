@@ -5,4 +5,4 @@ from django.forms import ModelForm
 class VitalSignForm(ModelForm):
     class Meta:
         model = VitalSign
-        fields = "__all__"
+        fields = ["name", "value"]
