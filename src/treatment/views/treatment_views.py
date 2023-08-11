@@ -15,6 +15,7 @@ from treatment.forms.treatment_forms import (
 )
 from treatment.models.treatment_model import Treatment
 from treatment.models.drug_model import Drug
+from treatment.models.vital_sign_model import VitalSign
 
 
 def get_event_and_patient(event_id: int, patient_id: int) -> dict:
@@ -55,16 +56,17 @@ class DetailTreatmentView(DetailView):
     template_name = "treatment/treatment-detail.html"
     queryset = Treatment.objects.all()
 
-    def get_drugs(self) -> dict[str, Any]:
+    def get_drugs_and_vital_signs(self) -> dict[str, Any]:
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
+        vital_signs = VitalSign.objects.filter(treatment=treatment)
         drugs = Drug.objects.filter(treatment=treatment)
-        return {"drugs": drugs}
+        return {"drugs": drugs, "vital_signs": vital_signs}
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data()
         context["title"] = "Treatment detail"
         context.update(get_event_and_patient(event_id=self.kwargs["event"], patient_id=self.kwargs["patient"]))
-        context.update(self.get_drugs())
+        context.update(self.get_drugs_and_vital_signs())
         return context
 
     # todo add permissions, login_url
