@@ -5,7 +5,7 @@ from ..constants import VITAL_SIGN_NAME
 
 class VitalSign(models.Model):
     name = models.CharField(choices=VITAL_SIGN_NAME, help_text="Choose parameter", max_length=15)
-    value = models.CharField(help_text="Enter value", max_length=20)
+    value = models.IntegerField(help_text="Enter value")
     datetime = models.DateTimeField(auto_now_add=True)
     additional_info = models.TextField()
     treatment = models.ForeignKey(
