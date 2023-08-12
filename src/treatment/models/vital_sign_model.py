@@ -1,11 +1,13 @@
 from django.db import models
-from .treatment_model import Treatment
+
 from ..constants import VITAL_SIGN_NAME
+from .treatment_model import Treatment
 
 
 class VitalSign(models.Model):
     name = models.CharField(choices=VITAL_SIGN_NAME, help_text="Choose parameter", max_length=15)
     value = models.IntegerField(help_text="Enter value")
+    extra_value = models.IntegerField(help_text="Additional value", blank=True, null=True)
     datetime = models.DateTimeField(auto_now_add=True)
     additional_info = models.TextField()
     treatment = models.ForeignKey(
