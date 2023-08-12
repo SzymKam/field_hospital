@@ -54,17 +54,19 @@
 					            <table class="table table-striped">
 						        <thead>
 							    <tr>
+									<th scope="col">No.</th>
 									<th scope="col">Name</th>
 									<th scope="col">Dose </th>
 									<th scope="col">Unit</th>
 									<th scope="col">Dosage form</th>
-									<th scope="col">Want edit?</th>
-									<th scope="col">Want delete?</th>
+									<th scope="col"></th>
+									<th scope="col"></th>
 							    </tr>
 						</thead>
 						<tbody>
 							  {% for drug in drugs %}
 								<tr>
+									<td>{{forloop.counter}}</td>
 									<td>{{drug.name}}</td>
 									<td>{{drug.dose}}</td>
 									<td>{{drug.unit}}</td>
@@ -105,7 +107,6 @@
 
 
 
-<!--  -->
 
 
 </div>
