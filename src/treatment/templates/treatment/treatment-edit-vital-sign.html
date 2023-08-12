@@ -26,7 +26,7 @@
                        <div class="content-body"><!-- Basic Inputs start -->
                             <form action="" method="POST">
                             {% csrf_token %}
-                            {{ form | crispy }}
+                            {% crispy form %}
                                 <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Save</button>
                             </form>
                         </div>
@@ -36,5 +36,25 @@
       </div>
   </div>
       </div>
+
    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var extraValueField = $("#div_id_extra_value");
+        extraValueField.hide();
+
+        $("#id_name").change(function()
+            {
+                var selectedValue = $(this).val();
+                if (selectedValue === "BP") {
+                    extraValueField.show();
+            } else {
+                    extraValueField.hide();
+                }
+            }
+
+        )
+    })
+</script>
 {% endblock %}
