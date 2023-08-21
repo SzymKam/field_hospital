@@ -3,19 +3,21 @@ from typing import Any
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
-from patients.models import Patient
-from events.models import Event
 
+from events.models import Event
+from patients.models import Patient
 from treatment.forms.treatment_forms import (
     CreateTreatmentForm,
-    UpdateTreatmentInterviewForm,
     UpdateTreatmentDescriptionForm,
-    UpdateTreatmentMedicalStaffForm,
     UpdateTreatmentDiagnosisForm,
+    UpdateTreatmentInterviewForm,
+    UpdateTreatmentMedicalStaffForm,
 )
-from treatment.models.treatment_model import Treatment
 from treatment.models.drug_model import Drug
+from treatment.models.treatment_model import Treatment
 from treatment.models.vital_sign_model import VitalSign
+
+from .vital_signs_plot import create_plot
 
 
 def get_event_and_patient(event_id: int, patient_id: int) -> dict:
@@ -60,7 +62,8 @@ class DetailTreatmentView(DetailView):
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
         vital_signs = VitalSign.objects.filter(treatment=treatment)
         drugs = Drug.objects.filter(treatment=treatment)
-        return {"drugs": drugs, "vital_signs": vital_signs}
+        graph = create_plot()
+        return {"drugs": drugs, "vital_signs": vital_signs, "graph": graph}
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data()
