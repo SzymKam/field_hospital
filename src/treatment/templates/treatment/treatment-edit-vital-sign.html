@@ -23,11 +23,11 @@
 
               <div class="card-block">
                   <div class="card-body">
-                       <div class="content-body"><!-- Basic Inputs start -->
+                       <div class="content-body">
                             <form action="" method="POST">
                             {% csrf_token %}
-                            {% crispy form %}
-                                <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Save</button>
+                                {{ form | crispy }}
+                            <button type="submit" class="btn btn-success btn-min-width mr-1 mb-1">Save</button>
                             </form>
                         </div>
                   </div>
