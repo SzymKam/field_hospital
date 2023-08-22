@@ -6,4 +6,4 @@ from treatment.models.vital_sign_model import VitalSign
 class VitalSignForm(ModelForm):
     class Meta:
         model = VitalSign
-        fields = ["name", "value", "extra_value"]
+        fields = ["bp_sys", "bp_dia", "hr", "sao2", "temperature", "glycemia", "gcs"]
