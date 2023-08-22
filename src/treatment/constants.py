@@ -89,14 +89,4 @@ DRUG_DOSAGE_FORM = [
     ("Rectal enema", "Rectal enema"),
 ]
 
-VITAL_SIGN_NAME = [
-    ("BP", "BP"),
-    ("HR", "HR"),
-    ("RR", "RR"),
-    ("SpO2", "SpO2"),
-    ("Temperature", "Temperature"),
-    ("Glucose", "Glucose"),
-    ("GCS", "GCS"),
-]
-
 UNIT_CHOICES = [("g", "g"), ("mg", "mg"), ("mcg", "mcg"), ("ml", "ml")]
