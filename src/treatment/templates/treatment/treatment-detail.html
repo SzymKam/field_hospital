@@ -42,27 +42,59 @@
                         <li class="list-group-item">
 							<h4 class="card-title">Vital Signs</h4>
 							{{ graph | safe }}
-<!--							<iframe style="border:none;" seamless="seamless" src="html" height="525" width="100%"></iframe>-->
-<!--							{% for sign in vital_signs %}-->
+								<h4 class="card-title">Parameter list</h4>
+					<!-- BP TABLE -->
+								<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">BP datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.bp_sys %}
+									<th scope="col">{{sign.datetime}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">BP values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.bp_sys %}
+									<th scope="col">{{sign.bp_sys}}/{{sign.bp_dia}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-<!--								{% if sign.name == 'RR' %}-->
-<!--										 <table class="table table-striped">-->
-<!--						        <thead>-->
-<!--							    <tr>-->
-<!--									<th scope="col">No2.</th>-->
-<!--							    </tr>-->
-<!--								</thead>-->
-<!--								<tbody>-->
-<!--								<tr>-->
-<!--									<td>{{forloop.counter}}</td>-->
-<!--								</tr>-->
+						<!--HR TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">HR datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.hr %}
+									<th scope="col">{{sign.datetime}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">HR values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.hr %}
+									<th scope="col">{{sign.hr}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--							{{sign}}-->
-<!--							{% endif %}-->
-
-<!--							{% endfor %}-->
                              <a href="{% url 'vital-sign-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add vital sign</button></a>
 						</li>
 
