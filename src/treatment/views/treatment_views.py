@@ -62,7 +62,7 @@ class DetailTreatmentView(DetailView):
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
         vital_signs = VitalSign.objects.filter(treatment=treatment)
         drugs = Drug.objects.filter(treatment=treatment)
-        graph = create_plot()
+        graph = create_plot(treatment=treatment)
         return {"drugs": drugs, "vital_signs": vital_signs, "graph": graph}
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
