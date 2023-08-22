@@ -51,7 +51,7 @@
 									<th scope="col">BP datetime:</th>
 									 {% for sign in vital_signs %}
 										{% if sign.bp_sys %}
-									<th scope="col">{{sign.datetime}}</th>
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
 										{% endif %}
 										{% endfor %}
 							    </tr>
@@ -77,7 +77,7 @@
 									<th scope="col">HR datetime:</th>
 									 {% for sign in vital_signs %}
 										{% if sign.hr %}
-									<th scope="col">{{sign.datetime}}</th>
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
 										{% endif %}
 										{% endfor %}
 							    </tr>
@@ -94,9 +94,165 @@
                                     </tbody>
                                 </table>
                             </div>
+					<!--SaO2 TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">SaO2 datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.sao2 %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">Sa02 values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.sao2 %}
+									<th scope="col">{{sign.sao2}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
+
+					<!--temperature TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">Temperature datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.temperature %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">Temperature values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.temperature %}
+									<th scope="col">{{sign.temperature}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+							<!--glycemia TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">Glycemia datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.glycemia %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">Temperature values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.glycemia %}
+									<th scope="col">{{sign.glycemia}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+							<!--gcs TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">GCS datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.gcs %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">GCS values:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.gcs %}
+									<th scope="col">{{sign.gcs}}</th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
                              <a href="{% url 'vital-sign-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Add vital sign</button></a>
 						</li>
+
+								<!--UNION TABLE-->
+						<div class="table-responsive">
+					            <table class="table table-striped">
+						        <thead>
+							    <tr>
+									<th scope="col">Datetime:</th>
+									 {% for sign in vital_signs %}
+										{% if sign.gcs %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% elif sign.glycemia %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% elif sign.temperature %}
+									<th scope="col">{{sign.datetime|date:"H:i"}}</th>
+										{% else %}
+										{% endif %}
+										{% endfor %}
+							    </tr>
+						</thead>
+						<tbody>
+								<tr>
+									<th scope="col">GCS:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.gcs %}
+									<th scope="col">{{sign.gcs}}</th>
+									{% else %}
+									<th scope="col"></th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th scope="col">Glycemia:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.glycemia %}
+										<th scope="col">{{sign.glycemia}}</th>
+									{% else %}
+										<th scope="col"></th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+						<tr>
+									<th scope="col">Temperature:</th>
+									 {% for sign in vital_signs %}
+									{% if sign.temperature %}
+										<th scope="col">{{sign.temperature}}</th>
+									{% else %}
+										<th scope="col"></th>
+									{% endif %}
+									{% endfor %}
+								</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
 
                         <li class="list-group-item">
 							<h4 class="card-title">Drug list</h4>
