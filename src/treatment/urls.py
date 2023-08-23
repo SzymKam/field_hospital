@@ -1,14 +1,20 @@
 from django.urls import path
 
+from .views.drug_views import CreateDrugView, DeleteDrugView, UpdateDrugView
+from .views.staff_views import (
+    CreateMedicalStaffView,
+    DeleteMedialStaffView,
+    ListMedicalStaffView,
+    UpdateMedicalStaffView,
+)
 from .views.treatment_views import (
     CreateTreatmentView,
     DetailTreatmentView,
-    UpdateTreatmentInterviewView,
     UpdateTreatmentDescriptionView,
-    UpdateTreatmentMedicalStaffView,
     UpdateTreatmentDiagnosisView,
+    UpdateTreatmentInterviewView,
+    UpdateTreatmentMedicalStaffView,
 )
-from .views.drug_views import CreateDrugView, UpdateDrugView, DeleteDrugView
 from .views.vital_sign_view import CreateVitalSignView
 
 urlpatterns = [
@@ -61,5 +67,25 @@ urlpatterns = [
         "events/<int:event>/patients/<int:patient>/treatment/<int:pk>/vital-sign",
         CreateVitalSignView.as_view(),
         name="vital-sign-treatment",
+    ),
+    path(
+        "staff/add",
+        CreateMedicalStaffView.as_view(),
+        name="staff-add",
+    ),
+    path(
+        "staff",
+        ListMedicalStaffView.as_view(),
+        name="staff",
+    ),
+    path(
+        "staff/update/<int:pk>",
+        UpdateMedicalStaffView.as_view(),
+        name="staff-update",
+    ),
+    path(
+        "staff/delete/<int:pk>",
+        DeleteMedialStaffView.as_view(),
+        name="staff-delete",
     ),
 ]
