@@ -1,0 +1,68 @@
+{% extends 'events/index.html' %}
+{% block content %}
+    <div class="app-content content">
+      <div class="content-wrapper">
+        <div class="content-wrapper-before"></div>
+        <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Users list</h3>
+          </div>
+        </div>
+
+
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">List of all registred users</h4>
+				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements">
+					<ul class="list-inline mb-0">
+						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-content collapse show">
+				<div class="card-body">
+					<a href="{% url 'user-create' %}"><button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Create user</button></a>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">No.</th>
+								<th scope="col">Username</th>
+								<th scope="col">Last name</th>
+								<th scope="col">First name</th>
+								<th scope="col">Email</th>
+								<th scope="col"></th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in user_list %}
+									<tr>
+										<td>{{forloop.counter}}</td>
+										<td>{{user.username}}</td>
+										<td>{{user.first_name}}</td>
+										<td>{{user.last_name}}</td>
+										<td>{{user.email}}</td>
+										<th scope="col"><a href="{% url 'user-update' pk=user.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-warning btn-sm">Update</button></a></th>
+                                      <th scope="col"><a href="{% url 'user-delete' pk=user.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Delete</button></a></th>
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Striped rows end -->
+
+        </div>
+      </div>
+{% endblock %}
