@@ -28,6 +28,7 @@ def create_plot(treatment: Treatment) -> str:
     )
 
     fig = px.line(df_long, x="Time", y="Parameter value", color="Parameters")
+    fig.update_traces(mode="lines+markers+text")
 
     plotly_html = fig.to_html(include_plotlyjs="cdn")
 
