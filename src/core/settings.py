@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-import environ
 from pathlib import Path
-from .env import env
 
+import environ
+
+from .env import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +53,7 @@ INSTALLED_EXTENSIONS = [
     "events",
     "patients",
     "treatment",
+    "users",
     "crispy_forms",
     "crispy_bootstrap4",
 ]
@@ -145,3 +147,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGIN_REDIRECT_URL = "all-events"
+LOGOUT_REDIRECT_URL = "user-login"
+LOGIN_URL = "user-login"
