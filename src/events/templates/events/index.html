@@ -36,9 +36,8 @@
               <ul class="nav navbar-nav float-right">
                 <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">             <span class="avatar avatar-online"><img src="{% static 'events/theme-assets/images/portrait/small/avatar-s-19.png' %}" alt="avatar"><i></i></span></a>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="{% static 'events/theme-assets/images/portrait/small/avatar-s-19.png' %}" alt="avatar"><span class="user-name text-bold-700 ml-1">John Doe</span></span></a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="ft-power"></i> Logout</a>
+                    <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="{% static 'events/theme-assets/images/portrait/small/avatar-s-19.png' %}" alt="avatar"><span class="user-name text-bold-700 ml-1">{{user.username}}</span></span></a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'user-logout' %}"><i class="ft-power"></i> Logout</a>
                     </div>
                   </div>
                 </li>
@@ -63,15 +62,13 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
           <li class=" nav-item"><a href="{% url 'all-events' %}"><i class="ft-activity"></i><span class="menu-title" data-i18n="">Active events</span></a>
           </li>
-          <li class="active"><a href="{% url 'add-events' %}"><i class="ft-file-plus"></i><span class="menu-title" data-i18n="">Create new event</span></a>
+          <li class="nav-item"><a href="{% url 'add-events' %}"><i class="ft-file-plus"></i><span class="menu-title" data-i18n="">Create new event</span></a>
           </li>
           <li class=" nav-item"><a href="{% url 'complete-events' %}"><i class="ft-list"></i><span class="menu-title" data-i18n="">Completed events</span></a>
           </li>
           <li class=" nav-item"><a href="{% url 'staff' %}"><i class="ft-users"></i><span class="menu-title" data-i18n="">Staff list</span></a>
           </li>
-          <li class=" nav-item"><a href="#"><i class="ft-calendar"></i><span class="menu-title" data-i18n="">Calendar</span></a>
-          </li>
-           <li class=" nav-item"><a href="#"><i class="ft-settings"></i><span class="menu-title" data-i18n="">Admin</span></a>
+           <li class=" nav-item"><a href="{% url 'user-list' %}"><i class="ft-settings"></i><span class="menu-title" data-i18n="">Admin</span></a>
           </li>
         </ul>
       </div>
