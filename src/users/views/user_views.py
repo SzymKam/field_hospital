@@ -1,14 +1,15 @@
 from typing import Any
 
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 
-class CreateUserView(CreateView):
+class CreateUserView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = "user.add_user"
+    permission_denied_message = "Only admins can create user"
     model = User
     template_name = "users/user-create.html"
     form_class = UserCreationForm
@@ -21,7 +22,7 @@ class CreateUserView(CreateView):
         return context
 
 
-class ListUserView(ListView):
+class ListUserView(LoginRequiredMixin, ListView):
     template_name = "users/user-list.html"
     queryset = User.objects.all()
 
@@ -31,7 +32,9 @@ class ListUserView(ListView):
         return context
 
 
-class UpdateUserView(UpdateView):
+class UpdateUserView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = "user.change_user"
+    permission_denied_message = "Only admins can edit user"
     model = User
     template_name = "users/user-update.html"
     form_class = UserChangeForm
@@ -42,10 +45,12 @@ class UpdateUserView(UpdateView):
         context["title"] = "Update User"
         return context
 
-    # todo add permissions, login_url
 
+class DeleteUserView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = "user.delete_user"
+    permission_denied_message = "Only admins can delete user"
+    login_url = "all-events"
 
-class DeleteUserView(DeleteView):
     model = User
     template_name = "users/user-delete.html"
     success_url = reverse_lazy("user-list")
@@ -54,5 +59,3 @@ class DeleteUserView(DeleteView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Delete user"
         return context
-
-    # todo add permissions, login_url
