@@ -1,19 +1,14 @@
 from typing import Any
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from ..forms.medical_staff_form import MedicalStaffForm
 from ..models.medical_staff_model import MedicalStaff
 
 
-class CreateMedicalStaffView(CreateView):
+class CreateMedicalStaffView(LoginRequiredMixin, CreateView):
     model = MedicalStaff
     template_name = "treatment/treatment-medical-staff.html"
     form_class = MedicalStaffForm
@@ -25,10 +20,8 @@ class CreateMedicalStaffView(CreateView):
         context["title"] = "Add Staff"
         return context
 
-    # todo add permissions, login_url
 
-
-class ListMedicalStaffView(ListView):
+class ListMedicalStaffView(LoginRequiredMixin, ListView):
     template_name = "treatment/treatment-medical-staff-list.html"
     queryset = MedicalStaff.objects.all()
 
@@ -37,10 +30,8 @@ class ListMedicalStaffView(ListView):
         context["title"] = "Medical Staff List"
         return context
 
-    # todo - add login required
 
-
-class UpdateMedicalStaffView(UpdateView):
+class UpdateMedicalStaffView(LoginRequiredMixin, UpdateView):
     model = MedicalStaff
     template_name = "treatment/treatment-medical-staff.html"
     form_class = MedicalStaffForm
@@ -51,10 +42,8 @@ class UpdateMedicalStaffView(UpdateView):
         context["title"] = "Update Staff"
         return context
 
-    # todo add permissions, login_url
 
-
-class DeleteMedialStaffView(DeleteView):
+class DeleteMedialStaffView(LoginRequiredMixin, DeleteView):
     model = MedicalStaff
     template_name = "treatment/treatment-medical-staff-delete.html"
     success_url = reverse_lazy("staff")
@@ -63,5 +52,3 @@ class DeleteMedialStaffView(DeleteView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Delete staff"
         return context
-
-    # todo add permissions, login_url

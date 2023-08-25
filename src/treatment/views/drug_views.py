@@ -1,17 +1,18 @@
 from typing import Any
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, DeleteView, UpdateView
 
-from treatment.models.treatment_model import Treatment
-from treatment.models.drug_model import Drug
 from treatment.forms.drug_form import DrugForm
+from treatment.models.drug_model import Drug
+from treatment.models.treatment_model import Treatment
 
 from .treatment_views import get_event_and_patient
 
 
-class CreateDrugView(CreateView):
+class CreateDrugView(LoginRequiredMixin, CreateView):
     model = Drug
     template_name = "treatment/treatment-edit-drug.html"
     form_class = DrugForm
@@ -37,7 +38,7 @@ class CreateDrugView(CreateView):
         )
 
 
-class UpdateDrugView(UpdateView):
+class UpdateDrugView(LoginRequiredMixin, UpdateView):
     model = Drug
     template_name = "treatment/treatment-edit-drug.html"
     form_class = DrugForm
@@ -56,7 +57,7 @@ class UpdateDrugView(UpdateView):
         )
 
 
-class DeleteDrugView(DeleteView):
+class DeleteDrugView(LoginRequiredMixin, DeleteView):
     model = Drug
     template_name = "treatment/treatment-delete-drug.html"
 

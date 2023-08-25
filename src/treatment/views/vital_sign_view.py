@@ -1,16 +1,18 @@
 from typing import Any
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView
 
+from treatment.forms.vital_sign_form import VitalSignForm
 from treatment.models.treatment_model import Treatment
 from treatment.models.vital_sign_model import VitalSign
+
 from .treatment_views import get_event_and_patient
-from treatment.forms.vital_sign_form import VitalSignForm
 
 
-class CreateVitalSignView(CreateView):
+class CreateVitalSignView(LoginRequiredMixin, CreateView):
     model = VitalSign
     template_name = "treatment/treatment-edit-vital-sign.html"
     form_class = VitalSignForm

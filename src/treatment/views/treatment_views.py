@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
@@ -26,7 +27,7 @@ def get_event_and_patient(event_id: int, patient_id: int) -> dict:
     return {"event": event, "patient": patient}
 
 
-class CreateTreatmentView(CreateView):
+class CreateTreatmentView(LoginRequiredMixin, CreateView):
     model = Treatment
     template_name = "treatment/treatment-new.html"
     form_class = CreateTreatmentForm
@@ -51,10 +52,8 @@ class CreateTreatmentView(CreateView):
             kwargs={"event": self.kwargs["event"], "patient": self.kwargs["patient"], "pk": self.object.id},
         )
 
-    # todo add permissions, login_url
 
-
-class DetailTreatmentView(DetailView):
+class DetailTreatmentView(LoginRequiredMixin, DetailView):
     template_name = "treatment/treatment-detail.html"
     queryset = Treatment.objects.all()
 
@@ -72,10 +71,8 @@ class DetailTreatmentView(DetailView):
         context.update(self.get_drugs_and_vital_signs())
         return context
 
-    # todo add permissions, login_url
 
-
-class UpdateTreatmentInterviewView(UpdateView):
+class UpdateTreatmentInterviewView(LoginRequiredMixin, UpdateView):
     template_name = "treatment/treatment-edit-interview.html"
     model = Treatment
     form_class = UpdateTreatmentInterviewForm
@@ -93,7 +90,7 @@ class UpdateTreatmentInterviewView(UpdateView):
         )
 
 
-class UpdateTreatmentDescriptionView(UpdateView):
+class UpdateTreatmentDescriptionView(LoginRequiredMixin, UpdateView):
     template_name = "treatment/treatment-edit-description.html"
     model = Treatment
     form_class = UpdateTreatmentDescriptionForm
@@ -111,7 +108,7 @@ class UpdateTreatmentDescriptionView(UpdateView):
         )
 
 
-class UpdateTreatmentMedicalStaffView(UpdateView):
+class UpdateTreatmentMedicalStaffView(LoginRequiredMixin, UpdateView):
     template_name = "treatment/treatment-edit-medical-staff.html"
     model = Treatment
     form_class = UpdateTreatmentMedicalStaffForm
@@ -129,7 +126,7 @@ class UpdateTreatmentMedicalStaffView(UpdateView):
         )
 
 
-class UpdateTreatmentDiagnosisView(UpdateView):
+class UpdateTreatmentDiagnosisView(LoginRequiredMixin, UpdateView):
     template_name = "treatment/treatment-edit-diagnosis.html"
     model = Treatment
     form_class = UpdateTreatmentDiagnosisForm
