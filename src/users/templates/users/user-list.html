@@ -27,7 +27,10 @@
 			</div>
 			<div class="card-content collapse show">
 				<div class="card-body">
+					{{perms.user}}
+					 {% if perms.user.add_user %}
 					<a href="{% url 'user-create' %}"><button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Create user</button></a>
+					{% endif %}
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped">
@@ -50,8 +53,12 @@
 										<td>{{user.first_name}}</td>
 										<td>{{user.last_name}}</td>
 										<td>{{user.email}}</td>
+										 {% if perms.user.change_user %}
 										<th scope="col"><a href="{% url 'user-update' pk=user.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-warning btn-sm">Update</button></a></th>
-                                      <th scope="col"><a href="{% url 'user-delete' pk=user.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Delete</button></a></th>
+                                      {% endif %}
+                                       {% if perms.user.delete_user %}
+										<th scope="col"><a href="{% url 'user-delete' pk=user.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Delete</button></a></th>
+										{% endif %}
 									</tr>
 							{% endfor %}
 						</tbody>
