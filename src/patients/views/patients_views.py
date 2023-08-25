@@ -1,35 +1,17 @@
 import datetime
-
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, UpdateView
 from typing import Any
-from patients.models import Patient
-from patients.forms import PatientForm, DetailPatientForm
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, UpdateView
+
 from events.models import Event
+from patients.forms import DetailPatientForm, PatientForm
+from patients.models import Patient
 
 
-# class CreatePatientView(CreateView):
-#     model = Patient
-#     template_name = "patients/patients-new.html"
-#     form_class = PatientForm
-#     queryset = Patient.objects.all()
-#
-#     def get_initial(self):
-#         initial = super().get_initial()
-#         initial['event'] = self.kwargs['event']
-#         print(initial)
-#         return initial
-#
-#     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-#         context = super().get_context_data(**kwargs)
-#         context["title"] = "Add patient"
-#         return context
-#
-#     success_url = reverse_lazy("detail-events", kwargs={'pk': get_initial()['event']})
-
-
-class CreatePatientView:
+class CreatePatientView(LoginRequiredMixin):
     @staticmethod
     def create_patient(request, event: int) -> HttpResponse:
         initial_event = get_object_or_404(klass=Event, pk=event)
@@ -50,7 +32,7 @@ class CreatePatientView:
         )
 
 
-class DetailPatientView(DetailView):
+class DetailPatientView(LoginRequiredMixin, DetailView):
     template_name = "patients/patients-detail.html"
     queryset = Patient.objects.all()
 
@@ -65,10 +47,8 @@ class DetailPatientView(DetailView):
         context.update(self.get_data())
         return context
 
-    # todo - add login required
 
-
-class UpdatePatientView(UpdateView):
+class UpdatePatientView(LoginRequiredMixin, UpdateView):
     template_name = "patients/patients-update.html"
     model = Patient
     form_class = DetailPatientForm
@@ -90,7 +70,7 @@ class UpdatePatientView(UpdateView):
         )
 
 
-class DischargePatientView:
+class DischargePatientView(LoginRequiredMixin):
     @staticmethod
     def discharge_patient(request, pk: int, event: int) -> HttpResponse:
         patient_to_discharge = get_object_or_404(klass=Patient, pk=pk)

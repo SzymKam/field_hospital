@@ -1,16 +1,17 @@
-import datetime
-
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, UpdateView
 from typing import Any
-from patients.models import Patient, AuthorizedPerson
-from patients.forms import PatientForm, DetailPatientForm, AuthorizedPersonForm
-from events.models import Event
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import UpdateView
+
+from events.models import Event
+from patients.forms import AuthorizedPersonForm
+from patients.models import AuthorizedPerson, Patient
 
 
-class CreateAuthPersonView(View):
+class CreateAuthPersonView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         event = kwargs.get("event")
@@ -40,7 +41,7 @@ class CreateAuthPersonView(View):
         )
 
 
-class UpdateAuthPersonView(UpdateView):
+class UpdateAuthPersonView(LoginRequiredMixin, UpdateView):
     template_name = "patients/auth-person-update.html"
     model = AuthorizedPerson
     form_class = AuthorizedPersonForm
