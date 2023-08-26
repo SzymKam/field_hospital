@@ -1,18 +1,19 @@
 from typing import Any
 
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..forms import MyUserChangeForm, MyUserCreationForm
+
 
 class CreateUserView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = "user.add_user"
+    permission_required = "auth.add_user"
     permission_denied_message = "Only admins can create user"
     model = User
     template_name = "users/user-create.html"
-    form_class = UserCreationForm
+    form_class = MyUserCreationForm
     queryset = User.objects.all()
     success_url = reverse_lazy("user-list")
 
@@ -33,11 +34,11 @@ class ListUserView(LoginRequiredMixin, ListView):
 
 
 class UpdateUserView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = "user.change_user"
+    permission_required = "auth.change_user"
     permission_denied_message = "Only admins can edit user"
     model = User
     template_name = "users/user-update.html"
-    form_class = UserChangeForm
+    form_class = MyUserChangeForm
     success_url = reverse_lazy("user-list")
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
@@ -47,7 +48,7 @@ class UpdateUserView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class DeleteUserView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = "user.delete_user"
+    permission_required = "auth.delete_user"
     permission_denied_message = "Only admins can delete user"
     login_url = "all-events"
 
