@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django_extensions",
+    "rest_framework",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -54,6 +55,7 @@ INSTALLED_EXTENSIONS = [
     "patients",
     "treatment",
     "users",
+    "api",
     "crispy_forms",
     "crispy_bootstrap4",
 ]
