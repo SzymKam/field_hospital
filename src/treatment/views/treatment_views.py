@@ -18,7 +18,7 @@ from treatment.models.drug_model import Drug
 from treatment.models.treatment_model import Treatment
 from treatment.models.vital_sign_model import VitalSign
 
-from .vital_signs_plot import create_plot
+from .vital_signs_plot import TreatmentPlot
 
 
 def get_event_and_patient(event_id: int, patient_id: int) -> dict:
@@ -61,7 +61,7 @@ class DetailTreatmentView(LoginRequiredMixin, DetailView):
         treatment = get_object_or_404(klass=Treatment, pk=self.kwargs["pk"])
         vital_signs = VitalSign.objects.filter(treatment=treatment)
         drugs = Drug.objects.filter(treatment=treatment)
-        graph = create_plot(treatment=treatment)
+        graph = TreatmentPlot.create_plot(treatment=treatment)
         return {"drugs": drugs, "vital_signs": vital_signs, "graph": graph}
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
