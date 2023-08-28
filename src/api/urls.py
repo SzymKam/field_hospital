@@ -12,4 +12,4 @@ router.register(r"medical-staff", MedicalStaffViewSet, basename="api-medical-sta
 router.register(r"patient", PatientViewSet, basename="api-patient")
 
 
-urlpatterns = [] + router.urls
+urlpatterns = router.urls
