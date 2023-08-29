@@ -1,4 +1,4 @@
-from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from api.serializers.patient_serializer import PatientSerializer
@@ -6,7 +6,7 @@ from patients.models import Patient
 
 
 class PatientViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+    permission_classes = [IsAuthenticated]
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
 
