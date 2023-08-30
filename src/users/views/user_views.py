@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from ..forms import MyUserForm
+from ..forms import MyUserCreationForm, MyUserUpdateForm
 
 
 class CreateUserView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -13,7 +13,7 @@ class CreateUserView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_denied_message = "Only admins can create user"
     model = User
     template_name = "users/user-create.html"
-    form_class = MyUserForm
+    form_class = MyUserCreationForm
     queryset = User.objects.all()
     success_url = reverse_lazy("user-list")
 
@@ -38,7 +38,7 @@ class UpdateUserView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_denied_message = "Only admins can edit user"
     model = User
     template_name = "users/user-update.html"
-    form_class = MyUserForm
+    form_class = MyUserUpdateForm
     success_url = reverse_lazy("user-list")
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
