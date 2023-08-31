@@ -12,4 +12,4 @@ class EventFactory(DjangoModelFactory):
 
     name = faker.first_name()
     description = faker.text()
-    localization = faker.adress()
+    localization = faker.address()
