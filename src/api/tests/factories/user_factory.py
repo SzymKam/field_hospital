@@ -1,15 +1,15 @@
 from django.contrib.auth.models import User
 from factory.django import DjangoModelFactory
-from faker import Factory, Faker
+from faker import Faker
 
-faker = Faker()
+fake = Faker()
 
 
 class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
 
-    username = faker.first_name()
-    first_name = faker.first_name()
-    last_name = faker.last_name()
-    email = faker.email()
+    username = fake.first_name()
+    first_name = fake.first_name()
+    last_name = fake.last_name()
+    email = fake.email()
