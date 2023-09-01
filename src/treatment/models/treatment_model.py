@@ -10,7 +10,7 @@ class Treatment(models.Model):
 
     interview = models.TextField(blank=True, help_text="Place for medical interview")
     description = models.TextField(blank=True, help_text="Place for patient description")
-    diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=50)
+    diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=100)
     medical_staff = models.ForeignKey(
         MedicalStaff,
         blank=True,
