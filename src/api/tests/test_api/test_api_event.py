@@ -1,8 +1,6 @@
-import secrets
 from json import dumps
 
-from django.contrib.auth.models import Permission
-from django.test import TestCase, tag
+from django.test import TestCase
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
@@ -182,7 +180,7 @@ class TestEventResponse(TestCase):
             response.data["status"], [ErrorDetail(string='"any_status" is not a valid choice.', code="invalid_choice")]
         )
 
-    def test_detail_patch_logged_user_invalid_data_return_404(self):
+    def test_detail_patch_logged_user_invalid_id_return_404(self):
         self.client.force_login(user=self.user)
 
         data = {"status": "any_status"}
