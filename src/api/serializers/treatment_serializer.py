@@ -8,7 +8,3 @@ class TreatmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treatment
         fields = ["id", "patient", "interview", "vital_sign", "drug", "description", "diagnosis", "medical_staff"]
-
-    patient = serializers.PrimaryKeyRelatedField(
-        queryset=Patient.objects.all(),
-    )
