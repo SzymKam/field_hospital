@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from events.models import Event
 from treatment.models.treatment_model import Treatment
 
@@ -12,10 +14,7 @@ class AuthorizedPerson(models.Model):
 
 
 class Patient(models.Model):
-    admission_date = models.DateTimeField(
-        help_text="Date of patient admission",
-        auto_now_add=True,
-    )
+    admission_date = models.DateTimeField(help_text="Date of patient admission", default=timezone.now)
     name = models.CharField(max_length=50, help_text="Patient name", blank=True)
     surname = models.CharField(max_length=50, help_text="Patient surname", blank=True)
     PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
