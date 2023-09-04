@@ -1,7 +1,9 @@
-from django.forms import ModelForm
-from .models import Patient, AuthorizedPerson
-from django.forms.widgets import DateInput, DateTimeInput
 from datetime import datetime
+
+from django.forms import ModelForm
+from django.forms.widgets import DateInput, DateTimeInput
+
+from .models import AuthorizedPerson, Patient
 
 
 class PatientForm(ModelForm):
@@ -34,6 +36,7 @@ class PatientForm(ModelForm):
         fields = [
             "surname",
             "name",
+            "admission_date",
             "PESEL",
             "birth_date",
             "address",
