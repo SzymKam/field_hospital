@@ -32,6 +32,7 @@ class TestAuthorizedPersonResponse(TestCase):
     def test_list_get_logged_user_return_right_values_with_two_objects_200(self):
         self.client.force_login(user=self.user)
         response = self.client.get(path=self.url_list)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 2)
