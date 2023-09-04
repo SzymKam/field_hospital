@@ -1,6 +1,6 @@
 from json import dumps
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
@@ -17,7 +17,9 @@ fake = Faker()
 class TestTreatmentResponse(TestCase):
     def setUp(self) -> None:
         self.user = UserFactory()
+        self.patient_1 = PatientFactory()
         self.treatment_1 = TreatmentFactory()
+        # self.treatment_1.patient = self.treatment_1.id
         self.treatment_2 = TreatmentFactory()
         self.url_list = reverse("api-treatment-list")
         self.url_detail = reverse("api-treatment-detail", kwargs={"pk": self.treatment_1.id})
