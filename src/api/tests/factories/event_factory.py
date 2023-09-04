@@ -1,15 +1,13 @@
+from factory import Faker
 from factory.django import DjangoModelFactory
-from faker import Faker
 
 from events.models import Event
-
-fake = Faker()
 
 
 class EventFactory(DjangoModelFactory):
     class Meta:
         model = Event
 
-    name = fake.first_name()
-    description = fake.text()
-    localization = fake.address()
+    name = Faker("first_name")
+    description = Faker("sentence")
+    localization = Faker("address")
