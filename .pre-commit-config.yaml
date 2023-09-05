@@ -10,7 +10,7 @@ repos:
     rev: 1.7.5
     hooks:
     -   id: bandit
-        args: ["--skip", "B311", 'B106']
+        args: ["--skip", "B106"]
 -   repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
