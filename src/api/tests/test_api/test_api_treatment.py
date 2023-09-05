@@ -17,13 +17,10 @@ fake = Faker()
 class TestTreatmentResponse(TestCase):
     def setUp(self) -> None:
         self.user = UserFactory()
-        self.patient_1 = PatientFactory()
         self.treatment_1 = TreatmentFactory()
-        # self.treatment_1.patient = self.treatment_1.id
         self.treatment_2 = TreatmentFactory()
         self.url_list = reverse("api-treatment-list")
         self.url_detail = reverse("api-treatment-detail", kwargs={"pk": self.treatment_1.id})
-
         self.data = {
             "interview": fake.text(),
             "description": fake.text(),
@@ -42,6 +39,7 @@ class TestTreatmentResponse(TestCase):
 
     def test_list_get_logged_user_return_right_values_with_two_objects_200(self):
         self.client.force_login(user=self.user)
+
         response = self.client.get(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
