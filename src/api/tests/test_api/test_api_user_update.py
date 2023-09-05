@@ -1,7 +1,7 @@
 from json import dumps
 
 from django.contrib.auth.models import Permission
-from django.test import TestCase, tag
+from django.test import TestCase
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
@@ -164,7 +164,6 @@ class TestUserUpdateResponse(TestCase):
             response.data["email"], {"email": ErrorDetail(string="This email is already in use.", code="invalid")}
         )
 
-    @tag("x")
     def test_detail_patch_logged_user_have_permissions_duplicated_username_return_400(self):
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
