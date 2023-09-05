@@ -63,11 +63,11 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         if validated_data.get("last_name"):
             instance.last_name = validated_data["last_name"]
         if validated_data.get("email"):
-            instance.last_name = validated_data["email"]
+            instance.email = validated_data["email"]
         if validated_data.get("username"):
-            instance.last_name = validated_data["username"]
+            instance.username = validated_data["username"]
         if validated_data.get("user_permissions"):
-            instance.last_name = validated_data["user_permissions"]
+            instance.user_permissions = validated_data["user_permissions"]
 
         instance.save()
         return instance
