@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from patients.models import Patient
 from treatment.models.treatment_model import Treatment
 
 
