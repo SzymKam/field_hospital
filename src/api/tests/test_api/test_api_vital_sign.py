@@ -23,14 +23,14 @@ class TestVitalSignResponse(TestCase):
         self.url_detail = reverse("api-vital-sign-detail", kwargs={"pk": self.vital_sign_1.id})
         self.headers = {"content_type": "application/json"}
 
-    def test_list_get_not_logged_user_return_403(self):
+    def test_list_get_not_logged_user_return_403(self) -> None:
         response = self.client.get(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_list_get_logged_user_return_right_values_with_two_objects_200(self):
+    def test_list_get_logged_user_return_right_values_with_two_objects_200(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(path=self.url_list)
 
@@ -58,13 +58,13 @@ class TestVitalSignResponse(TestCase):
         self.assertEqual(response.data[1]["gcs"], self.vital_sign_2.gcs)
         self.assertEqual(response.data[1]["treatment"], self.vital_sign_2.treatment.id)
 
-    def test_list_post_not_logged_user_return_403(self):
+    def test_list_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_list_post_logged_user_return_201(self):
+    def test_list_post_logged_user_return_201(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "bp_sys": random.randint(1, 350),
@@ -90,7 +90,7 @@ class TestVitalSignResponse(TestCase):
         self.assertEqual(response.data["gcs"], data["gcs"])
         self.assertEqual(response.data["treatment"], data["treatment"])
 
-    def test_list_post_logged_user_invalid_data_invalid_name_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_name_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "bp_sys": "systolic",
@@ -130,40 +130,40 @@ class TestVitalSignResponse(TestCase):
             [ErrorDetail(string="Ensure this value is less than or equal to 15.", code="max_value")],
         )
 
-    def test_list_patch_not_logged_user_return_403(self):
+    def test_list_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_list_patch_logged_user_return_405(self):
+    def test_list_patch_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.patch(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_list_delete_not_logged_user_return_403(self):
+    def test_list_delete_not_logged_user_return_403(self) -> None:
         response = self.client.delete(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_list_delete_logged_user_return_405(self):
+    def test_list_delete_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_get_not_logged_user_return_403(self):
+    def test_detail_get_not_logged_user_return_403(self) -> None:
         response = self.client.get(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_detail_get_logged_user_return_right_values_200(self):
+    def test_detail_get_logged_user_return_right_values_200(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(path=self.url_detail)
 
@@ -180,33 +180,33 @@ class TestVitalSignResponse(TestCase):
         self.assertEqual(response.data["gcs"], self.vital_sign_1.gcs)
         self.assertEqual(response.data["treatment"], self.vital_sign_1.treatment.id)
 
-    def test_detail_get_logged_user_invalid_id_return_error_404(self):
+    def test_detail_get_logged_user_invalid_id_return_error_404(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(reverse("api-event-detail", kwargs={"pk": 99999}))
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_detail_post_not_logged_user_return_403(self):
+    def test_detail_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_post_logged_user_return_405(self):
+    def test_detail_post_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.post(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_patch_not_logged_user_return_403(self):
+    def test_detail_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_detail_patch_logged_user_return_200(self):
+    def test_detail_patch_logged_user_return_200(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "bp_sys": random.randint(1, 350),
@@ -230,7 +230,7 @@ class TestVitalSignResponse(TestCase):
         self.assertEqual(response.data["glycemia"], data["glycemia"])
         self.assertEqual(response.data["gcs"], data["gcs"])
 
-    def test_detail_patch_logged_user_invalid_data_return_400(self):
+    def test_detail_patch_logged_user_invalid_data_return_400(self) -> None:
         self.client.force_login(user=self.user)
 
         data = {
@@ -272,7 +272,7 @@ class TestVitalSignResponse(TestCase):
             [ErrorDetail(string="Ensure this value is less than or equal to 15.", code="max_value")],
         )
 
-    def test_detail_patch_logged_user_invalid_id_return_404(self):
+    def test_detail_patch_logged_user_invalid_id_return_404(self) -> None:
         self.client.force_login(user=self.user)
 
         response = self.client.patch(path=reverse("api-event-detail", kwargs={"pk": 99999}))
@@ -281,20 +281,20 @@ class TestVitalSignResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
         self.assertEqual(response.data["detail"], ErrorDetail(string="Not found.", code="not_found"))
 
-    def test_detail_delete_not_logged_user_return_403(self):
+    def test_detail_delete_not_logged_user_return_403(self) -> None:
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_return_204(self):
+    def test_detail_delete_logged_user_return_204(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_invalid_id_return_404(self):
+    def test_detail_delete_logged_user_invalid_id_return_404(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=reverse("api-event-detail", kwargs={"pk": 99999}))
 

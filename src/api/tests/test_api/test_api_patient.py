@@ -22,14 +22,14 @@ class TestPatientResponse(TestCase):
         self.url_detail = reverse("api-patient-detail", kwargs={"pk": self.patient_1.id})
         self.headers = {"content_type": "application/json"}
 
-    def test_list_get_not_logged_user_return_403(self):
+    def test_list_get_not_logged_user_return_403(self) -> None:
         response = self.client.get(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_list_get_logged_user_return_right_values_with_two_objects_200(self):
+    def test_list_get_logged_user_return_right_values_with_two_objects_200(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(path=self.url_list)
 
@@ -51,13 +51,13 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.data[1]["email"], self.patient_2.email)
         self.assertEqual(response.data[1]["event"], self.patient_2.event.id)
 
-    def test_list_post_not_logged_user_return_403(self):
+    def test_list_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_list_post_logged_user_return_201(self):
+    def test_list_post_logged_user_return_201(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -82,7 +82,7 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.data["additional_info"], data["additional_info"])
         self.assertEqual(response.data["event"], data["event"])
 
-    def test_list_post_logged_user_invalid_data_invalid_event_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_event_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -103,7 +103,7 @@ class TestPatientResponse(TestCase):
             [ErrorDetail(string="Incorrect type. Expected pk value, received str.", code="incorrect_type")],
         )
 
-    def test_list_post_logged_user_invalid_data_invalid_phone_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_phone_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -121,7 +121,7 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
         self.assertEqual(response.data["phone"], [ErrorDetail(string="A valid integer is required.", code="invalid")])
 
-    def test_list_post_logged_user_invalid_data_invalid_bed_number_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_bed_number_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -143,7 +143,7 @@ class TestPatientResponse(TestCase):
             [ErrorDetail(string='"some_number" is not a valid choice.', code="invalid_choice")],
         )
 
-    def test_list_post_logged_user_invalid_data_invalid_pesel_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_pesel_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -161,7 +161,7 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
         self.assertEqual(response.data["PESEL"], [ErrorDetail(string="A valid integer is required.", code="invalid")])
 
-    def test_list_post_logged_user_invalid_data_too_long_name_value_return_400(self):
+    def test_list_post_logged_user_invalid_data_too_long_name_value_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.text(),
@@ -181,7 +181,7 @@ class TestPatientResponse(TestCase):
             [ErrorDetail(string="Ensure this field has no more than 50 characters.", code="max_length")],
         )
 
-    def test_list_post_logged_user_invalid_data_too_long_surname_value_return_400(self):
+    def test_list_post_logged_user_invalid_data_too_long_surname_value_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -201,7 +201,7 @@ class TestPatientResponse(TestCase):
             [ErrorDetail(string="Ensure this field has no more than 50 characters.", code="max_length")],
         )
 
-    def test_list_post_logged_user_invalid_data_invalid_email_return_400(self):
+    def test_list_post_logged_user_invalid_data_invalid_email_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
             "name": fake.first_name(),
@@ -218,40 +218,40 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
         self.assertEqual(response.data["email"], [ErrorDetail(string="Enter a valid email address.", code="invalid")])
 
-    def test_list_patch_not_logged_user_return_403(self):
+    def test_list_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_list_patch_logged_user_return_405(self):
+    def test_list_patch_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.patch(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_list_delete_not_logged_user_return_403(self):
+    def test_list_delete_not_logged_user_return_403(self) -> None:
         response = self.client.delete(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_list_delete_logged_user_return_405(self):
+    def test_list_delete_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_get_not_logged_user_return_403(self):
+    def test_detail_get_not_logged_user_return_403(self) -> None:
         response = self.client.get(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_detail_get_logged_user_return_right_values_200(self):
+    def test_detail_get_logged_user_return_right_values_200(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(path=self.url_detail)
 
@@ -266,33 +266,33 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.data["event"], self.patient_1.event.id)
         self.assertEqual(response.data["phone"], int(self.patient_1.phone))
 
-    def test_detail_get_logged_user_invalid_id_return_error_404(self):
+    def test_detail_get_logged_user_invalid_id_return_error_404(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.get(reverse("api-event-detail", kwargs={"pk": 99999}))
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_detail_post_not_logged_user_return_403(self):
+    def test_detail_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_post_logged_user_return_405(self):
+    def test_detail_post_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.post(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_patch_not_logged_user_return_403(self):
+    def test_detail_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_detail_patch_logged_user_return_200(self):
+    def test_detail_patch_logged_user_return_200(self) -> None:
         self.client.force_login(user=self.user)
 
         data = {
@@ -307,7 +307,7 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.data["name"], data["name"])
         self.assertEqual(response.data["surname"], data["surname"])
 
-    def test_detail_patch_logged_user_invalid_data_return_400(self):
+    def test_detail_patch_logged_user_invalid_data_return_400(self) -> None:
         self.client.force_login(user=self.user)
 
         data = {
@@ -320,7 +320,7 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
         self.assertEqual(response.data["email"], [ErrorDetail(string="Enter a valid email address.", code="invalid")])
 
-    def test_detail_patch_logged_user_invalid_id_return_404(self):
+    def test_detail_patch_logged_user_invalid_id_return_404(self) -> None:
         self.client.force_login(user=self.user)
 
         response = self.client.patch(path=reverse("api-event-detail", kwargs={"pk": 99999}))
@@ -329,20 +329,20 @@ class TestPatientResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
         self.assertEqual(response.data["detail"], ErrorDetail(string="Not found.", code="not_found"))
 
-    def test_detail_delete_not_logged_user_return_403(self):
+    def test_detail_delete_not_logged_user_return_403(self) -> None:
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_return_204(self):
+    def test_detail_delete_logged_user_return_204(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_invalid_id_return_404(self):
+    def test_detail_delete_logged_user_invalid_id_return_404(self) -> None:
         self.client.force_login(user=self.user)
         response = self.client.delete(path=reverse("api-event-detail", kwargs={"pk": 99999}))
 

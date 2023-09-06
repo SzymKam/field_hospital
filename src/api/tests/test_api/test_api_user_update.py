@@ -19,14 +19,14 @@ class TestUserUpdateResponse(TestCase):
         self.url_detail = reverse("api-user-update-detail", kwargs={"pk": self.user_1.id})
         self.headers = {"content_type": "application/json"}
 
-    def test_detail_get_not_logged_user_return_403(self):
+    def test_detail_get_not_logged_user_return_403(self) -> None:
         response = self.client.get(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_detail_get_logged_user_return_405(self):
+    def test_detail_get_logged_user_return_405(self) -> None:
         self.client.force_login(user=self.user_1)
         response = self.client.get(path=self.url_detail)
 
@@ -34,7 +34,7 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_detail_get_logged_user_have_permissions_return_405(self):
+    def test_detail_get_logged_user_have_permissions_return_405(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="view_user")
         self.user_1.user_permissions.add(self.permission)
@@ -44,13 +44,13 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 1)
 
-    def test_detail_post_not_logged_user_return_403(self):
+    def test_detail_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_post_logged_user_no_permissions_return_403(self):
+    def test_detail_post_logged_user_no_permissions_return_403(self) -> None:
         self.client.force_login(user=self.user_1)
 
         response = self.client.post(path=self.url_detail)
@@ -62,7 +62,7 @@ class TestUserUpdateResponse(TestCase):
             ErrorDetail(string="You do not have permission to perform this action.", code="permission_denied"),
         )
 
-    def test_detail_post_logged_user_have_permissions_return_405(self):
+    def test_detail_post_logged_user_have_permissions_return_405(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="add_user")
         self.user_1.user_permissions.add(self.permission)
@@ -72,33 +72,33 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_detail_patch_not_logged_user_return_403(self):
+    def test_detail_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_detail_patch_logged_user_no_permissions_return_403(self):
+    def test_detail_patch_logged_user_no_permissions_return_403(self) -> None:
         self.client.force_login(user=self.user_1)
         response = self.client.patch(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_detail_delete_not_logged_user_return_403(self):
+    def test_detail_delete_not_logged_user_return_403(self) -> None:
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_no_permissions_return_403(self):
+    def test_detail_delete_logged_user_no_permissions_return_403(self) -> None:
         self.client.force_login(user=self.user_1)
         response = self.client.delete(path=self.url_detail)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_delete_logged_user_have_permissions_return_405(self):
+    def test_detail_delete_logged_user_have_permissions_return_405(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="delete_user")
         self.user_1.user_permissions.add(self.permission)
@@ -107,7 +107,7 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_detail_patch_logged_user_have_permissions_invalid_id_return_404(self):
+    def test_detail_patch_logged_user_have_permissions_invalid_id_return_404(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
         self.user_1.user_permissions.add(self.permission)
@@ -117,7 +117,7 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_detail_patch_logged_user_have_permissions_return_200(self):
+    def test_detail_patch_logged_user_have_permissions_return_200(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
         self.user_1.user_permissions.add(self.permission)
@@ -136,7 +136,7 @@ class TestUserUpdateResponse(TestCase):
 
         self.assertEqual(response.data["username"], data["username"])
 
-    def test_detail_patch_logged_user_have_permissions_invalid_email_return_400(self):
+    def test_detail_patch_logged_user_have_permissions_invalid_email_return_400(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
         self.user_1.user_permissions.add(self.permission)
@@ -149,7 +149,7 @@ class TestUserUpdateResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
         self.assertEqual(response.data["email"], [ErrorDetail(string="Enter a valid email address.", code="invalid")])
 
-    def test_detail_patch_logged_user_have_permissions_duplicated_email_return_400(self):
+    def test_detail_patch_logged_user_have_permissions_duplicated_email_return_400(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
         self.user_1.user_permissions.add(self.permission)
@@ -164,7 +164,7 @@ class TestUserUpdateResponse(TestCase):
             response.data["email"], {"email": ErrorDetail(string="This email is already in use.", code="invalid")}
         )
 
-    def test_detail_patch_logged_user_have_permissions_duplicated_username_return_400(self):
+    def test_detail_patch_logged_user_have_permissions_duplicated_username_return_400(self) -> None:
         self.client.force_login(user=self.user_1)
         self.permission = Permission.objects.get(codename="change_user")
         self.user_1.user_permissions.add(self.permission)
