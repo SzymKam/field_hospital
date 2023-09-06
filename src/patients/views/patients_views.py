@@ -1,6 +1,7 @@
 import datetime
 from typing import Any
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -12,6 +13,7 @@ from patients.models import Patient
 
 
 class CreatePatientView(LoginRequiredMixin):
+    @login_required
     @staticmethod
     def create_patient(request, event: int) -> HttpResponse:
         initial_event = get_object_or_404(klass=Event, pk=event)
