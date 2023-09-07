@@ -73,6 +73,7 @@ class UpdatePatientView(LoginRequiredMixin, UpdateView):
 
 
 class DischargePatientView(LoginRequiredMixin):
+    @login_required
     @staticmethod
     def discharge_patient(request, pk: int, event: int) -> HttpResponse:
         patient_to_discharge = get_object_or_404(klass=Patient, pk=pk)
