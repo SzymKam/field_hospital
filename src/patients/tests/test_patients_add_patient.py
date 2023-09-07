@@ -1,4 +1,4 @@
-from django.test import Client, TestCase, tag
+from django.test import Client, TestCase
 from django.urls import reverse
 from rest_framework import status
 
@@ -7,7 +7,7 @@ from api.tests.factories.patient_factory import PatientFactory
 from api.tests.factories.user_factory import UserFactory
 
 
-class AddEventsTest(TestCase):
+class AddPatientTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
 
