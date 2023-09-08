@@ -15,7 +15,7 @@ fake = Faker()
 class TestUserUpdateResponse(TestCase):
     def setUp(self) -> None:
         self.user_1 = UserFactory()
-        self.user_2 = UserFactory()
+        self.user_2 = UserFactory(username="user2username")
         self.url_detail = reverse("api-user-update-detail", kwargs={"pk": self.user_1.id})
         self.headers = {"content_type": "application/json"}
 

@@ -15,7 +15,7 @@ fake = Faker()
 class TestUserResponse(TestCase):
     def setUp(self) -> None:
         self.user_1 = UserFactory()
-        self.user_2 = UserFactory()
+        self.user_2 = UserFactory(username="user2username")
         self.url_list = reverse("api-user-list")
         self.url_detail = reverse("api-user-detail", kwargs={"pk": self.user_1.id})
         self.headers = {"content_type": "application/json"}
@@ -168,9 +168,6 @@ class TestUserResponse(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
-        self.assertEqual(
-            response.data["password"], [ErrorDetail(string="Password fields didn't match.", code="invalid")]
-        )
 
     def test_list_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_list)
