@@ -15,4 +15,3 @@ class TreatmentFactory(DjangoModelFactory):
     description = Faker("sentence")
     diagnosis = Faker("word")
     medical_staff = SubFactory(MedicalStaffFactory)
-    patient = SubFactory(PatientFactory)
