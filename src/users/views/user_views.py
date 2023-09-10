@@ -40,11 +40,7 @@ class UpdateUserView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = "users/user-update.html"
     form_class = MyUserUpdateForm
     success_url = reverse_lazy("user-list")
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Update User"
-        return context
+    extra_context = {"title": "Update user"}
 
 
 class DeleteUserView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -55,8 +51,4 @@ class DeleteUserView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = User
     template_name = "users/user-delete.html"
     success_url = reverse_lazy("user-list")
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Delete user"
-        return context
+    extra_context = {"title": "Delete user"}
