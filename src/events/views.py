@@ -26,31 +26,19 @@ class CreateEventView(LoginRequiredMixin, CreateView):
     form_class = EventForm
     queryset = Event.objects.all()
     success_url = reverse_lazy("all-events")
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Create new event"
-        return context
+    extra_context = {"title": "Create new event"}
 
 
 class AllActiveEventView(LoginRequiredMixin, ListView):
     template_name = "events/events-list.html"
     queryset = Event.objects.filter(status="Preparing").values() | Event.objects.filter(status="In progress").values()
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Active events list"
-        return context
+    extra_context = {"title": "Active events list"}
 
 
 class AllInactiveEventView(LoginRequiredMixin, ListView):
     template_name = "events/events-list-complete.html"
     queryset = Event.objects.filter(status="Ended").values()
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Inactive events list"
-        return context
+    extra_context = {"title": "Inactive events list"}
 
 
 class DetailEventView(LoginRequiredMixin, DetailView):
@@ -73,11 +61,7 @@ class UpdateEventView(LoginRequiredMixin, UpdateView):
     model = Event
     template_name = "events/events-update.html"
     form_class = EventForm
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Update event"
-        return context
+    extra_context = {"title": "Update event"}
 
     def get_success_url(self):
         return reverse_lazy("detail-events", args=(self.object.id,))
@@ -115,8 +99,4 @@ class DeleteEventView(LoginRequiredMixin, DeleteView):
     model = Event
     template_name = "events/events-delete.html"
     success_url = reverse_lazy("complete-events")
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Delete event"
-        return context
+    extra_context = {"title": "Delete event"}
