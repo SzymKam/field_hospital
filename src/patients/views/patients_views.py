@@ -37,17 +37,12 @@ class CreatePatientView(LoginRequiredMixin):
 class DetailPatientView(LoginRequiredMixin, DetailView):
     template_name = "patients/patients-detail.html"
     queryset = Patient.objects.all()
+    extra_context = {"title": "Patient detail"}
 
     def get_data(self):
         patient = get_object_or_404(klass=Patient, pk=self.kwargs["pk"])
         event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
         return {"patient": patient, "event": event}
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Patient detail"
-        context.update(self.get_data())
-        return context
 
 
 class UpdatePatientView(LoginRequiredMixin, UpdateView):
