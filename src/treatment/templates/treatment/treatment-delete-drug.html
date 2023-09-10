@@ -23,7 +23,7 @@
 <div class="card-block">
 <div class="card-body">
 <div class="content-body"><!-- Basic Inputs start -->
-<a href="{% url 'detail-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" href="#">Cancel</button></a>
+    <a href="{% url 'detail-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" href="#">Cancel</button></a>
 <form method="post" id="delete-drug">
 {% csrf_token %}
 <a href="#" onclick="document.getElementById('delete-drug').submit()"><button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" href="#">Delete anyway?</button></a>
