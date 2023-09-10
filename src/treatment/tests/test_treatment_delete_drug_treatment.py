@@ -1,5 +1,5 @@
-from django.test import Client, TestCase, tag
-from django.urls import reverse
+from django.test import Client, TestCase
+from django.urls import reverse_lazy
 from rest_framework import status
 
 from api.tests.factories.drug_factory import DrugFactory
@@ -18,7 +18,11 @@ class DeleteDrugTreatmentTest(TestCase):
         self.patient = PatientFactory(event=self.event)
         self.treatment = TreatmentFactory(patient=self.patient)
         self.drug = DrugFactory(treatment=self.treatment)
-        self.url = reverse(
+
+        self.patient.treatment = self.treatment
+        self.patient.save()
+
+        self.url = reverse_lazy(
             "delete-drug-treatment",
             kwargs={
                 "event": self.event.id,
@@ -34,13 +38,12 @@ class DeleteDrugTreatmentTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    # @tag('x')
-    # def test_get_logged_user_return_200(self) -> None:
-    #     self.client.force_login(self.user)
-    #     response = self.client.get(path=self.url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.request["REQUEST_METHOD"], "GET")
+    def test_get_logged_user_return_200(self) -> None:
+        self.client.force_login(self.user)
+        response = self.client.get(path=self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
     def test_post_not_logged_user_return_302(self) -> None:
         response = self.client.post(path=self.url)
