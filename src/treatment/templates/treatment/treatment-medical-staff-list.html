@@ -1,0 +1,62 @@
+{% extends 'events/index.html' %}
+{% block content %}
+    <div class="app-content content">
+      <div class="content-wrapper">
+        <div class="content-wrapper-before"></div>
+        <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Staff list</h3>
+          </div>
+        </div>
+
+
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">List of all staff added into hospital</h4>
+				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements">
+					<ul class="list-inline mb-0">
+						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-content collapse show">
+				<div class="card-body">
+					<a href="{% url 'staff-add' %}"><button type="button" class="btn mr-1 mb-1 btn-success btn-lg">Add staff</button></a>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Surname</th>
+								<th scope="col">Name</th>
+								<th scope="col">Qualifications</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for person in medicalstaff_list %}
+									<tr>
+										<th scope="row"><a href="{% url 'staff-update' pk=person.id %}">{{person.surname}}</a></th>
+										<td>{{person.name}}</td>
+										<td>{{person.medical_qualifications}}</td>
+										<th scope="col"><a href="{% url 'staff-delete' pk=person.id %}"><button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Delete</button></a></th>
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Striped rows end -->
+
+        </div>
+      </div>
+{% endblock %}

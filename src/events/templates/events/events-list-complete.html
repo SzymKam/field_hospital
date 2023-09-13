@@ -1,0 +1,75 @@
+{% extends 'events/index.html' %}
+{% block content %}
+    <div class="app-content content">
+      <div class="content-wrapper">
+        <div class="content-wrapper-before"></div>
+        <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Completed events</h3>
+          </div>
+        </div>
+
+
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">List of completed events</h4>
+				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements">
+					<ul class="list-inline mb-0">
+						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+						<li><a data-action="close"><i class="ft-x"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-content collapse show">
+				<div class="card-body">
+
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Localization</th>
+								<th scope="col">Start date</th>
+								<th scope="col">End date</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for event in event_list %}
+									<tr>
+										<th scope="row"><a href="{% url 'detail-events' pk=event.id %}">{{event.name}}</a></th>
+										{% if event.localization %}
+										<td>{{event.localization}}</td>
+										{% else %}
+										<td></td>
+										{% endif %}
+										<td>{{event.start_date}}</td>
+										<td>{{event.end_date}}</td>
+											{% if event.description %}
+										<td>{{event.description}}</td>
+										{% else %}
+										<td></td>
+										{% endif %}
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Striped rows end -->
+
+        </div>
+      </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+{% endblock %}

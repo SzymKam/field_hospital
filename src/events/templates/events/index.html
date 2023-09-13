@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+{% load static %}
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <title>{{title}}</title>
+    <link rel="apple-touch-icon" href="{% static 'events/theme-assets/images/ico/apple-icon-120.png' %}">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'events/theme-assets/images/ico/pck-logo.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+    <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'events/theme-assets/css/vendors.css' %}">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN CHAMELEON  CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'events/theme-assets/css/app-lite.css' %}">
+    <!-- END CHAMELEON  CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'events/theme-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'events/theme-assets/css/core/colors/palette-gradient.css' %}">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <!-- END Custom CSS-->
+  </head>
+  <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
+
+      <!-- fixed-top-->
+      <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+        <div class="navbar-wrapper">
+          <div class="navbar-container content">
+            <div class="collapse navbar-collapse show" id="navbar-mobile">
+              <ul class="nav navbar-nav mr-auto float-left">
+              </ul>
+              <ul class="nav navbar-nav float-right">
+                <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">             <span class="avatar avatar-online"><img src="{% static 'events/theme-assets/images/logo/pck_logo.png' %}" alt="avatar"><i></i></span></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="{% static 'events/theme-assets/images/logo/pck_logo.png' %}" alt="avatar"><span class="user-name text-bold-700 ml-1">{{user.username}}</span></span></a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'user-logout' %}"><i class="ft-power"></i> Logout</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+    <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="{% static 'events/theme-assets/images/backgrounds/02.jpg' %}">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+          <li class="nav-item mr-auto"><a class="navbar-brand" href="{% url 'all-events' %}"><img class="brand-logo" alt="Chameleon admin logo" src="{% static 'events/theme-assets/images/logo/logo-grm.png' %}"/>
+              <h3 class="brand-text">Field Hospital</h3></a></li>
+          <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
+        </ul>
+      </div>
+      <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+          <li class=" nav-item"><a href="{% url 'all-events' %}"><i class="ft-activity"></i><span class="menu-title" data-i18n="">Active events</span></a>
+          </li>
+          <li class="nav-item"><a href="{% url 'add-events' %}"><i class="ft-file-plus"></i><span class="menu-title" data-i18n="">Create new event</span></a>
+          </li>
+          <li class=" nav-item"><a href="{% url 'complete-events' %}"><i class="ft-list"></i><span class="menu-title" data-i18n="">Completed events</span></a>
+          </li>
+          <li class=" nav-item"><a href="{% url 'staff' %}"><i class="ft-users"></i><span class="menu-title" data-i18n="">Staff list</span></a>
+          </li>
+           <li class=" nav-item"><a href="{% url 'user-list' %}"><i class="ft-settings"></i><span class="menu-title" data-i18n="">Admin</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="navigation-background"></div>
+    </div>
+
+{% block content %}
+
+{% endblock %}
+
+
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+      <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+      <div class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+        <span class="float-md-left d-block d-md-inline-block">2023
+        <a class="text-bold-800 grey darken-2" href="https://github.com/SzymKam" target="_blank"></a></span>
+        <ul class="list-inline float-md-right d-block d-md-inline-blockd-none d-lg-block mb-0">
+          <li class="list-inline-item"><a class="my-1" href="https://github.com/SzymKam/field_hospital" target="_blank"> GitHub project</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- BEGIN VENDOR JS-->
+    <script src="{% static 'events/theme-assets/vendors/js/vendors.min.js' %}" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN CHAMELEON  JS-->
+    <script src="{% static 'events/theme-assets/js/core/app-menu-lite.js' %}" type="text/javascript"></script>
+    <script src="{% static 'events/theme-assets/js/core/app-lite.js' %}" type="text/javascript"></script>
+    <!-- END CHAMELEON  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <!-- END PAGE LEVEL JS-->
+  </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'events/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="app-content content">
+<div class="content-wrapper">
+<div class="content-wrapper-before"></div>
+<div class="content-header row">
+<div class="content-header-left col-md-4 col-12 mb-2">
+<h3 class="content-header-title">Discharge patient from {{event.name}}?</h3>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-header">
+<h4 class="card-title">Are you sure to discharge: {{patient.surname}} {{patient.name}}?</h4>
+</div>
+
+<div class="card-block">
+<div class="card-body">
+<div class="content-body"><!-- Basic Inputs start -->
+<a href="{% url 'detail-patient' pk=patient.id event=event.id %}"><button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" href="#">Cancel</button></a>
+<form method="post" id="discharge-patient">
+{% csrf_token %}
+{{ form|crispy }}
+<a href="#" onclick="document.getElementById('discharge-patient').submit()"><button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" href="#">Discharge anyway?</button></a>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

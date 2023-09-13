@@ -1,0 +1,115 @@
+{% extends 'events/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="app-content content">
+<div class="content-wrapper">
+<div class="content-wrapper-before"></div>
+<div class="content-header row">
+<div class="content-header-left col-md-4 col-12 mb-2">
+<h3 class="content-header-title">{{patient.surname}} {{patient.name}} <br>Status: {{patient.status}} <br>Bed: {{patient.bed_number}}</h3>
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-header">
+<h4 class="card-title">Admission date: <strong>{{patient.admission_date}}</strong></h4>
+</div>
+
+<div class="card-block">
+<div class="card-body">
+<div class="content-body">
+
+
+
+<!--  -->
+  <div class="col-xl-6 col-md-6 col-sm-12">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<h4 class="card-title">Detail inforamtion</h4>
+						<p class="card-text">{{patient.additional_info}}</p>
+					</div>
+
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							PESEL:
+							{% if patient.PESEL %}
+							{{patient.PESEL}}
+							{% endif %}
+							<br>Birth date:
+							{% if patient.birth_date %}
+								{{patient.birth_date}}
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<strong>Contact information</strong>
+							<br>Adress:
+							{% if patient.address %}
+							{{patient.address}}
+							{% endif %}
+							<br>Phone:
+							{% if patient.phone %}
+							{{patient.phone}}
+							{% endif %}
+							<br>Email:
+							{% if patient.email %}
+							{{patient.email}}
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<strong>Treatment</strong>
+							{% if patient.treatment %}
+								<br><a href="{% url 'detail-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"><button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Treatment detail</button></a>
+							{% else %}
+								<br><a href="{% url 'create-treatment' event=event.id patient=patient.id %}"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Create treatment</button></a>
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<strong>Auth person</strong>
+							{% if patient.authorized_person %}
+								<br>{{patient.authorized_person.name}}
+								<br>{{patient.authorized_person.surname}}
+								{% if patient.authorized_person.phone %}
+									<br>{{patient.authorized_person.phone}}
+								{% endif %}
+								<br><a href="{% url 'update-auth-person' event=event.id patient=patient.id pk=patient.authorized_person.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-sm">Change information</button></a>
+							{% else %}
+							<br><a href="{% url 'add-auth-person' event=event.id pk=patient.id %}"><button type="button" class="btn btn-success btn-min-width mr-1 mb-1">Add auth person</button></a>
+							{% endif %}
+						</li>
+					</ul>
+					<div class="card-body">
+						<a href="{% url 'update-patient' event=event.id pk=patient.id %}"><button type="button" class="btn mr-1 mb-1 btn-info btn-lg">Update patient info</button></a>
+						{% if patient.status != "Discharged" %}
+						<a href="{% url 'discharge-patient' event=event.id pk=patient.id %}"><button type="button" class="btn mr-1 mb-1 btn-danger btn-lg">Discharge patient</button></a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<!--  -->
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

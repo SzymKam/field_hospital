@@ -1,80 +1,102 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib import messages
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+import datetime
+from typing import Any
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
+
+from patients.models import Patient
+
+from .forms import CloseEventForm, EventForm
 from .models import Event
-from .forms import EventForm
 
 
-class AllEventView(ListView):
-    template_name = ""
+class CreateEventView(LoginRequiredMixin, CreateView):
+    model = Event
+    template_name = "events/events-new.html"
+    form_class = EventForm
     queryset = Event.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = f"Events list"
-        context["subtitle"] = self.object
-        return context
-
-    #todo - add login required
+    success_url = reverse_lazy("all-events")
+    extra_context = {"title": "Create new event"}
 
 
-class DetailEventView(DetailView):
-    template_name = ""
+class AllActiveEventView(LoginRequiredMixin, ListView):
+    template_name = "events/events-list.html"
+    queryset = Event.objects.filter(status="Preparing").values() | Event.objects.filter(status="In progress").values()
+    extra_context = {"title": "Active events list"}
+
+
+class AllInactiveEventView(LoginRequiredMixin, ListView):
+    template_name = "events/events-list-complete.html"
+    queryset = Event.objects.filter(status="Ended").values()
+    extra_context = {"title": "Inactive events list"}
+
+
+class DetailEventView(LoginRequiredMixin, DetailView):
+    template_name = "events/events-detail.html"
     queryset = Event.objects.all()
 
     @staticmethod
-    def get_all_patients_from_event(event_id):
+    def get_all_patients_from_event(event_id: int) -> QuerySet[Patient]:
         patients = Patient.objects.filter(event=event_id)
         return patients
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["patients"] = self.get_all_patients_from_event(event_id=self.object.id)
-        context["title"] = f"Event {self.object.name}"
-        context["subtitle"] = self.object
+        context["title"] = f"Event - {self.object.name}"
         return context
 
-    # todo - add in Future all Patient objects into context and login required, when Patient object is ready
 
-
-class CreateEventView(CreateView):
+class UpdateEventView(LoginRequiredMixin, UpdateView):
     model = Event
-    template_name = ""
+    template_name = "events/events-update.html"
     form_class = EventForm
-    queryset = Event.objects.all()
+    extra_context = {"title": "Update event"}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Create event"
-        context["subtitle"] = "Creating new event"
-        return context
-
-    #todo add permissions, messages, login_url, succes_url, override form_valid for succes message
+    def get_success_url(self):
+        return reverse_lazy("detail-events", args=(self.object.id,))
 
 
-class UpdateEventView(UpdateView):
+class CloseRestoreEventView(LoginRequiredMixin):
+    @staticmethod
+    def close_event(request, pk: int) -> HttpResponse:
+        event_to_close = get_object_or_404(klass=Event, pk=pk)
+        form = CloseEventForm(
+            request.POST or None,
+            instance=event_to_close,
+            initial={"end_date": datetime.date.today()},
+        )
+        if request.method == "POST" and form.is_valid():
+            event_to_close.status = "Ended"
+            event_to_close.save()
+            form.save()
+            return redirect("detail-events", pk=pk)
+        return render(
+            request,
+            "events/events-close.html",
+            {"title": "Closing event", "event": event_to_close, "form": form},
+        )
+
+    @staticmethod
+    def restore_event(request, pk: int) -> HttpResponse:
+        event_to_restore = get_object_or_404(klass=Event, pk=pk)
+        event_to_restore.status = "In progress"
+        event_to_restore.save()
+        return redirect("detail-events", pk=pk)
+
+
+class DeleteEventView(LoginRequiredMixin, DeleteView):
     model = Event
-    template_name = ""
-    form_class = EventForm
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Update event"
-        context["subtitle"] = "Updating new event"
-        return context
-
-    # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
-
-
-class DeleteEventView(DeleteView):
-    model = Event
-    template_name = ""
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Delete event"
-        context["subtitle"] = "Deleting new event"
-        return context
-
-    # todo add permissions, messages, login_url, succes_url, override form_valid for succes message
+    template_name = "events/events-delete.html"
+    success_url = reverse_lazy("complete-events")
+    extra_context = {"title": "Delete event"}
