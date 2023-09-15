@@ -44,6 +44,12 @@ class DetailPatientView(LoginRequiredMixin, DetailView):
         event = get_object_or_404(klass=Event, pk=self.kwargs["event"])
         return {"patient": patient, "event": event}
 
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Patient update"
+        context.update(self.get_data())
+        return context
+
 
 class UpdatePatientView(LoginRequiredMixin, UpdateView):
     template_name = "patients/patients-update.html"
