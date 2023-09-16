@@ -1,0 +1,39 @@
+version: '3'
+services:
+  db:
+    container_name: db_field_hospital
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: field_hospital_db
+      POSTGRES_USER: field_hospital_user
+      POSTGRES_PASSWORD: field_hospital_user
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - network_no_internet
+
+  web:
+    container_name: web_field_hospital
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/src
+#      - ./src/events/static:/src/static
+    depends_on:
+      - db
+    networks:
+      - network_no_internet
+      - network_internet
+
+volumes:
+  pg_data:
+
+networks:
+  network_internet:
+    driver: bridge
+  network_no_internet:
+    driver: bridge
+    internal: true
