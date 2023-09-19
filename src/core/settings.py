@@ -103,7 +103,8 @@ DATABASES = {
         "NAME": "field_hospital_db",
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
+        # "HOST": env("HOST"),
+        "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }
