@@ -31,7 +31,18 @@
   <div class="col-xl-6 col-md-6 col-sm-12">
 			<div class="card">
 				<div class="card-content">
+					<h4>Priority:</h4>
+					{% if patient.priority == "YELLOW" %}
+						<h4 style="color: yellow" class="card-title">{{patient.priority}}</h4>
+					{% elif patient.priority == "GREEN" %}
+						<h4 style="color: green" class="card-title">{{patient.priority}}</h4>
+					{% elif patient.priority == "RED" %}
+						<h4 style="color: red" class="card-title">{{patient.priority}}</h4>
+					{% else %}
+						<h4></h4>
+					{% endif %}
 					<div class="card-body">
+
 						<h4 class="card-title">Detail inforamtion</h4>
 						<p class="card-text">{{patient.additional_info}}</p>
 					</div>
