@@ -27,3 +27,5 @@ BED_CHOICE = [
     ("24", "24"),
     ("25", "25"),
 ]
+
+PRIORITY_CHOICE = [("RED", "RED"), ("YELLOW", "YELLOW"), ("GREEN", "GREEN")]
