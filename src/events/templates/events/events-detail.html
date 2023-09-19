@@ -58,6 +58,7 @@
 								<th scope="col">Name</th>
 								<th scope="col">Bed number</th>
 								<th scope="col">Admission date</th>
+								<th scope="col">Priority</th>
 								<th scope="col">Status</th>
 							</tr>
 						</thead>
@@ -69,6 +70,15 @@
 									<td>{{patient.name}}</td>
 									<td>{{patient.bed_number}}</td>
 									<td>{{patient.admission_date}}</td>
+									{% if patient.priority == "YELLOW" %}
+									<td style="color: yellow">{{patient.priority}}</td>
+									{% elif patient.priority == "GREEN" %}
+									<td style="color: green">{{patient.priority}}</td>
+									{% elif patient.priority == "RED" %}
+									<td style="color: red">{{patient.priority}}</td>
+									{% else %}
+									<td></td>
+									{% endif %}
 									<td style="color: green">{{patient.status}}</td>
 								</tr>
 							{% endif %}
@@ -112,6 +122,7 @@
 								<th scope="col">Surname</th>
 								<th scope="col">Name</th>
 								<th scope="col">Additional info</th>
+								<th scope="col">Priority</th>
 								<th scope="col" >Status</th>
 							</tr>
 						</thead>
@@ -122,6 +133,15 @@
 									<th scope="row"><a href="{% url 'detail-patient' event=event.id pk=patient.id %}">{{patient.surname}}</a></th>
 									<td>{{patient.name}}</td>
 									<td>{{patient.additional_info}}</td>
+									{% if patient.priority == "YELLOW" %}
+									<td style="color: yellow">{{patient.priority}}</td>
+									{% elif patient.priority == "GREEN" %}
+									<td style="color: green">{{patient.priority}}</td>
+									{% elif patient.priority == "RED" %}
+									<td style="color: red">{{patient.priority}}</td>
+									{% else %}
+									<td></td>
+									{% endif %}
 									<td style="color: red">{{patient.status}}</td>
 								</tr>
 							{% endif %}
