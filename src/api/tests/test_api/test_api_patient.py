@@ -70,7 +70,6 @@ class TestPatientResponse(TestCase):
             "event": EventFactory().id,
         }
         response = self.client.post(path=self.url_list, data=data)
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
         self.assertEqual(response.data["name"], data["name"])
@@ -301,7 +300,6 @@ class TestPatientResponse(TestCase):
         }
 
         response = self.client.patch(path=self.url_detail, data=dumps(data), headers=self.headers)
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
         self.assertEqual(response.data["name"], data["name"])
