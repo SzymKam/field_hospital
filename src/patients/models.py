@@ -18,10 +18,10 @@ class Patient(models.Model):
     name = models.CharField(max_length=50, help_text="Patient name", blank=True)
     surname = models.CharField(max_length=50, help_text="Patient surname", blank=True)
     priority = models.CharField(choices=PRIORITY_CHOICE, help_text="Priority", blank=True, null=True)
-    PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
+    PESEL = models.BigIntegerField(blank=True, null=True, help_text="Patient PESEL number")
     birth_date = models.DateField(blank=True, null=True, help_text="Patient birth date")
     address = models.CharField(blank=True, help_text="Patient address", max_length=100)
-    phone = models.IntegerField(blank=True, null=True, help_text="Patient phone number")
+    phone = models.BigIntegerField(blank=True, null=True, help_text="Patient phone number")
     email = models.EmailField(blank=True, null=True, help_text="Patient e-mail")
     additional_info = models.TextField(blank=True, help_text="Additional info about patient")
     bed_number = models.CharField(
