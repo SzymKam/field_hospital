@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
                 choices=[("RED", "RED"), ("YELLOW", "YELLOW"), ("GREEN", "GREEN")],
                 help_text="Priority",
                 null=True,
+                max_length=6,
             ),
         ),
     ]
