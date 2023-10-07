@@ -51,16 +51,16 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_extensions",
     "rest_framework",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 INSTALLED_EXTENSIONS = [
-    "events",
-    "patients",
-    "treatment",
-    "users",
-    "api",
-    "crispy_forms",
-    "crispy_bootstrap4",
+    "src.events",
+    "src.patients",
+    "src.treatment",
+    "src.users",
+    "src.api",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "src.core.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
