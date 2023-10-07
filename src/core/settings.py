@@ -54,13 +54,13 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_EXTENSIONS = [
-    "src.events",
-    "src.patients",
-    "src.treatment",
-    "src.cusers",
-    "src.api",
-    "src.crispy_forms",
-    "src.crispy_bootstrap4",
+    "events",
+    "patients",
+    "treatment",
+    "cusers",
+    "api",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
