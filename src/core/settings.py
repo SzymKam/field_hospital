@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+import django.core.management.utils
 import environ
 
 from .env import env
@@ -27,12 +28,14 @@ environ.Env.read_env(os.path.join(ENV_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = django.core.management.utils.get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+# DEBUG = env("DEBUG")
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["fieldhospital.eu-north-1.elasticbeanstalk.com", "127.0.0.1", "localhost"]
 
 SITE_ID = 1
 
@@ -48,16 +51,16 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_extensions",
     "rest_framework",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 INSTALLED_EXTENSIONS = [
-    "events",
-    "patients",
-    "treatment",
-    "users",
-    "api",
-    "crispy_forms",
-    "crispy_bootstrap4",
+    "src.events",
+    "src.patients",
+    "src.treatment",
+    "src.users",
+    "src.api",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
@@ -73,7 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "src.core.urls"
 
 TEMPLATES = [
     {
@@ -99,18 +102,19 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "field_hospital_db",
+#         "USER": env("USER"),
+#         "PASSWORD": env("PASSWORD"),
+#         "HOST": env("HOST"),
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
 #     }
 # }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "field_hospital_db",
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -148,7 +152,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -158,6 +163,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 LOGIN_REDIRECT_URL = "all-events"
 LOGOUT_REDIRECT_URL = "user-login"

@@ -34,16 +34,17 @@ class PatientForm(ModelForm):
         }
         model = Patient
         fields = [
+            "admission_date",
+            "priority",
+            "bed_number",
             "surname",
             "name",
-            "admission_date",
             "PESEL",
             "birth_date",
             "address",
             "phone",
             "email",
             "additional_info",
-            "bed_number",
             "event",
         ]
 
@@ -56,6 +57,8 @@ class DetailPatientForm(ModelForm):
         }
         model = Patient
         fields = [
+            "priority",
+            "bed_number",
             "surname",
             "name",
             "PESEL",
@@ -64,7 +67,6 @@ class DetailPatientForm(ModelForm):
             "phone",
             "email",
             "additional_info",
-            "bed_number",
         ]
 
 

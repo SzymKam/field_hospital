@@ -4,7 +4,7 @@ from django.utils import timezone
 from events.models import Event
 from treatment.models.treatment_model import Treatment
 
-from .constants import BED_CHOICE
+from .constants import BED_CHOICE, PRIORITY_CHOICE
 
 
 class AuthorizedPerson(models.Model):
@@ -17,10 +17,11 @@ class Patient(models.Model):
     admission_date = models.DateTimeField(help_text="Date of patient admission", default=timezone.now)
     name = models.CharField(max_length=50, help_text="Patient name", blank=True)
     surname = models.CharField(max_length=50, help_text="Patient surname", blank=True)
-    PESEL = models.IntegerField(blank=True, null=True, help_text="Patient PESEL number")
+    priority = models.CharField(choices=PRIORITY_CHOICE, help_text="Priority", blank=True, null=True, max_length=6)
+    PESEL = models.BigIntegerField(blank=True, null=True, help_text="Patient PESEL number")
     birth_date = models.DateField(blank=True, null=True, help_text="Patient birth date")
     address = models.CharField(blank=True, help_text="Patient address", max_length=100)
-    phone = models.IntegerField(blank=True, null=True, help_text="Patient phone number")
+    phone = models.BigIntegerField(blank=True, null=True, help_text="Patient phone number")
     email = models.EmailField(blank=True, null=True, help_text="Patient e-mail")
     additional_info = models.TextField(blank=True, help_text="Additional info about patient")
     bed_number = models.CharField(

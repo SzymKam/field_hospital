@@ -36,17 +36,17 @@ class TestUserResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(len(response.data), 2)
 
-        self.assertEqual(response.data[0]["id"], self.user_1.id)
-        self.assertEqual(response.data[0]["username"], self.user_1.username)
-        self.assertEqual(response.data[0]["first_name"], self.user_1.first_name)
-        self.assertEqual(response.data[0]["last_name"], self.user_1.last_name)
-        self.assertEqual(response.data[0]["email"], self.user_1.email)
+        self.assertEqual(response.data[0]["id"], self.user_2.id)
+        self.assertEqual(response.data[0]["username"], self.user_2.username)
+        self.assertEqual(response.data[0]["first_name"], self.user_2.first_name)
+        self.assertEqual(response.data[0]["last_name"], self.user_2.last_name)
+        self.assertEqual(response.data[0]["email"], self.user_2.email)
 
-        self.assertEqual(response.data[1]["id"], self.user_2.id)
-        self.assertEqual(response.data[1]["username"], self.user_2.username)
-        self.assertEqual(response.data[1]["first_name"], self.user_2.first_name)
-        self.assertEqual(response.data[1]["last_name"], self.user_2.last_name)
-        self.assertEqual(response.data[1]["email"], self.user_2.email)
+        self.assertEqual(response.data[1]["id"], self.user_1.id)
+        self.assertEqual(response.data[1]["username"], self.user_1.username)
+        self.assertEqual(response.data[1]["first_name"], self.user_1.first_name)
+        self.assertEqual(response.data[1]["last_name"], self.user_1.last_name)
+        self.assertEqual(response.data[1]["email"], self.user_1.email)
 
     def test_list_post_not_logged_user_return_403(self) -> None:
         response = self.client.post(path=self.url_list)
