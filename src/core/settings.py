@@ -57,7 +57,7 @@ INSTALLED_EXTENSIONS = [
     "events",
     "patients",
     "treatment",
-    "cusers",
+    "users",
     "api",
     "crispy_forms",
     "crispy_bootstrap4",
