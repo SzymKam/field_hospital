@@ -54,13 +54,13 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_EXTENSIONS = [
-    "events",
-    "patients",
-    "treatment",
-    "users",
-    "api",
-    "crispy_forms",
-    "crispy_bootstrap4",
+    "src.events",
+    "src.patients",
+    "src.treatment",
+    "src.cusers",
+    "src.api",
+    "src.crispy_forms",
+    "src.crispy_bootstrap4",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
@@ -76,7 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "src.core.urls"
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "src.core.wsgi.application"
 
 
 # Database
