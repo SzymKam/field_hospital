@@ -164,5 +164,24 @@ LOGIN_REDIRECT_URL = "all-events"
 LOGOUT_REDIRECT_URL = "user-login"
 LOGIN_URL = "user-login"
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+"""sending email settings"""
+
+"""sending email from server"""
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+if env("EMAIL_HOST_USER") is None and env("EMAIL_HOST_PASSWORD") is None and env("DEFAULT_FROM_EMAIL") is None:
+    """sending emails to app"""
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+
+EMAIL_HOST_USER = "apikey"
+# EMAIL_HOST_PASSWORD = "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"
+DEFAULT_FROM_EMAIL = "szymon15kaminski@gmail.com"
+
+# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+# DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
