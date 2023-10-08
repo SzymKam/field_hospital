@@ -104,8 +104,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for patient in patients %} {% if patient.status == "Active"
-                  %}
+                  {%for patient in patients%} {%if patient.status == "Active"%}
                   <tr>
                     <th scope="row">
                       <a
@@ -177,8 +176,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for patient in patients %} {% if patient.status != "Active"
-                  %}
+                  {%for patient in patients%} {%if patient.status != "Active"%}
                   <tr>
                     <th scope="row">
                       <a
