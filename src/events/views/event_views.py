@@ -14,9 +14,10 @@ from django.views.generic import (
     UpdateView,
 )
 
-from events.forms import CloseEventForm, EventForm
 from events.models import Event
 from patients.models import Patient
+
+from ..forms.event_forms import CloseEventForm, EventForm
 
 
 class CreateEventView(LoginRequiredMixin, CreateView):
