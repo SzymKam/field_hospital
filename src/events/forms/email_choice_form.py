@@ -10,6 +10,6 @@ class EmailChoiceField(forms.ModelChoiceField):
 class EmailSelectionForm(forms.Form):
     email = EmailChoiceField(
         queryset=User.objects.all(),
-        empty_label="Select an email",
+        empty_label="Select user",
         widget=forms.Select(attrs={"class": "form-control"}),
     )
