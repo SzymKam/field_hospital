@@ -11,7 +11,7 @@ from .views.event_views import (
     DetailEventView,
     UpdateEventView,
 )
-from .views.send_email_view import send_patient_list
+from .views.send_email_view import EmailFlow, send_patient_list
 
 urlpatterns = (
     [
@@ -27,7 +27,7 @@ urlpatterns = (
             CloseRestoreEventView.restore_event,
             name="restore-events",
         ),
-        path("events/<int:pk>/email", send_patient_list, name="send-patient-list"),
+        path("events/<int:pk>/email", EmailFlow.get_recipient, name="send-patient-list"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
