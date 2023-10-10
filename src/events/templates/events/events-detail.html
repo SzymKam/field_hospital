@@ -208,13 +208,13 @@
     <!-- Striped rows end -->
 
     <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-      <a href="#"
+      <a href="{% url 'get-event-pdf' event_pk=event.id %}"
         ><button type="button" class="btn btn-outline-primary">
           Save event detail to pdf
         </button></a
       >
 
-      <a href="{% url 'send-patient-list' event_pk=event.id %}"
+      <a href="{% url 'get-event-email' event_pk=event.id %}"
         ><button type="button" class="btn btn-outline-primary">
           Send event detail via email
         </button></a
