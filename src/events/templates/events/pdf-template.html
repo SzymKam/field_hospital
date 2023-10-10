@@ -1,5 +1,5 @@
-<!doctype html>
 {% load static %}
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -37,7 +37,7 @@
     <title>Detail of {{ event.name }} - GRM</title>
   </head>
   <body>
-    <img src="{% static 'containers/grm_logo.jpg' %}" alt="logo" />
+    <img src="{% static '/events/grm_logo.jpg' %}" alt="logo" />
     <hr />
     <h2>Event: {{ event.name }} - detail</h2>
     <p>Description: {{event.description}}</p>
@@ -45,7 +45,7 @@
     <p>Start: {{event.start_date}}</p>
     <p>End: {{event.end_date}}</p>
     <h2>Patient list for the event</h2>
-    <table align="left">
+    <table>
       <thead>
         <tr>
           <th>Surname</th>
