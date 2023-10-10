@@ -1,20 +1,48 @@
 <!doctype html>
 <html lang="en">
-  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      th,
+      td,
+      tr {
+        border: 1px solid;
+        border-color: #18181c;
+        color: #18181c;
+      }
+      table {
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+      }
+      hr {
+        color: red;
+        width: 100%;
+      }
+      h3 {
+        text-align: center;
+      }
+      img {
+        width: auto;
+        height: 100px;
+      }
+      #yellow {
+        bgcolor: yellow;
+      }
+    </style>
     <title>Detail of {{ event.name }} - GRM</title>
   </head>
   <body>
-    <h2>Event: {{ event.name }} - detail</h2>
+    <h2>Detail of: {{ event.name }}</h2>
     <p>Description: {{event.description}}</p>
     <p>Localization: {{event.localization}}</p>
     <p>Start: {{event.start_date}}</p>
     <p>End: {{event.end_date}}</p>
     <h2>Patient list for the event</h2>
-    <table>
+    <table align="left">
       <thead>
         <tr>
           <th>Surname</th>
@@ -26,9 +54,18 @@
       <tbody>
         {% for patient in patients_list %}
         <tr>
-          <td>{{ patient.surname }}</td>
+          <th scope="row">{{ patient.surname }}</th>
+
           <td>{{ patient.name }}</td>
-          <td>{{ patient.priority }}</td>
+          {% if patient.priority == "YELLOW" %}
+          <td style="color: yellow">{{patient.priority}}</td>
+          {% elif patient.priority == "GREEN" %}
+          <td style="color: green">{{patient.priority}}</td>
+          {% elif patient.priority == "RED" %}
+          <td style="color: red">{{patient.priority}}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
           <td>{{ patient.admission_date }}</td>
         </tr>
         {% endfor %}
