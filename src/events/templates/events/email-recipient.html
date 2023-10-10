@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">
-              <strong>Choose recipient for {{event}}</strong>
+              <strong>Choose recipient for {{event.name}}</strong>
             </h4>
           </div>
 
@@ -23,12 +23,7 @@
               <div class="content-body">
                 <!-- Basic Inputs start -->
                 <form action="" method="POST">
-                  {% csrf_token %} {% crispy form %}
-                  <input
-                    type="hidden"
-                    name="email"
-                    value="{{ form.initial.user.email }}"
-                  />
+                  {% csrf_token %} {{ form|crispy }}
                   <button
                     type="submit"
                     class="btn btn-success btn-min-width mr-1 mb-1"
