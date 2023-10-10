@@ -210,13 +210,13 @@
     <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
       <a href="#"
         ><button type="button" class="btn btn-outline-primary">
-          Save patient list to pdf
+          Save event detail to pdf
         </button></a
       >
 
-      <a href="{% url 'send-patient-list' pk=event.id %}"
+      <a href="{% url 'send-patient-list' event_pk=event.id %}"
         ><button type="button" class="btn btn-outline-primary">
-          Send patient list via email
+          Send event detail via email
         </button></a
       >
     </div>
