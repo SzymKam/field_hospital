@@ -1,19 +1,38 @@
 <!doctype html>
-<html>
+<html lang="en">
+  {% load static %}
   <head>
-    <title>{{ subject }}</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail of {{ event.name }} - GRM</title>
   </head>
   <body>
-    <h1>{{ subject }}</h1>
-
-    <p>Hello,</p>
-
-    <p>This is a sample email template. You can customize it as needed.</p>
-
-    <p>Here's a variable from the context: {{ variable_name }}</p>
-
-    <p>Feel free to add more HTML and styling to suit your email content.</p>
-
-    <p>Best regards,<br />Your Name</p>
+    <h2>Event: {{ event.name }} - detail</h2>
+    <p>Description: {{event.description}}</p>
+    <p>Localization: {{event.localization}}</p>
+    <p>Start: {{event.start_date}}</p>
+    <p>End: {{event.end_date}}</p>
+    <h2>Patient list for the event</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Surname</th>
+          <th>Name</th>
+          <th>Priority</th>
+          <th>Admission Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients_list %}
+        <tr>
+          <td>{{ patient.surname }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.priority }}</td>
+          <td>{{ patient.admission_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </body>
 </html>
