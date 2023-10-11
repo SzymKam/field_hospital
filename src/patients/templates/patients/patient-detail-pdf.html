@@ -1,259 +1,182 @@
-{% extends 'events/index.html' %} {% load crispy_forms_tags %} {% block content
-%}
+{% load static %}
 
-<div class="app-content content">
-  <div class="content-wrapper">
-    <div class="content-wrapper-before"></div>
-    <div class="content-header row">
-      <div class="content-header-left col-md-4 col-12 mb-2">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      th,
+      td,
+      tr {
+        border: 1px solid;
+        border-color: #18181c;
+        color: #18181c;
+      }
+      table {
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+      }
+      hr {
+        color: red;
+        width: 100%;
+      }
+      h3 {
+        text-align: center;
+      }
+      img {
+        width: auto;
+        height: 100px;
+      }
+      #yellow {
+        bgcolor: yellow;
+      }
+      .column {
+        float: left;
+        width: 50%;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+    <title>Detail of {{ patient.name }} - {{ patient.surname }}</title>
+  </head>
+  <body>
+    <div class="row">
+      <div class="column">
+        <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
+      </div>
+      <div class="column">
         <h3 class="content-header-title">
-          Treatment: {{patient.surname}} {{patient.name}} <br />Bed:
-          {{patient.bed_number}}
+          Patient: {{patient.surname}} {{patient.name}}
         </h3>
       </div>
     </div>
+    <hr />
 
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <a href="{% url 'detail-patient' event=event.id pk=patient.id %}"
-              ><button
-                type="button"
-                class="btn btn-warning btn-min-width mr-1 mb-1"
-              >
-                Back into patient info
-              </button></a
-            >
-          </div>
-
-          <div class="card-block">
-            <div class="card-body">
-              <div class="content-body">
-                <h4 class="card-title">Medical documentation</h4>
-                <!--  -->
-                <!--  <div class="col-xl-6 col-md-6 col-sm-12">-->
-                <div class="card">
-                  <div class="card-content">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        <h4 class="card-title">Interview</h4>
-                        {% if patient.treatment.interview %}
-                        <p class="card-text">{{patient.treatment.interview}}</p>
-                        {% endif %}
-                        <a
-                          href="{% url 'interview-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Edit interview
-                          </button></a
-                        >
-                      </li>
-                      <li class="list-group-item">
-                        <h4 class="card-title">Vital Signs</h4>
-                        {{ graph | safe }}
-                        <h4 class="card-title">Parameter list</h4>
-                        <!--UNION TABLE-->
-                        <div class="table-responsive">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">Datetime:</th>
-                                {% for sign in vital_signs %}
-                                <th scope="col">
-                                  {{sign.datetime|date:"H:i"}}
-                                </th>
-                                {% endfor %}
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="col">BP:</th>
-                                {% for sign in vital_signs %} {% if sign.bp_sys
-                                %}
-                                <th scope="col">
-                                  {{sign.bp_sys}}/{{sign.bp_dia}}
-                                </th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                              <tr>
-                                <th scope="col">HR:</th>
-                                {% for sign in vital_signs %} {% if sign.hr %}
-                                <th scope="col">{{sign.hr}}</th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                              <tr>
-                                <th scope="col">SaO2:</th>
-                                {% for sign in vital_signs %} {% if sign.sao2 %}
-                                <th scope="col">{{sign.sao2}}</th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                              <tr>
-                                <th scope="col">GCS:</th>
-                                {% for sign in vital_signs %} {% if sign.gcs %}
-                                <th scope="col">{{sign.gcs}}</th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                              <tr>
-                                <th scope="col">Glycemia:</th>
-                                {% for sign in vital_signs %} {% if
-                                sign.glycemia %}
-                                <th scope="col">{{sign.glycemia}}</th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                              <tr>
-                                <th scope="col">Temperature:</th>
-                                {% for sign in vital_signs %} {% if
-                                sign.temperature %}
-                                <th scope="col">{{sign.temperature}}</th>
-                                {% else %}
-                                <th scope="col"></th>
-                                {% endif %} {% endfor %}
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <a
-                          href="{% url 'vital-sign-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Add vital sign
-                          </button></a
-                        >
-                      </li>
-
-                      <li class="list-group-item">
-                        <h4 class="card-title">Drug list</h4>
-                        <div class="table-responsive">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Dose</th>
-                                <th scope="col">Unit</th>
-                                <th scope="col">Dosage form</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for drug in drugs %}
-                              <tr>
-                                <td>{{forloop.counter}}</td>
-                                <td>{{drug.name}}</td>
-                                <td>{{drug.dose}}</td>
-                                <td>{{drug.unit}}</td>
-                                <td>{{drug.dosage_form}}</td>
-                                <th scope="col">
-                                  <a
-                                    href="{% url 'edit-drug-treatment' event=event.id patient=patient.id treatment=patient.treatment.id pk=drug.id %}"
-                                    ><button
-                                      type="button"
-                                      class="btn mr-1 mb-1 btn-outline-warning btn-sm"
-                                    >
-                                      Edit
-                                    </button></a
-                                  >
-                                </th>
-                                <th scope="col">
-                                  <a
-                                    href="{% url 'delete-drug-treatment' event=event.id patient=patient.id treatment=patient.treatment.id pk=drug.id %}"
-                                    ><button
-                                      type="button"
-                                      class="btn mr-1 mb-1 btn-outline-danger btn-sm"
-                                    >
-                                      Delete
-                                    </button></a
-                                  >
-                                </th>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                        </div>
-
-                        <a
-                          href="{% url 'drug-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Add drug
-                          </button></a
-                        >
-                      </li>
-                      <li class="list-group-item">
-                        <h4 class="card-title">Description</h4>
-                        {% if patient.treatment.description %}
-                        <p class="card-text">
-                          {{patient.treatment.description}}
-                        </p>
-                        {% endif %}
-                        <a
-                          href="{% url 'description-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Edit description
-                          </button></a
-                        >
-                      </li>
-                      <li class="list-group-item">
-                        <h4 class="card-title">Diagnosis</h4>
-                        <p class="card-text">{{patient.treatment.diagnosis}}</p>
-                        <a
-                          href="{% url 'diagnosis-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Edit diagnosis
-                          </button></a
-                        >
-                      </li>
-                      <li class="list-group-item">
-                        <h4 class="card-title">Medical Staff</h4>
-                        <p class="card-text">
-                          {{patient.treatment.medical_staff}}
-                        </p>
-                        <a
-                          href="{% url 'medical-staff-treatment' event=event.id patient=patient.id pk=patient.treatment.id %}"
-                          ><button
-                            type="button"
-                            class="btn mr-1 mb-1 btn-info btn-sm"
-                          >
-                            Change staff
-                          </button></a
-                        >
-                      </li>
-                    </ul>
-                    <div class="card-body"></div>
-                  </div>
-                </div>
-                <!--		</div>-->
-              </div>
-            </div>
-          </div>
+    <ul class="list-group list-group-flush">
+      {%if patient.treatment.interview%}
+      <li class="list-group-item">
+        <h4 class="card-title">Interview</h4>
+        <p class="card-text">{{patient.treatment.interview}}</p>
+      </li>
+      {%endif%} {%if vital_signs%}
+      <li class="list-group-item">
+        <h4 class="card-title">Parameter list</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Datetime:</th>
+                {%for sign in vital_signs%}
+                <th scope="col">{{sign.datetime|date:"H:i"}}</th>
+                {%endfor%}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="col">BP:</th>
+                {%for sign in vital_signs%} {%if sign.bp_sys%}
+                <th scope="col">{{sign.bp_sys}}/{{sign.bp_dia}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">HR:</th>
+                {%for sign in vital_signs%} {%if sign.hr%}
+                <th scope="col">{{sign.hr}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">SaO2:</th>
+                {%for sign in vital_signs%} {%if sign.sao2%}
+                <th scope="col">{{sign.sao2}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">GCS:</th>
+                {%for sign in vital_signs%} {%if sign.gcs%}
+                <th scope="col">{{sign.gcs}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">Glycemia:</th>
+                {%for sign in vital_signs%} {%if sign.glycemia%}
+                <th scope="col">{{sign.glycemia}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">Temperature:</th>
+                {%for sign in vital_signs%} {%if sign.temperature%}
+                <th scope="col">{{sign.temperature}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endblock %}
+      </li>
+      {%endif%} {%if drugs%}
+      <li class="list-group-item">
+        <h4 class="card-title">Drug list</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Dose</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Dosage form</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for drug in drugs%}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{drug.name}}</td>
+                <td>{{drug.dose}}</td>
+                <td>{{drug.unit}}</td>
+                <td>{{drug.dosage_form}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </li>
+      {%endif%} {%if patient.treatment.description%}
+      <li class="list-group-item">
+        <h4 class="card-title">Description</h4>
+        <p class="card-text">{{patient.treatment.description}}</p>
+      </li>
+      {%endif%} {%if patient.treatment.diagnosis%}
+      <li class="list-group-item">
+        <h4 class="card-title">Diagnosis</h4>
+        <p class="card-text">{{patient.treatment.diagnosis}}</p>
+      </li>
+      {%endif%} {%if patient.treatment.diagnosis%}
+      <li class="list-group-item">
+        <h4 class="card-title">Medical Staff</h4>
+        <p class="card-text">{{patient.treatment.medical_staff}}</p>
+      </li>
+      {%endif%}
+    </ul>
+  </body>
+</html>
