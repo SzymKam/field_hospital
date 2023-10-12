@@ -160,19 +160,3 @@ class TestUserPasswordResetResponse(TestCase):
             response.data["old_password"],
             {"old_password": ErrorDetail(string="Old password is not correct", code="invalid")},
         )
-
-    # @tag('x')
-    # def test_detail_patch_logged_user_valid_old_password_return_400(self) -> None:
-    #     print(self.user_2.password)
-    #     self.client.force_login(user=self.user_2)
-    #
-    #     data = {"password": 'kktjjywtyg5x',
-    #             "password2": 'kktjjywtyg5x',
-    #             'old_password': '7ad998f32c65eeccb8ea'}
-    #     print(data['old_password'])
-    #
-    #     response = self.client.patch(reverse("api-user-password-reset-detail", kwargs={"pk": self.user_2.id}), data=dumps(data), headers=self.headers)
-    #
-    #     print(response.data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
