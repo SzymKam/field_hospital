@@ -28,8 +28,7 @@ environ.Env.read_env(os.path.join(ENV_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env("SECRET_KEY")
-SECRET_KEY = django.core.management.utils.get_random_secret_key()
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = env("DEBUG")
@@ -178,10 +177,6 @@ if env("EMAIL_HOST_USER") is None and env("EMAIL_HOST_PASSWORD") is None and env
     EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 
-EMAIL_HOST_USER = "apikey"
-# EMAIL_HOST_PASSWORD = "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"
-DEFAULT_FROM_EMAIL = "szymon15kaminski@gmail.com"
-
-# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-# DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
