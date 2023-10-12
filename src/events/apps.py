@@ -17,7 +17,6 @@ class EventsConfig(AppConfig):
         permission_delete_user = Permission.objects.get(codename="delete_user")
 
         user_group, created = Group.objects.get_or_create(name="User admin group")
-        print("x")
         if created:
             user_group.permissions.add(permission_add_user, permission_change_user, permission_delete_user)
             user_group.save()
