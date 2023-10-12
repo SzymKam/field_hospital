@@ -4,7 +4,6 @@ from factory.django import DjangoModelFactory
 from treatment.models.treatment_model import Treatment
 
 from .medical_staff_factory import MedicalStaffFactory
-from .patient_factory import PatientFactory
 
 
 class TreatmentFactory(DjangoModelFactory):
