@@ -6,10 +6,10 @@ class EventsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "events"
 
-    def ready(self):
+    def ready(self) -> None:
         post_migrate.connect(self._create_initial_staff_admin_group, sender=self)
 
-    def _create_initial_staff_admin_group(self, sender, **kwargs):
+    def _create_initial_staff_admin_group(self, sender, **kwargs) -> None:
         from django.contrib.auth.models import Group, Permission
 
         permission_add_user = Permission.objects.get(codename="add_user")
