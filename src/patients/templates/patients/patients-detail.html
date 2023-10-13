@@ -16,6 +16,16 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
+            <a href="{% url 'detail-events' pk=event.id %}"
+              ><button
+                type="button"
+                class="btn btn-warning btn-min-width mr-1 mb-1"
+              >
+                Back into patient list
+              </button></a
+            >
+          </div>
+          <div class="card-header">
             <h4 class="card-title">
               Admission date: <strong>{{patient.admission_date}}</strong>
             </h4>
