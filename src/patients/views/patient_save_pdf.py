@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import HttpResponse, get_object_or_404
+from django.db.models.query import QuerySet
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
 from django.views import View
 from weasyprint import HTML
@@ -13,7 +15,7 @@ from ..models import Event
 
 
 class PDFPatientView(View, LoginRequiredMixin):
-    def get(self, request, event_pk, patient_pk):
+    def get(self, request: HttpRequest, event_pk: int, patient_pk: int):
         event = get_object_or_404(Event, pk=event_pk)
         patient = get_object_or_404(Patient, pk=patient_pk)
         treatment = get_object_or_404(klass=Treatment, pk=patient.treatment.id)
@@ -25,7 +27,9 @@ class PDFPatientView(View, LoginRequiredMixin):
         )
 
     @staticmethod
-    def _render_pdf_view(request, event, patient, drugs, vital_signs):
+    def _render_pdf_view(
+        request: HttpRequest, event: Event, patient: Patient, drugs: QuerySet[Drug], vital_signs: QuerySet[VitalSign]
+    ):
         template_path = "patients/patient-detail-pdf.html"
         template = get_template(template_path)
 

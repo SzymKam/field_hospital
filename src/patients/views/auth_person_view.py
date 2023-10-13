@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -12,7 +13,7 @@ from patients.models import AuthorizedPerson, Patient
 
 
 class CreateAuthPersonView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         pk = kwargs.get("pk")
         event = kwargs.get("event")
         patient = get_object_or_404(klass=Patient, pk=pk)
@@ -23,7 +24,7 @@ class CreateAuthPersonView(LoginRequiredMixin, View):
             {"form": form, "title": "Add auth person", "patient": patient, "event": event},
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         pk = kwargs.get("pk")
         event = kwargs.get("event")
         patient = get_object_or_404(klass=Patient, pk=pk)
