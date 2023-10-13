@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class EmailChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
+    def label_from_instance(self, obj) -> str:
         return f"{obj.username} - {obj.first_name} {obj.last_name} - {obj.email}"
 
 

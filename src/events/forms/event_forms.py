@@ -5,7 +5,7 @@ from ..models import Event
 
 
 class EventForm(ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         excluded_choice = "Ended"
         if excluded_choice in dict(self.fields["status"].choices):
