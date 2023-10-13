@@ -16,7 +16,7 @@ class PDFFlowView(View, LoginRequiredMixin):
         return self._render_pdf_view(request=request, event=event, patients_list=patients_list)
 
     @staticmethod
-    def _render_pdf_view(request, event, patients_list):
+    def _render_pdf_view(request, event: Event, patients_list: list[Patient]):
         template_path = "events/pdf-template.html"
         template = get_template(template_path)
 

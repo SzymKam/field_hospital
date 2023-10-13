@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
+from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.views import View
@@ -14,7 +15,7 @@ from ..models import Event
 class EmailFlowView(View, LoginRequiredMixin):
     template_name = "events/email-recipient.html"
 
-    def get(self, request, event_pk):
+    def get(self, request, event_pk: int) -> HttpResponse:
         event = get_object_or_404(Event, pk=event_pk)
         form = EmailSelectionForm()
         return render(
@@ -23,7 +24,7 @@ class EmailFlowView(View, LoginRequiredMixin):
             {"title": "Email recipient", "event": event, "form": form},
         )
 
-    def post(self, request, event_pk):
+    def post(self, request, event_pk: int) -> HttpResponse:
         event = get_object_or_404(Event, pk=event_pk)
         form = EmailSelectionForm(request.POST)
 
@@ -37,7 +38,7 @@ class EmailFlowView(View, LoginRequiredMixin):
             {"title": "Email recipient", "event": event, "form": form},
         )
 
-    def _send_event_detail(self, request, event, selected_user_email):
+    def _send_event_detail(self, request, event: Event, selected_user_email: str) -> None:
         patients_list = get_list_or_404(klass=Patient, event=event)
         template_name = "events/email-template.html"
         subject = f"Patient list of {event.name}"
