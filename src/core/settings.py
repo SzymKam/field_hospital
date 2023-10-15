@@ -31,8 +31,7 @@ environ.Env.read_env(os.path.join(ENV_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env("DEBUG")
-DEBUG = True
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["fieldhospital.eu-north-1.elasticbeanstalk.com", "127.0.0.1", "localhost"]
 
@@ -99,17 +98,16 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
- DATABASES = {
-   "default": {
-     "ENGINE": "django.db.backends.postgresql_psycopg2",
-     "NAME": "field_hospital_db",
-     "USER": env("USER"),
-     "PASSWORD": env("PASSWORD"),
-     "HOST": env("HOST"),
-     "HOST": "127.0.0.1",
-     "PORT": "5432",
-   }
- }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("NAME"),
+        "USER": env("USER"),
+        "PASSWORD": env("PASSWORD"),
+        "HOST": env("HOST"),
+        "PORT": "5432",
+    }
+}
 
 
 # Password validation
