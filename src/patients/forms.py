@@ -7,7 +7,7 @@ from .models import AuthorizedPerson, Patient
 
 
 class PatientForm(ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.initial_form_data = f"NN {datetime.now().strftime('%m-%d-%Y %H:%M:%S')}"
         if "initial" not in kwargs:
             kwargs["initial"] = {}

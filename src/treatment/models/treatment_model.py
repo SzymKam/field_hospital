@@ -1,5 +1,6 @@
 from django.db import models
 
+from ..constants import icd_10_choices
 from .medical_staff_model import MedicalStaff
 
 
@@ -10,7 +11,7 @@ class Treatment(models.Model):
 
     interview = models.TextField(blank=True, help_text="Place for medical interview")
     description = models.TextField(blank=True, help_text="Place for patient description")
-    diagnosis = models.CharField(blank=True, help_text="Diagnose?", max_length=100)
+    diagnosis = models.CharField(choices=icd_10_choices(), blank=True, help_text="Diagnose?", max_length=100)
     medical_staff = models.ForeignKey(
         MedicalStaff,
         blank=True,

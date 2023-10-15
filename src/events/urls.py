@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from .views import (
+from .views.event_views import (
     AllActiveEventView,
     AllInactiveEventView,
     CloseRestoreEventView,
@@ -11,6 +11,8 @@ from .views import (
     DetailEventView,
     UpdateEventView,
 )
+from .views.save_to_pdf import PDFFlowView
+from .views.send_email_view import EmailFlowView
 
 urlpatterns = (
     [
@@ -26,6 +28,8 @@ urlpatterns = (
             CloseRestoreEventView.restore_event,
             name="restore-events",
         ),
+        path("events/<int:event_pk>/email", EmailFlowView.as_view(), name="get-event-email"),
+        path("events/<int:event_pk>/pdf", PDFFlowView.as_view(), name="get-event-pdf"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

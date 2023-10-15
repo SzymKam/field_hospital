@@ -1,0 +1,196 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      th,
+      td,
+      tr {
+        border: 1px solid;
+        border-color: #18181c;
+        color: #18181c;
+      }
+      table {
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+      }
+      hr {
+        color: red;
+        width: 100%;
+      }
+      h3 {
+        text-align: center;
+      }
+      h5 {
+        text-align: center;
+      }
+      img {
+        width: auto;
+        height: 100px;
+      }
+      #yellow {
+        bgcolor: yellow;
+      }
+      .column {
+        float: left;
+        width: 50%;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+    <title>Detail of {{ patient.name }} - {{ patient.surname }}</title>
+  </head>
+  <body>
+    <div class="row">
+      <div class="column">
+        <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
+      </div>
+      <div class="column">
+        <h3>Patient: {{patient.surname}} {{patient.name}}</h3>
+        {%if patient.PESEL%}
+        <h5>PESEL: {{patient.PESEL}}</h5>
+        {%elif patient.birth_date%}
+        <h5>Birthdate: {{patient.birth_date}}</h5>
+        {%endif%}
+        <h5>Date: {{patient.admission_date}}</h5>
+      </div>
+    </div>
+    <hr />
+
+    <ul class="list-group list-group-flush">
+      {%if patient.treatment.interview%}
+      <li class="list-group-item">
+        <h4 class="card-title">Interview</h4>
+        <p class="card-text">{{patient.treatment.interview}}</p>
+      </li>
+      {%endif%} {%if vital_signs%}
+      <li class="list-group-item">
+        <h4 class="card-title">Parameter list</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Datetime:</th>
+                {%for sign in vital_signs%}
+                <th scope="col">{{sign.datetime|date:"H:i"}}</th>
+                {%endfor%}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="col">BP:</th>
+                {%for sign in vital_signs%} {%if sign.bp_sys%}
+                <th scope="col">{{sign.bp_sys}}/{{sign.bp_dia}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">HR:</th>
+                {%for sign in vital_signs%} {%if sign.hr%}
+                <th scope="col">{{sign.hr}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">SaO2:</th>
+                {%for sign in vital_signs%} {%if sign.sao2%}
+                <th scope="col">{{sign.sao2}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">GCS:</th>
+                {%for sign in vital_signs%} {%if sign.gcs%}
+                <th scope="col">{{sign.gcs}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">Glycemia:</th>
+                {%for sign in vital_signs%} {%if sign.glycemia%}
+                <th scope="col">{{sign.glycemia}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+              <tr>
+                <th scope="col">Temperature:</th>
+                {%for sign in vital_signs%} {%if sign.temperature%}
+                <th scope="col">{{sign.temperature}}</th>
+                {%else%}
+                <th scope="col"></th>
+                {%endif%} {%endfor%}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+      {%endif%} {%if drugs%}
+      <li class="list-group-item">
+        <h4 class="card-title">Drug list</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Dose</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Dosage form</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for drug in drugs%}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{drug.name}}</td>
+                <td>{{drug.dose}}</td>
+                <td>{{drug.unit}}</td>
+                <td>{{drug.dosage_form}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </li>
+      {%endif%} {%if patient.treatment.description%}
+      <li class="list-group-item">
+        <h4 class="card-title">Description</h4>
+        <p class="card-text">{{patient.treatment.description}}</p>
+      </li>
+      {%endif%} {%if patient.treatment.diagnosis%}
+      <li class="list-group-item">
+        <h4 class="card-title">Diagnosis</h4>
+        <p class="card-text">{{patient.treatment.diagnosis}}</p>
+      </li>
+      {%endif%} {%if patient.authorized_person%}
+      <li class="list-group-item">
+        <h4 class="card-title">Authorized person</h4>
+        <p class="card-text">
+          {{patient.authorized_person.name}}
+          {{patient.authorized_person.surname}} -
+          {{patient.authorized_person.phone}}
+        </p>
+      </li>
+      {%endif%} {%if patient.treatment.diagnosis%}
+      <li class="list-group-item">
+        <h4 class="card-title">Medical Staff</h4>
+        <p class="card-text">{{patient.treatment.medical_staff}}</p>
+      </li>
+      {%endif%}
+    </ul>
+  </body>
+</html>

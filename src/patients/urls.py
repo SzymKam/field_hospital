@@ -10,6 +10,8 @@ from patients.views.patients_views import (
     UpdatePatientView,
 )
 
+from .views.patient_save_pdf import PDFPatientView
+
 urlpatterns = (
     [
         path(
@@ -41,6 +43,11 @@ urlpatterns = (
             "events/<int:event>/patients/<int:patient>/auth-person/<int:pk>/update",
             UpdateAuthPersonView.as_view(),
             name="update-auth-person",
+        ),
+        path(
+            "events/<int:event_pk>/patients/<int:patient_pk>/pdf",
+            PDFPatientView.as_view(),
+            name="get-patient-pdf",
         ),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

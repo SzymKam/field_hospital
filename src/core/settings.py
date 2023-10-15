@@ -28,8 +28,7 @@ environ.Env.read_env(os.path.join(ENV_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env("SECRET_KEY")
-SECRET_KEY = django.core.management.utils.get_random_secret_key()
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = env("DEBUG")
@@ -56,11 +55,11 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_EXTENSIONS = [
-    "src.events",
-    "src.patients",
-    "src.treatment",
-    "src.users",
-    "src.api",
+    "events",
+    "patients",
+    "treatment",
+    "users",
+    "api",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
@@ -76,7 +75,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "src.core.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -100,24 +99,18 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+ DATABASES = {
+   "default": {
+     "ENGINE": "django.db.backends.postgresql_psycopg2",
+     "NAME": "field_hospital_db",
+     "USER": env("USER"),
+     "PASSWORD": env("PASSWORD"),
+     "HOST": env("HOST"),
+     "HOST": "127.0.0.1",
+     "PORT": "5432",
+   }
+ }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "field_hospital_db",
-#         "USER": env("USER"),
-#         "PASSWORD": env("PASSWORD"),
-#         "HOST": env("HOST"),
-#         "HOST": "127.0.0.1",
-#         "PORT": "5432",
-#     }
-# }
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -172,5 +165,20 @@ LOGIN_REDIRECT_URL = "all-events"
 LOGOUT_REDIRECT_URL = "user-login"
 LOGIN_URL = "user-login"
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+"""sending email settings"""
+
+"""sending email from server"""
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+if env("EMAIL_HOST_USER") is None and env("EMAIL_HOST_PASSWORD") is None and env("DEFAULT_FROM_EMAIL") is None:
+    """sending emails to app"""
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")

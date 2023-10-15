@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.forms import (
     UserChangeForm,
     UserCreationForm,
@@ -18,10 +20,10 @@ class MyUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "user_permissions"]
+        fields = ["username", "first_name", "last_name", "email", "groups"]
         field_classes = {"username": UsernameField}
 
-    def clean_email(self):
+    def clean_email(self) -> None | Any:
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already in use.")
@@ -38,7 +40,7 @@ class MyUserUpdateForm(UserChangeForm):
         fields = ["username", "first_name", "last_name", "email", "user_permissions"]
         field_classes = {"username": UsernameField}
 
-    def clean_email(self):
+    def clean_email(self) -> None | Any:
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already in use.")
