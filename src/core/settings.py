@@ -32,7 +32,6 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
-# DEBUG = True
 
 ALLOWED_HOSTS = ["fieldhospital.eu-north-1.elasticbeanstalk.com", "127.0.0.1", "localhost"]
 
