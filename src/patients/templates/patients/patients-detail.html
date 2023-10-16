@@ -104,8 +104,7 @@
                           {% if patient.authorized_person %}
                           <br />{{patient.authorized_person.name}}
                           <br />
-                          {{patient.authorized_person.surname}}{%if
-                          patient.authorized_person.phone%}
+                          {{patient.authorized_person.surname}}{%if patient.authorized_person.phone%}
                           <br />{{patient.authorized_person.phone}} {% endif %}
                           <br /><a
                             href="{% url 'update-auth-person' event=event.id patient=patient.id pk=patient.authorized_person.id %}"
