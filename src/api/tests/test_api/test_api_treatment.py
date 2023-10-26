@@ -1,6 +1,6 @@
 from json import dumps
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
@@ -67,7 +67,6 @@ class TestTreatmentResponse(TestCase):
         data = {
             "interview": fake.text(),
             "description": fake.text(),
-            "diagnosis": fake.name(),
             "medical_staff": MedicalStaffFactory().id,
             "patient": PatientFactory().id,
         }
@@ -77,7 +76,6 @@ class TestTreatmentResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
         self.assertEqual(response.data["interview"], data["interview"])
         self.assertEqual(response.data["description"], data["description"])
-        self.assertEqual(response.data["diagnosis"], data["diagnosis"])
         self.assertEqual(response.data["medical_staff"], data["medical_staff"])
         self.assertEqual(response.data["patient"], data["patient"])
 
@@ -126,10 +124,6 @@ class TestTreatmentResponse(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
-        self.assertEqual(
-            response.data["diagnosis"],
-            [ErrorDetail(string="Ensure this field has no more than 100 characters.", code="max_length")],
-        )
 
     def test_list_patch_not_logged_user_return_403(self) -> None:
         response = self.client.patch(path=self.url_list)
