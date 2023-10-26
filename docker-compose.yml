@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     container_name: db_field_hospital
-    image: postgres:latest
+    image: postgres:16.0
     environment:
       POSTGRES_DB: db_field_hospital
       POSTGRES_USER: db_field_hospital
@@ -16,19 +16,39 @@ services:
 
   web:
     container_name: web_field_hospital
-    build: .
-    ports:
-      - "8000:8000"
+    build:
+      context: .
+      dockerfile: web.Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    expose:
+      - 8000
     volumes:
       - ./src:/src
+      - static_volume:/static
     depends_on:
       - db
     networks:
       - network_no_internet
       - network_internet
 
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    container_name: static_field_hospital
+    volumes:
+      - static_volume:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    networks:
+      - network_no_internet
+      - network_internet
+
 volumes:
   pg_data:
+  static_volume:
 
 networks:
   network_internet:
