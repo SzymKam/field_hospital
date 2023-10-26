@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-import django.core.management.utils
 import environ
 
 from .env import env
@@ -21,7 +20,6 @@ from .env import env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ENV_DIR = BASE_DIR.parent
-
 environ.Env.read_env(os.path.join(ENV_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
@@ -100,7 +98,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": env("NAME"),
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
