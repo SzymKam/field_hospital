@@ -9,8 +9,8 @@
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Configuration](#configuration)
-  - [Run in Docker](#run-in-docker)
   - [Running the Development Server](#running-the-development-server)
+  - [Run in Docker](#run-in-docker)
 - [Database](#database)
 - [Testing](#testing)
 - [Author](#author)
@@ -143,15 +143,6 @@ For reset user password via email, connect to email service:
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 
-### Run in Docker
-
-Make sure you have installed and running Docker engine. Docker, docker-compose files and nginx files are configured for
-three containers: web, db and nginx server for staticfiles. To run project:
-
-```bash
-docker compose up --build
-```
-
 ### Running the Development Server
 
 1. Run database migrations:
@@ -173,6 +164,18 @@ docker compose up --build
    ```
 
 Your Django project should now be accessible at [http://localhost:8000/].
+
+### Run in Docker
+
+Make sure you have installed and running Docker engine. Docker, docker-compose files and nginx files are configured for
+three containers: web, db and nginx server for staticfiles. To run project:
+
+```bash
+docker compose up --build
+```
+
+Your Django project should now be accessible at [http://localhost/].
+Don't forget to make migrations and createsuperuser as in instruction above.
 
 ## Database
 
