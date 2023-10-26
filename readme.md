@@ -142,3 +142,68 @@ For reset user password via email, connect to email service:
 - DEFAULT_FROM_EMAIL - email address to send mails
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
+
+### Run in Docker
+
+Make sure you have installed and running Docker engine. Docker, docker-compose files and nginx files are configured for
+three containers: web, db and nginx server for staticfiles. To run project:
+
+```bash
+docker compose up --build
+```
+
+### Running the Development Server
+
+1. Run database migrations:
+
+   ```bash
+   python manage.py migrate
+   ```
+
+2. Create a superuser (admin):
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+3. Start the development server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+Your Django project should now be accessible at [http://localhost:8000/].
+
+## Database
+
+Overview of the database structure and models:
+
+- [Model 1]: Event - user can add nane, event localization, short description, start date and status - some of them are
+  set by default - able to change by user. When user close event - end date is set automatically.
+- [Model 2]: Patient - includes personal information about birthdate, name, contact information etc. When patient has no
+  name (ex. unconscious) can be set by default. This model includes a few FK models: AuthorizedPerson, Event, Treatment.
+  This model includes information necessary to hospital workflow - priority, bed number, status.
+- [Model 3]: AuthorizedPerson - FK of Patient. Person to contact about patient treatment (ex. parent).
+- [Model 4]: Drug - FK of Patient. Can add dose, form and unit of drug. Drug is selected from list.
+- [Model 5]: MedicalStaff - FK of Treatment. The most important thing apart from the name field is medical qualifications.
+- [Model 6]: VitalSign - FK of Patient. Can add blood pressure, heart rate, saturation, Glasgow Coma Scale, temperature
+  and sugar level. For BP, HR and SpO2 graph of the values is drawn.
+- [Model 7]: Treatment - FK of Patient. Have fields: interview, description, medical staff and diagnosis. For diagnose
+  user can choose ICD10 list (International Classification of Diseases).
+
+## Testing
+
+To run the tests for this project, use the following command:
+
+```bash
+python manage.py test
+```
+
+For testing is used included in Django - Unit Test.
+Total test coverage is 98%, with 5242 Stmts and 126 Miss.
+
+## Author
+
+SzymKam
+
+https://github.com/SzymKam
