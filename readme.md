@@ -175,7 +175,13 @@ docker compose up --build
 ```
 
 Your Django project should now be accessible at [http://localhost/].
-Don't forget to make migrations and createsuperuser as in instruction above.
+Don't forget to make migrations, collect staticfiles and createsuperuser.
+
+```bash
+docker-compose  exec web python manage.py migrate
+docker-compose  exec web python manage.py collectstatic
+docker-compose  exec web python manage.py createsuperuser
+```
 
 ## Database
 
