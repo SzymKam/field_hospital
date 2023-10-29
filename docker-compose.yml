@@ -7,8 +7,6 @@ services:
       POSTGRES_DB: db_field_hospital
       POSTGRES_USER: db_field_hospital
       POSTGRES_PASSWORD: db_field_hospital
-    ports:
-      - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
@@ -19,12 +17,11 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
     volumes:
-      - ./src:/src
-      - static_volume:/static
+      - static_volume:/src/staticfiles
     depends_on:
       - db
     networks:
@@ -37,7 +34,7 @@ services:
       dockerfile: nginx.Dockerfile
     container_name: static_field_hospital
     volumes:
-      - static_volume:/static
+      - static_volume:/staticfiles
     ports:
       - "80:80"
     depends_on:
