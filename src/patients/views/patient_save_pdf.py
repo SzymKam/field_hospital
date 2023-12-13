@@ -36,9 +36,9 @@ class PDFPatientView(View, LoginRequiredMixin):
         context = {"patient": patient, "event": event, "drugs": drugs, "vital_signs": vital_signs}
         html = template.render(context)
 
-        pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
-        response = HttpResponse(content_type="text/pdf")
-        response["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
-        response.write(pdf_file)
-
-        return response
+        # pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
+        # response = HttpResponse(content_type="text/pdf")
+        # response["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
+        # response.write(pdf_file)
+        #
+        # return response
