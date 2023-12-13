@@ -2,12 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponse, get_list_or_404, get_object_or_404
 from django.template.loader import get_template
 from django.views import View
+from xhtml2pdf import pisa
 
 from patients.models import Patient
 
 from ..models import Event
-
-# from weasyprint import HTML
 
 
 class PDFFlowView(View, LoginRequiredMixin):
@@ -30,3 +29,14 @@ class PDFFlowView(View, LoginRequiredMixin):
         # response.write(pdf_file)
 
         # return response
+
+        pdf_file = HttpResponse(content_type="application/pdf")
+        pdf_file["Content-Disposition"] = f'attachment; filename="{event.name}-detail.pdf"'
+
+        base_url = request.build_absolute_uri("/")
+        pisa_status = pisa.CreatePDF(html, dest=pdf_file, link_callback=lambda uri, _: f"{base_url}{uri}")
+
+        if pisa_status.err:
+            return HttpResponse("Error generating PDF", status=500)
+
+        return pdf_file
