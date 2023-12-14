@@ -7,63 +7,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      th,
-      td,
-      tr {
-        border: 1px solid;
-        border-color: #18181c;
-        color: #18181c;
-      }
-      table {
-        border-collapse: collapse;
-        text-align: center;
-        vertical-align: middle;
-        margin: auto;
-      }
-      hr {
-        color: red;
-        width: 100%;
-      }
-      h3 {
-        text-align: center;
-      }
-      h5 {
-        text-align: center;
+      .head {
+        border-color: white;
       }
       img {
         width: auto;
         height: 100px;
       }
-      #yellow {
-        bgcolor: yellow;
+      h3 {
+        text-align: center;
+        font-size: 18px;
       }
-      .column {
-        float: left;
-        width: 50%;
+      h4 {
+        text-align: left;
+        font-size: 15px;
       }
-      .row:after {
-        content: "";
-        display: table;
-        clear: both;
+      h5 {
+        text-align: center;
+        font-size: 15px;
+      }
+      p {
+        text-align: left;
+        font-size: 12px;
       }
     </style>
     <title>Detail of {{ patient.name }} - {{ patient.surname }}</title>
   </head>
   <body>
-    <div class="row">
-      <div class="column">
-        <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
-      </div>
-      <div class="column">
-        <h3>Patient: {{patient.surname}} {{patient.name}}</h3>
-        {%if patient.PESEL%}
-        <h5>PESEL: {{patient.PESEL}}</h5>
-        {%elif patient.birth_date%}
-        <h5>Birthdate: {{patient.birth_date}}</h5>
-        {%endif%}
-        <h5>Date: {{patient.admission_date}}</h5>
-      </div>
-    </div>
+    <table class="head">
+      <thead>
+        <tr>
+          <th>
+            <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
+          </th>
+          <th>
+            <h3>Patient: {{patient.surname}} {{patient.name}}</h3>
+            {%if patient.PESEL%}
+            <h5>PESEL: {{patient.PESEL}}</h5>
+            {%elif patient.birth_date%}
+            <h5>Birthdate: {{patient.birth_date}}</h5>
+            {%endif%}
+            <h5>Date: {{patient.admission_date}}</h5>
+          </th>
+        </tr>
+      </thead>
+    </table>
+
     <hr />
 
     <ul class="list-group list-group-flush">
