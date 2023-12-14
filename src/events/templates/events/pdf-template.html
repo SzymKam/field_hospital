@@ -6,57 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      th,
-      td,
-      tr {
+      table.list {
         border: 1px solid black;
         text-align: center;
         font-size: 12px;
-        font-family: "Times New Roman";
         color: black;
         text-decoration: none;
         height: 30px;
         vertical-align: middle;
         line-height: 1.5;
-      }
-      table {
         border-collapse: collapse;
-        text-align: center;
-        vertical-align: middle;
         margin: auto;
+      }
+      table.head {
+        border-color: white;
       }
       hr {
         color: red;
         width: 100%;
       }
-      h3,
-      h2 {
+      h3 {
         text-align: center;
         font-size: 15px;
-        font-family: "Times New Roman";
+      }
+      h2 {
+        text-align: left;
+        font-size: 15px;
       }
       p {
         text-align: left;
         font-size: 12px;
-        font-family: "Times New Roman";
       }
       img {
         width: auto;
-        height: 100px;
+        height: 120px;
       }
     </style>
     <title>Detail of {{ event.name }} - GRM</title>
   </head>
   <body>
-    <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
+    <table class="head">
+      <thead>
+        <tr>
+          <th>
+            <img src="{% static 'events/grm_logo.jpg' %}" alt="logo" />
+          </th>
+          <th>
+            <h2>Event: {{ event.name }} - detail</h2>
+            <p>Description: {{event.description}}</p>
+            <p>Localization: {{event.localization}}</p>
+            <p>Start: {{event.start_date}}</p>
+            <p>End: {{event.end_date}}</p>
+          </th>
+        </tr>
+      </thead>
+    </table>
+
     <hr />
-    <h2>Event: {{ event.name }} - detail</h2>
-    <p>Description: {{event.description}}</p>
-    <p>Localization: {{event.localization}}</p>
-    <p>Start: {{event.start_date}}</p>
-    <p>End: {{event.end_date}}</p>
-    <h2>Patient list for the event</h2>
-    <table>
+    <h3>Patient list for the event</h3>
+    <table class="list">
       <thead>
         <tr>
           <th>Surname</th>
