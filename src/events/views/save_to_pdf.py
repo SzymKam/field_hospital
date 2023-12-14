@@ -23,13 +23,6 @@ class PDFFlowView(View, LoginRequiredMixin):
         context = {"patients_list": patients_list, "event": event}
         html = template.render(context)
 
-        # pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
-        # response = HttpResponse(content_type="text/pdf")
-        # response["Content-Disposition"] = f'attachment; filename="{event.name}-detail.pdf"'
-        # response.write(pdf_file)
-
-        # return response
-
         pdf_file = HttpResponse(content_type="application/pdf")
         pdf_file["Content-Disposition"] = f'attachment; filename="{event.name}-detail.pdf"'
 
