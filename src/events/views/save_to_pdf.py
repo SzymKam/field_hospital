@@ -26,8 +26,7 @@ class PDFFlowView(View, LoginRequiredMixin):
         pdf_file = HttpResponse(content_type="application/pdf")
         pdf_file["Content-Disposition"] = f'attachment; filename="{event.name}-detail.pdf"'
 
-        base_url = request.build_absolute_uri("/")
-        pisa_status = pisa.CreatePDF(html, dest=pdf_file, link_callback=lambda uri, _: f"{base_url}{uri}")
+        pisa_status = pisa.CreatePDF(html, dest=pdf_file)
 
         if pisa_status.err:
             return HttpResponse("Error generating PDF", status=500)
