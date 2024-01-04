@@ -23,6 +23,15 @@ festivals, disasters and other activities where medical support are needed.
 User can create events, manage them, add patients and create medial documentation.
 All of these operations are available by API.
 
+Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files; RDS for PostgeSQL database:
+
+#### URL:
+
+#### Demo account access:
+
+- Login: "DemoAccount"
+- Password: "###"
+
 ## Technologies
 
 The most important technologies used in the project:
