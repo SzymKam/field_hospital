@@ -71,29 +71,18 @@ class PDFPatientView(View, LoginRequiredMixin):
 
         context = {"patient": patient, "event": event, "drugs": drugs, "vital_signs": vital_signs}
 
-        response = HttpResponse(content_type="application/pdf")
-        response["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
+        pdf_file = HttpResponse(content_type="application/pdf")
+        pdf_file["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
 
         template = get_template(template_path)
         html = template.render(context)
 
-        pisa_status = pisa.CreatePDF(html, dest=response)
+        pisa_status = pisa.CreatePDF(html, dest=pdf_file)
 
         if pisa_status.err:
             return HttpResponse("We had some errors <pre>" + html + "</pre>")
-        return response
 
-        # template = get_template(template_path)
+        if pisa_status.err:
+            return HttpResponse("Error generating PDF", status=500)
 
-        # html = template.render(context)
-
-        # pdf_file = HttpResponse(content_type="application/pdf")
-        # pdf_file["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
-
-        # base_url = request.build_absolute_uri("/")
-        # pisa_status = pisa.CreatePDF(html, dest=pdf_file, link_callback=lambda uri, _: f"{base_url}{uri}")
-        #
-        # if pisa_status.err:
-        #     return HttpResponse("Error generating PDF", status=500)
-        #
-        # return pdf_file
+        return pdf_file
