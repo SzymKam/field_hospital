@@ -1,8 +1,4 @@
-import os
-
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.staticfiles import finders
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -30,8 +26,8 @@ class PDFPatientView(View, LoginRequiredMixin):
             request=request, event=event, patient=patient, drugs=drugs, vital_signs=vital_signs
         )
 
+    @staticmethod
     def _render_pdf_view(
-        self,
         request: HttpRequest,
         event: Event,
         patient: Patient,
