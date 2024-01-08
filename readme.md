@@ -57,7 +57,7 @@ treatment, given drugs or diagnose is restricted for medical staff.
 
 #### Main page
 
-![Main page](readme_images/main_page.jpg)
+![Main page](docs/readme_images/main_page.jpg)
 Main page - list of events with status "preparing" or "in progress"
 
 Below examples of some app screenshots.
@@ -65,8 +65,8 @@ Below examples of some app screenshots.
 <details>
 <summary>Patient page</summary>
 
-![patient list_1](readme_images/patient_list_1.jpg)
-![patient list_2](readme_images/patient_list_2.jpg)
+![patient list_1](docs/readme_images/patient_list_1.jpg)
+![patient list_2](docs/readme_images/patient_list_2.jpg)
 List of patient from event. There are two tables: of active and discharged patients.
 From this side, user can close and update event, add new patient and get list of patient by email or pdf.
 
@@ -75,7 +75,7 @@ From this side, user can close and update event, add new patient and get list of
 <details>
 <summary>Patient list pdf</summary>
 
-![patient list_3](readme_images/patient_list_3.jpg)
+![patient list_3](docs/readme_images/patient_list_3.jpg)
 Example of pdf file about event with patient list.
 
 </details>
@@ -83,7 +83,7 @@ Example of pdf file about event with patient list.
 <details>
 <summary>Patient info</summary>
 
-![patient_info](readme_images/patient_info.jpg)
+![patient_info](docs/readme_images/patient_info.jpg)
 Detail of patient. User can check base information, update them, add auth person,
 add treatment or download medical documentation.
 
@@ -92,7 +92,7 @@ add treatment or download medical documentation.
 <details>
 <summary>Vital sign plot</summary>
 
-![treatment_1](readme_images/vital_sign_plot_list.jpg)
+![treatment_1](docs/readme_images/vital_sign_plot_list.jpg)
 Element of treatment: vital signs table and plot. User can choose what kind of signs want to add - it's not necessary to add all at once.
 
 </details>
@@ -100,7 +100,7 @@ Element of treatment: vital signs table and plot. User can choose what kind of s
 <details>
 <summary>Drug table</summary>
 
-![treatment_2](readme_images/vital_sign_drugs.jpg)
+![treatment_2](docs/readme_images/vital_sign_drugs.jpg)
 Element of treatment: drugs admitted to patient. Medic can choose drug, unit and dosage form from list.
 
 </details>
@@ -108,7 +108,7 @@ Element of treatment: drugs admitted to patient. Medic can choose drug, unit and
 <details>
 <summary>Medical documentation in pdf</summary>
 
-![medical_doc_pdf](readme_images/medical_doc_pdf.jpg)
+![medical_doc_pdf](docs/readme_images/medical_doc_pdf.jpg)
 Example of medical documentation in pdf.
 
 </details>
@@ -116,7 +116,7 @@ Example of medical documentation in pdf.
 <details>
 <summary>Create user</summary>
 
-![create_user](readme_images/create_user.jpg)
+![create_user](docs/readme_images/create_user.jpg)
 Example of form - creating new user. Admin can add user to admin group.
 
 </details>
@@ -124,7 +124,7 @@ Example of form - creating new user. Admin can add user to admin group.
 <details>
 <summary>API response</summary>
 
-![api_response](readme_images/api_response.jpg)
+![api_response](docs/readme_images/api_response.jpg)
 Example of api response.
 
 </details>
