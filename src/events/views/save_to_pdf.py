@@ -9,7 +9,7 @@ from patients.models import Patient
 from ..models import Event
 
 
-class PDFFlowView(View, LoginRequiredMixin):
+class PDFFlowView(LoginRequiredMixin, View):
     def get(self, request, event_pk):
         event = get_object_or_404(Event, pk=event_pk)
         patients_list = get_list_or_404(klass=Patient, event=event)
