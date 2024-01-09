@@ -5,31 +5,6 @@ ALLOWED_EVENT_STATUS = ["Preparing", "In progress"]
 ALLOWED_BED_CHOICE = [
     "No bed",
     "ALS",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-]
+] + [str(num) for num in range(1, 26)]
 
 ALLOWED_PRIORITY_CHOICE = ["RED", "YELLOW", "GREEN"]
