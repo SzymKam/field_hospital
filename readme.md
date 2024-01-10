@@ -23,6 +23,15 @@ festivals, disasters and other activities where medical support are needed.
 User can create events, manage them, add patients and create medial documentation.
 All of these operations are available by API.
 
+Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files; RDS for PostgeSQL database:
+
+#### URL: fieldhospital.eu-central-1.elasticbeanstalk.com
+
+#### Demo account access:
+
+- Login: "DemoAccount"
+- Password: "q#M5tJT9@A5J!We"
+
 ## Technologies
 
 The most important technologies used in the project:
@@ -30,6 +39,7 @@ The most important technologies used in the project:
 - Python 3.11
 - Django 4.2.3
 - PostgreSQL 16
+- AWS: EB, EC2, S3, RDS
 - Docker 24.0.5,
 - DjangoRestFramework 3.14.0
 - Nginx 1.25.3
@@ -47,7 +57,7 @@ treatment, given drugs or diagnose is restricted for medical staff.
 
 #### Main page
 
-![Main page](readme_images/main_page.jpg)
+![Main page](docs/readme_images/main_page.jpg)
 Main page - list of events with status "preparing" or "in progress"
 
 Below examples of some app screenshots.
@@ -55,8 +65,8 @@ Below examples of some app screenshots.
 <details>
 <summary>Patient page</summary>
 
-![patient list_1](readme_images/patient_list_1.jpg)
-![patient list_2](readme_images/patient_list_2.jpg)
+![patient list_1](docs/readme_images/patient_list_1.jpg)
+![patient list_2](docs/readme_images/patient_list_2.jpg)
 List of patient from event. There are two tables: of active and discharged patients.
 From this side, user can close and update event, add new patient and get list of patient by email or pdf.
 
@@ -65,7 +75,7 @@ From this side, user can close and update event, add new patient and get list of
 <details>
 <summary>Patient list pdf</summary>
 
-![patient list_3](readme_images/patient_list_3.jpg)
+![patient list_3](docs/readme_images/patient_list_3.jpg)
 Example of pdf file about event with patient list.
 
 </details>
@@ -73,7 +83,7 @@ Example of pdf file about event with patient list.
 <details>
 <summary>Patient info</summary>
 
-![patient_info](readme_images/patient_info.jpg)
+![patient_info](docs/readme_images/patient_info.jpg)
 Detail of patient. User can check base information, update them, add auth person,
 add treatment or download medical documentation.
 
@@ -82,7 +92,7 @@ add treatment or download medical documentation.
 <details>
 <summary>Vital sign plot</summary>
 
-![treatment_1](readme_images/vital_sign_plot_list.jpg)
+![treatment_1](docs/readme_images/vital_sign_plot_list.jpg)
 Element of treatment: vital signs table and plot. User can choose what kind of signs want to add - it's not necessary to add all at once.
 
 </details>
@@ -90,7 +100,7 @@ Element of treatment: vital signs table and plot. User can choose what kind of s
 <details>
 <summary>Drug table</summary>
 
-![treatment_2](readme_images/vital_sign_drugs.jpg)
+![treatment_2](docs/readme_images/vital_sign_drugs.jpg)
 Element of treatment: drugs admitted to patient. Medic can choose drug, unit and dosage form from list.
 
 </details>
@@ -98,7 +108,7 @@ Element of treatment: drugs admitted to patient. Medic can choose drug, unit and
 <details>
 <summary>Medical documentation in pdf</summary>
 
-![medical_doc_pdf](readme_images/medical_doc_pdf.jpg)
+![medical_doc_pdf](docs/readme_images/medical_doc_pdf.jpg)
 Example of medical documentation in pdf.
 
 </details>
@@ -106,7 +116,7 @@ Example of medical documentation in pdf.
 <details>
 <summary>Create user</summary>
 
-![create_user](readme_images/create_user.jpg)
+![create_user](docs/readme_images/create_user.jpg)
 Example of form - creating new user. Admin can add user to admin group.
 
 </details>
@@ -114,7 +124,7 @@ Example of form - creating new user. Admin can add user to admin group.
 <details>
 <summary>API response</summary>
 
-![api_response](readme_images/api_response.jpg)
+![api_response](docs/readme_images/api_response.jpg)
 Example of api response.
 
 </details>
@@ -177,6 +187,23 @@ For reset user password via email, connect to email service:
 - EMAIL_HOST_USER - user of email host
 - EMAIL_HOST_PASSWORD - password to email host
 - DEFAULT_FROM_EMAIL - email address to send mails
+
+If you want to connect project with your AWS S3 bucket or RDS database project is prepared.
+
+S3 bucket settings:
+
+- USE_RDS - set 'True' if you want to use RDS in project
+- RDS_DB_NAME - your RDS name
+- RDS_USERNAME - your RDS username
+- RDS_PASSWORD - your RDS password
+- RDS_HOSTNAME - your RDS host
+
+AWS S3 configuration
+
+- USE_S3 - set 'True' if you want to use S3 for static and media files in project
+- AWS_ACCESS_KEY_ID - your AWS access key id
+- AWS_SECRET_ACCESS_KEY - your AWS secret access key
+- AWS_STORAGE_BUCKET_NAME - your S3 bucket name
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 

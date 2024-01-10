@@ -55,5 +55,5 @@ class Patient(models.Model):
     )
     status = models.CharField(default="Active", max_length=20)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name} - {self.id}"

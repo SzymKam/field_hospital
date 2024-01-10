@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
 from django.views import View
-from weasyprint import HTML
+from xhtml2pdf import pisa
 
 from patients.models import Patient
 from treatment.models.drug_model import Drug
@@ -28,17 +28,28 @@ class PDFPatientView(View, LoginRequiredMixin):
 
     @staticmethod
     def _render_pdf_view(
-        request: HttpRequest, event: Event, patient: Patient, drugs: QuerySet[Drug], vital_signs: QuerySet[VitalSign]
+        request: HttpRequest,
+        event: Event,
+        patient: Patient,
+        drugs: QuerySet[Drug],
+        vital_signs: QuerySet[VitalSign],
     ):
         template_path = "patients/patient-detail-pdf.html"
-        template = get_template(template_path)
 
         context = {"patient": patient, "event": event, "drugs": drugs, "vital_signs": vital_signs}
+
+        pdf_file = HttpResponse(content_type="application/pdf")
+        pdf_file["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
+
+        template = get_template(template_path)
         html = template.render(context)
 
-        pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
-        response = HttpResponse(content_type="text/pdf")
-        response["Content-Disposition"] = f'attachment; filename="{patient.surname} {patient.name}-detail.pdf"'
-        response.write(pdf_file)
+        pisa_status = pisa.CreatePDF(html, dest=pdf_file)
 
-        return response
+        if pisa_status.err:
+            return HttpResponse("We had some errors <pre>" + html + "</pre>")
+
+        if pisa_status.err:
+            return HttpResponse("Error generating PDF", status=500)
+
+        return pdf_file

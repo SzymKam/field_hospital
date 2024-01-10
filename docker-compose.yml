@@ -4,9 +4,9 @@ services:
     container_name: db_field_hospital
     image: postgres:16.0
     environment:
-      POSTGRES_DB: db_field_hospital
-      POSTGRES_USER: db_field_hospital
-      POSTGRES_PASSWORD: db_field_hospital
+      POSTGRES_DB: ${NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
