@@ -25,7 +25,7 @@ All of these operations are available by API.
 
 Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files; RDS for PostgeSQL database:
 
-#### URL: fieldhospital.eu-central-1.elasticbeanstalk.com
+#### URL: http://fieldhospital.eu-central-1.elasticbeanstalk.com
 
 #### Demo account access:
 
