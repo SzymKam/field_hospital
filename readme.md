@@ -47,7 +47,7 @@ The most important technologies used in the project:
 - Plotly 5.16.1
 - Pre-commit 3.3.3
 - Crispy-bootstrap4 2022.1
-- Weasyprint 60.1
+- Xhtml2pdf 0.2.11
 - Factory-boy 3.3.0
 
 ## Usage
