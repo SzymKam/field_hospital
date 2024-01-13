@@ -25,7 +25,7 @@ All of these operations are available by API.
 
 Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files; RDS for PostgeSQL database:
 
-#### URL: fieldhospital.eu-central-1.elasticbeanstalk.com
+#### URL: http://fieldhospital.eu-central-1.elasticbeanstalk.com
 
 #### Demo account access:
 
@@ -47,7 +47,7 @@ The most important technologies used in the project:
 - Plotly 5.16.1
 - Pre-commit 3.3.3
 - Crispy-bootstrap4 2022.1
-- Weasyprint 60.1
+- Xhtml2pdf 0.2.11
 - Factory-boy 3.3.0
 
 ## Usage
