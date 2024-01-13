@@ -34,4 +34,5 @@ jobs:
     - name: Run Tests
       run: |
         poetry run python src/manage.py test
-        
+      env: 
+        USE_RDS: ${{ secrets.USE_RDS }}
