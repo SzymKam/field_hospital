@@ -11,4 +11,5 @@ env = environ.Env(
     EMAIL_HOST_PASSWORD=(str, None),
     EMAIL_HOST_USER=(str, None),
     DEFAULT_FROM_EMAIL=(str, None),
+    USE_RDS=(bool, False),
 )
