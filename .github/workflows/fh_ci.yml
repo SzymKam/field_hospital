@@ -36,3 +36,4 @@ jobs:
         env:
           USE_RDS: ${{ secrets.USE_RDS }}
           ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+          USE_S3: ${{ secrets.USE_S3 }}
