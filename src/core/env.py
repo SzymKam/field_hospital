@@ -2,7 +2,7 @@ import environ
 from django.core.management.utils import get_random_secret_key
 
 env = environ.Env(
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),
     SECRET_KEY=(str, get_random_secret_key()),
     USER=(str, "db_field_hospital"),
     PASSWORD=(str, "db_field_hospital"),
@@ -12,4 +12,6 @@ env = environ.Env(
     EMAIL_HOST_USER=(str, None),
     DEFAULT_FROM_EMAIL=(str, None),
     USE_RDS=(bool, False),
+    USE_S3=(bool, False),
+    ENVIRONMENT=(str, None),
 )
