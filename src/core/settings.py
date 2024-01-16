@@ -73,6 +73,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 
 if env("ENVIRONMENT") == "ci":
+    """For ci use sqlite database"""
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -162,7 +163,6 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 
-"""AWS S3 settings"""
 if env("ENVIRONMENT") == "ci":
     STATIC_URL = "/staticfiles/"
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -171,6 +171,7 @@ else:
     USE_S3 = env("USE_S3")
 
     if USE_S3:
+        """AWS S3 settings"""
         AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
         AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
         AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
