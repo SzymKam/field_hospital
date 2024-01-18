@@ -32,7 +32,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          poetry run python src/manage.py test
+          cd src
+          poetry run python manage.py test
         env:
           USE_RDS: ${{ secrets.USE_RDS }}
           ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
