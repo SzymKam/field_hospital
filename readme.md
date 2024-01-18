@@ -39,7 +39,7 @@ The most important technologies used in the project:
 - Python 3.11
 - Django 4.2.3
 - PostgreSQL 16
-
+- Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - Docker 24.0.5,
 - DjangoRestFramework 3.14.0
