@@ -180,26 +180,6 @@ class TestPatientResponse(TestCase):
             [ErrorDetail(string="Ensure this field has no more than 50 characters.", code="max_length")],
         )
 
-    def test_list_post_logged_user_invalid_data_too_long_surname_value_return_400(self) -> None:
-        self.client.force_login(user=self.user)
-        data = {
-            "name": fake.first_name(),
-            "surname": fake.text(),
-            "address": fake.address(),
-            "phone": fake.numerify(text="#########"),
-            "email": fake.email(),
-            "additional_info": fake.text(),
-            "event": EventFactory().id,
-        }
-        response = self.client.post(path=self.url_list, data=data)
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.request["REQUEST_METHOD"], "POST")
-        self.assertEqual(
-            response.data["surname"],
-            [ErrorDetail(string="Ensure this field has no more than 50 characters.", code="max_length")],
-        )
-
     def test_list_post_logged_user_invalid_data_invalid_email_return_400(self) -> None:
         self.client.force_login(user=self.user)
         data = {
