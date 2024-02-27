@@ -1,5 +1,4 @@
 import random
-import secrets
 
 from factory import SubFactory
 from factory.django import DjangoModelFactory
