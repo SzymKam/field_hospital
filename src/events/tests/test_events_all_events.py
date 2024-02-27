@@ -1,7 +1,4 @@
-import secrets
-
-from django.contrib.auth.models import Permission
-from django.test import Client, TestCase, tag
+from django.test import Client, TestCase
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status

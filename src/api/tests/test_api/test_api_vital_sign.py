@@ -1,7 +1,7 @@
 import random
 from json import dumps
 
-from django.test import TestCase, tag
+from django.test import TestCase
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
