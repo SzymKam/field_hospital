@@ -72,41 +72,33 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 
-if env("ENVIRONMENT") == "ci":
-    """For ci use sqlite database"""
+
+
+USE_RDS = env("USE_RDS")
+if USE_RDS:
+    """AWS RDS DB settings"""
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": "sqlite3.db",
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("RDS_DB_NAME"),
+            "USER": env("RDS_USERNAME"),
+            "PASSWORD": env("RDS_PASSWORD"),
+            "HOST": env("RDS_HOSTNAME"),
+            "PORT": "5432",
         }
     }
-
 else:
-    USE_RDS = env("USE_RDS")
-    if USE_RDS:
-        """AWS RDS DB settings"""
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": env("RDS_DB_NAME"),
-                "USER": env("RDS_USERNAME"),
-                "PASSWORD": env("RDS_PASSWORD"),
-                "HOST": env("RDS_HOSTNAME"),
-                "PORT": "5432",
-            }
+    """alt settings for local DB"""
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST"),
+            "PORT": "5432",
         }
-    else:
-        """alt settings for local DB"""
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": env("NAME"),
-                "USER": env("USER"),
-                "PASSWORD": env("PASSWORD"),
-                "HOST": env("HOST"),
-                "PORT": "5432",
-            }
-        }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [

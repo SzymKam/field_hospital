@@ -87,8 +87,16 @@ virtualenv = "20.23.1"
 webencodings = "0.5.1"
 xhtml2pdf = "0.2.11"
 zopfli = "0.2.3"
+bandit = "^1.7.7"
+safety = "^3.0.1"
+ruff = "^0.2.2"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+exclude_dirs = ["*/tests/*", "src/events/tests", "src/api/tests", "src/patients/tests", "src/treatment/tests", "src/users/tests"]
+tests = ["B201", "B301"]
+skips = ["B101", "B601"]
