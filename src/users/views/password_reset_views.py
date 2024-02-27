@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.contrib.auth.views import (
     PasswordResetCompleteView,
     PasswordResetConfirmView,
