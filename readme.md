@@ -37,14 +37,14 @@ Project is available on AWS cloud service EB EC2 supported by S3 bucket for stat
 The most important technologies used in the project:
 
 - Python 3.11
-- Django 4.2.3
+- Django 4.2.7
 - PostgreSQL 16
 - Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - Docker 24.0.5,
 - DjangoRestFramework 3.14.0
 - Nginx 1.25.3
-- Pandas 2.0.3
+- Pandas 2.1.4
 - Plotly 5.16.1
 - Pre-commit 3.3.3
 - Crispy-bootstrap4 2022.1
