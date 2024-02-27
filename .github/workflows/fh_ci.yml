@@ -57,7 +57,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
       - name: Run Bandit
         run: |
-           poetry run bandit -r .
+           poetry run bandit -c pyproject.toml -r .
       - name: Run Safety
         run: |
            poetry run safety check
