@@ -178,10 +178,10 @@ Configure your project by setting up environment variables:
 
 Create local server of PostgreSQL, and set variables to connect:
 
-- USER - database user
-- PASSWORD - database user password
-- HOST - database host
-- NAME - database name
+- DB_USER - database user
+- DB_PASSWORD - database user password
+- DB_HOST - database host
+- DB_NAME - database name
 
 For reset user password via email, connect to email service:
 
@@ -243,7 +243,7 @@ Your Django project should now be accessible at [http://localhost/].
 Don't forget to make migrations, collect staticfiles and createsuperuser.
 
 ```bash
-docker-compose  exec web python manage.py migrate
+docker-compose  exec web python manage.py migrate (migrations are also included, when docker-compose run)
 docker-compose  exec web python manage.py collectstatic
 docker-compose  exec web python manage.py createsuperuser
 ```
